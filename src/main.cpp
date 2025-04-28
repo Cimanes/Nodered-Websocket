@@ -13,6 +13,7 @@ void setup() {
   pinMode (LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);  
   Serial.begin(115200);
+  Serial.print("\n");
   timer.setTimeout(500, initConsole);
   timer.setTimeout(1000, initBME);
   timer.setTimeout(1500, initWifi);

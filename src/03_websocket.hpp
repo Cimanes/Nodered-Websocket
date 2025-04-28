@@ -4,12 +4,12 @@
 #include <WebSocketsClient.h>
 
 //======================================
-// VARIABLES  
+// VARIABLES
 //======================================
 WebSocketsClient webSocket; // Websocket object
 struct Handler {            // Handler structure to manage handlers
   const char* topic;
-  void (*handler)(JSONVar&);
+  void (*handler)(StaticJsonDocument<100>&);
 };
 
 //======================================
@@ -22,7 +22,7 @@ void readAndSendBME() {
   webSocket.sendTXT(wsPayload);                       // Send the payload
 }
 
-void sendJsonPayload(const char* topic, unsigned int value) {
+void sendJsonPayload(const char* topic, uint16_t value) {
   JsonTopicPayload(topic, value);
   webSocket.sendTXT(wsPayload);
 }
@@ -30,41 +30,41 @@ void sendJsonPayload(const char* topic, unsigned int value) {
 //======================================
 // HANDLERS: process incoming messages
 //======================================
-void handleHeater(JSONVar& json) {
-  digitalWrite(HEATER_PIN, json["payload"]);
-  sendJsonPayload("heater", (bool)digitalRead(HEATER_PIN));
+void handleHeater(StaticJsonDocument<100>& jsonDoc) {
+  digitalWrite(HEATER_PIN, jsonDoc["payload"]);
+  sendJsonPayload("heater", digitalRead(HEATER_PIN));
 }
 
-void handleBoiler(JSONVar& json) {
-  digitalWrite(BOILER_PIN, json["payload"]);
-  sendJsonPayload("boiler", (bool)digitalRead(BOILER_PIN));
+void handleBoiler(StaticJsonDocument<100>& jsonDoc) {
+  digitalWrite(BOILER_PIN, jsonDoc["payload"]);
+  sendJsonPayload("boiler", digitalRead(BOILER_PIN));
 }
 
-void handleLED(JSONVar& json) {
-  digitalWrite(LED_BUILTIN, json["payload"]);
-  sendJsonPayload("led", (bool)digitalRead(LED_BUILTIN));
+void handleLED(StaticJsonDocument<100>& jsonDoc) {
+  digitalWrite(LED_BUILTIN, jsonDoc["payload"]);
+  sendJsonPayload("led", digitalRead(LED_BUILTIN));
 }
 
-void handleRead(JSONVar& json) {
+void handleRead(StaticJsonDocument<100>& jsonDoc) {
   timer.deleteTimer(BMETimerID);
   readAndSendBME();
   BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
 }
 
-void handleInterval(JSONVar& json) {
-  bmeInterval = (int)json["payload"];
+void handleInterval(StaticJsonDocument<100>& jsonDoc) {
+  bmeInterval = (int)jsonDoc["payload"];
   timer.deleteTimer(BMETimerID);
   readAndSendBME();
   BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
   sendJsonPayload("interval", bmeInterval);
 }
 
-void handleDebug(JSONVar& json) {
-  espDebug = (int)json["payload"];
+void handleDebug(StaticJsonDocument<100>& jsonDoc) {
+  espDebug = (int)jsonDoc["payload"];
   sendJsonPayload("debug", espDebug);
 }
 
-void handleReboot(JSONVar&) {
+void handleReboot(StaticJsonDocument<100>&) {
   ESP.restart();
 }
 
@@ -77,19 +77,63 @@ const Handler handlers[] = {
   { "read", handleRead },
   { "reboot", handleReboot }
 };
-const int handlerCount = sizeof(handlers) / sizeof(handlers[0]);
+const byte handlerCount = sizeof(handlers) / sizeof(handlers[0]);
 
 void processMessage(uint8_t* wsMessage) {
-  JSONVar json = JSON.parse((char*)wsMessage);
-  const char* topic = json["topic"];
+  // check for error
+  if (deserializeJson(jsonDoc, wsMessage)) {
+    if (espDebug) Serial.println(F("Invalid JSON"));
+    return;
+  }
+  const char* topic = jsonDoc["topic"];
   if (!topic) return;
-  for (int i = 0; i < handlerCount; i++) {
+  for (byte i = 0; i < handlerCount; i++) {
     if (strcmp(topic, handlers[i].topic) == 0) {
-      handlers[i].handler(json);
+      handlers[i].handler(jsonDoc);
       return;
     }
   }
 }
+
+// void processMessage(uint8_t* wsMessage) {
+//   if (deserializeJson(jsonDoc, wsMessage)) {
+//     if (espDebug) Serial.println(F("Invalid JSON"));
+//     return;
+//   }
+//   const char* topic = jsonDoc["topic"];
+
+//   if(strcmp(topic, "heater") == 0) {
+//     digitalWrite(HEATER_PIN, jsonDoc["payload"]);
+//     sendJsonPayload("heater", digitalRead(HEATER_PIN));  
+//   }
+//   else if (strcmp(topic, "boiler") == 0) {
+//     digitalWrite(BOILER_PIN, jsonDoc["payload"]);
+//     sendJsonPayload("boiler", digitalRead(BOILER_PIN));
+//   }
+//   else if (strcmp(topic, "led") == 0) {
+//     digitalWrite(LED_BUILTIN, jsonDoc["payload"]);
+//     sendJsonPayload("led", digitalRead(LED_BUILTIN));
+//   }
+//   else if (strcmp(topic, "read") == 0) {
+//     timer.deleteTimer(BMETimerID);
+//     readAndSendBME();
+//     BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
+//   }
+//   else if (strcmp(topic, "interval") == 0) {
+//     bmeInterval = (int)jsonDoc["payload"];
+//     timer.deleteTimer(BMETimerID);
+//     readAndSendBME();
+//     BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
+//     sendJsonPayload("interval", bmeInterval);
+//   }
+//   else if (strcmp(topic, "debug") == 0) {
+//     espDebug = (int)jsonDoc["payload"];
+//     sendJsonPayload("debug", espDebug);
+//   }
+//   else if (strcmp(topic, "reboot") == 0) {
+//     ESP.restart();
+//   } 
+// }
 
 void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
   switch(type) {
@@ -104,11 +148,11 @@ void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
       break;
     case WStype_ERROR:
       if (espDebug) Serial.printf("[WSc] Error! %s\n", wsMessage);
-      break;      
+      break;
     case WStype_TEXT:
       if (espDebug)  Serial.printf("[WSc] get text message: %s\n", wsMessage);
       processMessage(wsMessage);
-      break; 
+      break;
     default: break;
   }
 }

@@ -10,11 +10,11 @@
 
 Adafruit_BME280 bme;              // BME280 object
 unsigned long BMETimerID;         // Timer ID
-unsigned int bmeInterval = 10;  // Interval to publish values (s)
+unsigned int bmeInterval = 30;    // Interval to publish values (s)
 
 // Arrays with BME key-value pairs
 const char* bmeKeys[3] = {"temp", "hum", "pres"};
-unsigned int  bmeValues[3];
+uint16_t bmeValues[3];
 const byte numBmeKeys = sizeof(bmeKeys) / sizeof(bmeKeys[0]);
 
 //======================================

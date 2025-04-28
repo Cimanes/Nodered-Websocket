@@ -8,12 +8,12 @@
 #include <ESP8266WiFi.h>
 #endif
 #include <SimpleTimer.h>
-#include <Arduino_JSON.h> 
+#include <ArduinoJson.h>
 
 //======================================
 // VARIABLES
 //======================================
-// Hardcoded Wifi credentials 
+// Hardcoded Wifi credentials
 #define Toledo      // OPTIONAL: Choose Wifi credentials [Cimanes, Toledo, travel...]
 #if defined(Cimanes)
   const char* ssid = "Pepe_Cimanes";
@@ -28,26 +28,28 @@
 
 #define LOCALHOST_IP "192.168.1.131"    // Node-red server IP
 
-boolean espDebug = true;    // Enable/disable debugging
-SimpleTimer timer;          // SimpleTimer object
-char wsPayload[100];        // Final JSON string to send
+boolean espDebug = true;          // Enable/disable debugging
+SimpleTimer timer;                // SimpleTimer object
+StaticJsonDocument<100> jsonDoc;  // Dummy JSON document
+char wsPayload[100];              // Dummy JSON char array to send
 
 //======================================
 // JSON FUNCTIONS
 //======================================
 /**
- * Create a JSON payload from arrays of keys and values.
+ * Create a JSON payload from arrays of key-value pairs.
  * @param keys Array of keys for the JSON object.
  * @param values Array of values corresponding to the keys.
  * @param numKeys Number of key-value pairs.
  */
-void multiJsonPayload(const char* keys[], unsigned int values[], byte numKeys) {
-  JSONVar jsonObj;
-  // Iterate over keys[] and values[] to populate the JSON object
-  for (byte i = 0; i < numKeys; i++)    jsonObj[keys[i]] = values[i]; 
-  // Convert the JSON object to a char array
-  JSON.stringify(jsonObj).toCharArray(wsPayload, sizeof(wsPayload));
-  if (espDebug) Serial.println(wsPayload);
+void multiJsonPayload(const char* keys[], uint16_t values[], byte numKeys) {
+  jsonDoc.clear();  // Clear the document to avoid leftover data
+
+  // Iterate over keys[] and values[] to populate the JSON object "jsonDoc"
+  for (byte i = 0; i < numKeys; i++)  { jsonDoc[keys[i]] = values[i]; }
+
+  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
+  if (espDebug) Serial.println(wsPayload);              // Optional debug output
 }
 
 /**
@@ -55,10 +57,13 @@ void multiJsonPayload(const char* keys[], unsigned int values[], byte numKeys) {
  * @param key The key for the JSON object entry.
  * @param value The value corresponding to the key.
  */
-void JsonTopicPayload(const char* key, unsigned int value) {
-  JSONVar jsonObj;
-  jsonObj["topic"] = key;
-  jsonObj["payload"] = value;
-  JSON.stringify(jsonObj).toCharArray(wsPayload, sizeof(wsPayload));
-  if (espDebug) Serial.println(wsPayload);
+void JsonTopicPayload(const char* key, uint16_t value) {
+  jsonDoc.clear();  // Clear the document to avoid leftover data
+
+  // Add key-value pair to the JSON object "jsonDoc"
+  jsonDoc["topic"] = key;
+  jsonDoc["payload"] = value;
+
+  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
+  if (espDebug) Serial.println(wsPayload);              // Optional debug output
 }
