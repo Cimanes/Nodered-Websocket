@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP Wi-Fi Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='icon' type='image/png' href='wifi.png'>
+  <link rel='stylesheet' type="text/css" href='main.css'>   
+  <link rel='stylesheet' type="text/css" href='wifimanager.css'>      
+  <script src='https://kit.fontawesome.com/890c0c4dba.js' crossorigin='anonymous'></script>   <!-- personal Font Awsome link -->
+</head>
+
+<body>
+  <div class="header">
+    <h1><i class="fa-solid fa-wifi"></i> ESP Wi-Fi Manager</h1>
+  </div>
+  <div class="content">   
+    <form action="/" method="POST" class="card">
+      <div class="form-group">
+        <label for="ssid" class="title">Wifi SSID</label>
+        <input type="text" class="wifiInput" id="ssid" name="ssid">
+      </div>
+      <div class="form-group">
+        <label for="pass" class="title">Password</label>
+        <input type="text" class="wifiInput" id="pass" name="pass">
+      </div>
+      <div class="form-group">
+        <label for="ip" class="title">Local IP</label>
+        <input type="text" class="wifiInput" id="ip" name="ip" value="192.168.1.213">
+      </div>
+      <div class="form-group">
+        <label for="router" class="title">Router IP</label>
+        <input type="text" class="wifiInput" id="router" name="router" value="192.168.1.254">
+      </div>
+      <button type="submit" value="Submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html> 

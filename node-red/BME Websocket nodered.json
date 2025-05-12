@@ -8,14 +8,118 @@
         "env": []
     },
     {
+        "id": "dd09abb205df0e7f",
+        "type": "group",
+        "z": "3dac80766e61d74c",
+        "name": "ESP Readings (BME & GPIO's)",
+        "style": {
+            "label": true,
+            "color": "#a4a4a4",
+            "fill": "#000000",
+            "stroke": "#7f7f7f"
+        },
+        "nodes": [
+            "3de7f87250c169e2",
+            "cc3002e58ce69bc3",
+            "c68a84a7740eb411",
+            "d948828048902b18",
+            "319aac19b602f4f7",
+            "bd9c489eca802592",
+            "6db98c8dd04fb2cc",
+            "f9ca9b60ce0ae661",
+            "b3cfc5f019b1ee53",
+            "c8170cbbab6371f6",
+            "e94f7adeb8ff4564",
+            "4ac16796e3ecdcbf",
+            "e00612e76fa3ef4c",
+            "38145cf2896c124a",
+            "9afab28deb3c948f",
+            "d2e032abe9130159",
+            "0f3e635564d267e5",
+            "e324d449eda83877",
+            "ba4652cdfbac4504",
+            "c2dcf9fe2882c26c",
+            "107dbd27acb366e1",
+            "0cdd99357493f9f5",
+            "a7d7c4eef88baee1",
+            "7f51e8b448d456cb",
+            "19bfa9706260c834",
+            "25109779614fcc36",
+            "1e34c19d468c41e9",
+            "98c480a603ae64ac",
+            "952dc4b717bf2124",
+            "80f5bfca25f4a9f5",
+            "37a53430539c91c4",
+            "2ce0dede2ca80f70"
+        ],
+        "x": 34,
+        "y": -1,
+        "w": 1072,
+        "h": 742
+    },
+    {
+        "id": "b28d59f522860690",
+        "type": "group",
+        "z": "3dac80766e61d74c",
+        "name": "User controls to ESP (Thermostat and GPIO's)",
+        "style": {
+            "fill": "#000000",
+            "label": true,
+            "stroke": "#7f7f7f"
+        },
+        "nodes": [
+            "ad3e1c6852897a8a",
+            "b4db417f9850d602",
+            "9f71bf27125dbd78",
+            "3a49dc07585c056f",
+            "f6afd5faaddec587",
+            "b24a5815257570f5",
+            "6b62d61d692b112a",
+            "ba91eba864a7bdcd",
+            "2ca24d054e1a9b71",
+            "083c1a1ef84bf663",
+            "7cda15e74b3a94a7",
+            "493137d83331c9f8",
+            "5d2a53e5d53ca1a5",
+            "ac1bc8ff4525237d",
+            "c5c4d7b6ec196e16",
+            "b1979aac4e95b2af",
+            "d88741462fe5a579",
+            "c515b74f012a3803",
+            "6c7e6c2fc8ab58cd",
+            "e9fa8054405ba103",
+            "30dbcefe2570196f",
+            "819a7b810339db92"
+        ],
+        "x": 34,
+        "y": 759,
+        "w": 1012,
+        "h": 562
+    },
+    {
+        "id": "37a53430539c91c4",
+        "type": "junction",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "x": 720,
+        "y": 640,
+        "wires": [
+            [
+                "ba4652cdfbac4504",
+                "952dc4b717bf2124"
+            ]
+        ]
+    },
+    {
         "id": "3de7f87250c169e2",
         "type": "websocket in",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "BME --> /ws/readings",
         "server": "8dbef215b4efa8a7",
         "client": "",
-        "x": 120,
-        "y": 80,
+        "x": 160,
+        "y": 200,
         "wires": [
             [
                 "e00612e76fa3ef4c"
@@ -26,27 +130,30 @@
         "id": "ad3e1c6852897a8a",
         "type": "websocket out",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "",
         "server": "8dbef215b4efa8a7",
         "client": "",
-        "x": 850,
-        "y": 1000,
+        "x": 930,
+        "y": 1100,
         "wires": []
     },
     {
         "id": "cc3002e58ce69bc3",
         "type": "comment",
         "z": "3dac80766e61d74c",
-        "name": "WebSocket BME readings",
-        "info": "",
+        "g": "dd09abb205df0e7f",
+        "name": "Details",
+        "info": " 1. ### Receive websocket msg from ESP.\n 1. ### Filter the data:\n    - BME Readings\n    - GPIO status feedback\n 3. ### Process and address message\n    - assign topic and scale BME readings\n    - identify GPIO feedback\n 4. ### Display received message\n    - BME current - gauge\n    - BME historic - chart\n    - GPIO Feedback - LED / Template",
         "x": 110,
-        "y": 20,
+        "y": 60,
         "wires": []
     },
     {
         "id": "c68a84a7740eb411",
         "type": "ui-chart",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "23069d27834e3b9a",
         "name": "Chart Temp",
         "label": "BME - Temperature (ºC)",
@@ -66,7 +173,7 @@
         "yAxisProperty": "payload",
         "yAxisPropertyType": "msg",
         "ymin": "5",
-        "ymax": "40",
+        "ymax": "35",
         "bins": 10,
         "action": "append",
         "stackSeries": false,
@@ -109,10 +216,11 @@
         "id": "d948828048902b18",
         "type": "ui-chart",
         "z": "3dac80766e61d74c",
-        "group": "23069d27834e3b9a",
+        "g": "dd09abb205df0e7f",
+        "group": "5532451b39d92101",
         "name": "Chart Hum",
         "label": "BME - Rel. Humidity (%)",
-        "order": 3,
+        "order": 1,
         "chartType": "line",
         "category": "hum",
         "categoryType": "str",
@@ -127,8 +235,8 @@
         "yAxisLabel": "",
         "yAxisProperty": "payload",
         "yAxisPropertyType": "msg",
-        "ymin": "0",
-        "ymax": "100",
+        "ymin": "10",
+        "ymax": "90",
         "bins": 10,
         "action": "append",
         "stackSeries": false,
@@ -171,10 +279,11 @@
         "id": "319aac19b602f4f7",
         "type": "ui-chart",
         "z": "3dac80766e61d74c",
-        "group": "23069d27834e3b9a",
+        "g": "dd09abb205df0e7f",
+        "group": "08f2c61ccabaf911",
         "name": "Chart Pres",
         "label": "BME - Pressure (mbar)",
-        "order": 2,
+        "order": 1,
         "chartType": "line",
         "category": "pres",
         "categoryType": "str",
@@ -189,8 +298,8 @@
         "yAxisLabel": "",
         "yAxisProperty": "payload",
         "yAxisPropertyType": "msg",
-        "ymin": "940",
-        "ymax": "980",
+        "ymin": "880",
+        "ymax": "940",
         "bins": 10,
         "action": "append",
         "stackSeries": false,
@@ -233,6 +342,7 @@
         "id": "bd9c489eca802592",
         "type": "ui-gauge",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "Gauge Temp",
         "group": "37492f9f10e66ef3",
         "order": 2,
@@ -275,6 +385,7 @@
         "id": "6db98c8dd04fb2cc",
         "type": "ui-gauge",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "Gauge Hum",
         "group": "37492f9f10e66ef3",
         "order": 3,
@@ -317,6 +428,7 @@
         "id": "f9ca9b60ce0ae661",
         "type": "ui-gauge",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "Gauge Pres",
         "group": "37492f9f10e66ef3",
         "order": 4,
@@ -359,22 +471,22 @@
         "id": "b3cfc5f019b1ee53",
         "type": "function",
         "z": "3dac80766e61d74c",
-        "name": "Get Temp",
-        "func": "let newMsg = {};\nnewMsg.payload = msg.temp / 10;\nnewMsg.topic = \"temp\";\nreturn newMsg;",
+        "g": "dd09abb205df0e7f",
+        "name": "Get BME Temp",
+        "func": "const newMsg = {\n    \"payload\" : msg.temp / 10,\n    \"topic\" : \"temp\"\n};\nreturn newMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
+        "x": 460,
         "y": 80,
         "wires": [
             [
-                "c68a84a7740eb411",
+                "4ac16796e3ecdcbf",
                 "bd9c489eca802592",
-                "0ae0fc36c30f02a2",
-                "4ac16796e3ecdcbf"
+                "c68a84a7740eb411"
             ]
         ]
     },
@@ -382,21 +494,21 @@
         "id": "c8170cbbab6371f6",
         "type": "function",
         "z": "3dac80766e61d74c",
-        "name": "Get Hum",
-        "func": "let newMsg = {};\nnewMsg.payload = msg.hum / 10;\nnewMsg.topic = \"hum\";\nreturn newMsg;",
+        "g": "dd09abb205df0e7f",
+        "name": "Get BME Hum",
+        "func": "const newMsg = {\n    \"payload\" : msg.hum / 10,\n    \"topic\" : \"hum\"\n};\nreturn newMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
+        "x": 460,
         "y": 200,
         "wires": [
             [
-                "d948828048902b18",
                 "6db98c8dd04fb2cc",
-                "0ae0fc36c30f02a2"
+                "d948828048902b18"
             ]
         ]
     },
@@ -404,98 +516,37 @@
         "id": "e94f7adeb8ff4564",
         "type": "function",
         "z": "3dac80766e61d74c",
-        "name": "Get Pres",
-        "func": "let newMsg = {};\nnewMsg.payload = msg.pres / 10;\nnewMsg.topic = \"pres\";\nreturn newMsg;",
+        "g": "dd09abb205df0e7f",
+        "name": "Get BME Pres",
+        "func": "const newMsg = {\n    \"payload\" : msg.pres / 10,\n    \"topic\" : \"pres\"\n};\nreturn newMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
+        "x": 460,
         "y": 340,
         "wires": [
             [
                 "319aac19b602f4f7",
                 "f9ca9b60ce0ae661",
-                "0ae0fc36c30f02a2",
                 "d2e032abe9130159"
             ]
-        ]
-    },
-    {
-        "id": "0ae0fc36c30f02a2",
-        "type": "ui-chart",
-        "z": "3dac80766e61d74c",
-        "group": "37492f9f10e66ef3",
-        "name": "",
-        "label": "chart",
-        "order": 5,
-        "chartType": "line",
-        "category": "topic",
-        "categoryType": "msg",
-        "xAxisLabel": "",
-        "xAxisProperty": "",
-        "xAxisPropertyType": "timestamp",
-        "xAxisType": "time",
-        "xAxisFormat": "",
-        "xAxisFormatType": "auto",
-        "xmin": "",
-        "xmax": "",
-        "yAxisLabel": "",
-        "yAxisProperty": "payload",
-        "yAxisPropertyType": "msg",
-        "ymin": "",
-        "ymax": "",
-        "bins": 10,
-        "action": "append",
-        "stackSeries": false,
-        "pointShape": "circle",
-        "pointRadius": 4,
-        "showLegend": true,
-        "removeOlder": 1,
-        "removeOlderUnit": "3600",
-        "removeOlderPoints": "",
-        "colors": [
-            "#0095ff",
-            "#c80000",
-            "#008700",
-            "#d39b3c",
-            "#a347e1",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "textColor": [
-            "#666666"
-        ],
-        "textColorDefault": true,
-        "gridColor": [
-            "#e5e5e5"
-        ],
-        "gridColorDefault": true,
-        "width": 6,
-        "height": 8,
-        "className": "",
-        "interpolation": "linear",
-        "x": 650,
-        "y": 140,
-        "wires": [
-            []
         ]
     },
     {
         "id": "b4db417f9850d602",
         "type": "ui-switch",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "debug",
         "label": "Debug",
-        "group": "2bee51758a9ad534",
-        "order": 7,
-        "width": 1,
+        "group": "ccd177e6e1aae92d",
+        "order": 2,
+        "width": 2,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "decouple": false,
         "topic": "debug",
         "topicType": "str",
@@ -511,8 +562,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 290,
-        "y": 1000,
+        "x": 330,
+        "y": 1100,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -523,10 +574,11 @@
         "id": "9f71bf27125dbd78",
         "type": "ui-button",
         "z": "3dac80766e61d74c",
-        "group": "2bee51758a9ad534",
+        "g": "b28d59f522860690",
+        "group": "ccd177e6e1aae92d",
         "name": "reboot",
         "label": "Reboot ESP",
-        "order": 8,
+        "order": 4,
         "width": 2,
         "height": 0,
         "emulateClick": true,
@@ -550,8 +602,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 290,
-        "y": 1180,
+        "x": 330,
+        "y": 1280,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -562,16 +614,17 @@
         "id": "3a49dc07585c056f",
         "type": "ui-slider",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "group": "2bee51758a9ad534",
         "name": "Thermostat Control",
         "label": "Thermostat",
         "tooltip": "",
         "order": 4,
-        "width": 6,
+        "width": 5,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "outs": "end",
-        "topic": "heater",
+        "topic": "thermostat",
         "topicType": "str",
         "thumbLabel": "true",
         "showTicks": "true",
@@ -584,12 +637,12 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
-        "x": 330,
-        "y": 820,
+        "showTextField": true,
+        "x": 370,
+        "y": 920,
         "wires": [
             [
-                "ba91eba864a7bdcd"
+                "30dbcefe2570196f"
             ]
         ]
     },
@@ -597,16 +650,18 @@
         "id": "f6afd5faaddec587",
         "type": "comment",
         "z": "3dac80766e61d74c",
-        "name": "WebSocket BME control",
-        "info": "",
+        "g": "b28d59f522860690",
+        "name": "Details",
+        "info": " 1. ### Process user inputs\n    -  Thermostat deadband --> create flow variable\n    -  Thermostat control --> evaluate heater required\n    -  Digital controls --> 0 / 1\n 1. ### Clean message (topic & msg only)\n 1. ### Send message to ESP via websocket",
         "x": 110,
-        "y": 700,
+        "y": 800,
         "wires": []
     },
     {
         "id": "b24a5815257570f5",
         "type": "ui-number-input",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "group": "2bee51758a9ad534",
         "name": "interval",
         "label": "BME interval",
@@ -619,17 +674,17 @@
         "max": "36000",
         "step": 1,
         "tooltip": "",
-        "passthru": false,
+        "passthru": true,
         "sendOnBlur": false,
-        "sendOnEnter": false,
+        "sendOnEnter": true,
         "className": "",
         "clearable": false,
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
         "spinner": "stacked",
-        "x": 300,
-        "y": 880,
+        "x": 340,
+        "y": 980,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -640,19 +695,21 @@
         "id": "6b62d61d692b112a",
         "type": "function",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Clean object",
-        "func": "msg.payload =   msg.payload == true? 1 : \n                msg.payload == false? 0 : \n                msg.payload;\n\nlet newMsg = { \n    topic: msg.topic,\n    payload: msg.payload, \n}\nreturn newMsg;",
+        "func": "if (msg.topic == \"led\") {\n    msg.payload = msg.payload == true? 0 \n        : msg.payload == false? 1 \n        : msg.payload;\n}\nelse {\n    msg.payload = msg.payload == true ? 1 \n        : msg.payload == false ? 0 \n        : msg.payload;\n}\nconst newMsg = { \n    \"payload\": msg.payload, \n    \"topic\": msg.topic \n}\nreturn newMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 1000,
+        "x": 690,
+        "y": 1100,
         "wires": [
             [
-                "ad3e1c6852897a8a"
+                "ad3e1c6852897a8a",
+                "6c7e6c2fc8ab58cd"
             ]
         ]
     },
@@ -660,6 +717,7 @@
         "id": "4ac16796e3ecdcbf",
         "type": "change",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "",
         "rules": [
             {
@@ -678,23 +736,26 @@
         "x": 830,
         "y": 120,
         "wires": [
-            []
+            [
+                "2ce0dede2ca80f70"
+            ]
         ]
     },
     {
         "id": "ba91eba864a7bdcd",
         "type": "function",
         "z": "3dac80766e61d74c",
-        "name": "heater",
-        "func": "let setTemp = msg.payload,\n    feedback = flow.get(\"temp\"),\n    deadband = flow.get(\"deadband\");\n\nif (setTemp > feedback + deadband) { msg.payload = 1 }\nelse { msg.payload = 0 }\n\nreturn msg;",
+        "g": "b28d59f522860690",
+        "name": "Process heater",
+        "func": "let thermostat, temperature, deadband;\n\nif (msg.topic == \"thermostat\") {\n    thermostat = msg.payload;\n    temperature = flow.get(\"temp\");\n    deadband = flow.get(\"deadband\");\n}\n    \nelse if (msg.topic == \"temp\") {\n    thermostat = flow.get(\"thermostat\");\n    temperature = msg.payload;\n    deadband = flow.get(\"deadband\");    \n}\n\nelse if (msg.topic = \"deadband\"){\n    thermostat = flow.get(\"thermostat\");\n    temperature = flow.get(\"temp\");\n    deadband = msg.payload;\n}\n\nmsg.topic = \"heater\";\nmsg.payload = thermostat > temperature + deadband ? 1 : 0;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 510,
-        "y": 820,
+        "x": 860,
+        "y": 860,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -705,6 +766,7 @@
         "id": "2ca24d054e1a9b71",
         "type": "ui-number-input",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "group": "2bee51758a9ad534",
         "name": "Temp. Deadband",
         "label": "Temp. Deadband",
@@ -717,17 +779,17 @@
         "max": "1",
         "step": "0.1",
         "tooltip": "Temp. Deadband",
-        "passthru": false,
+        "passthru": true,
         "sendOnBlur": false,
-        "sendOnEnter": false,
+        "sendOnEnter": true,
         "className": "",
-        "clearable": false,
+        "clearable": true,
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
         "spinner": "stacked",
-        "x": 330,
-        "y": 760,
+        "x": 370,
+        "y": 860,
         "wires": [
             [
                 "e9fa8054405ba103"
@@ -735,34 +797,10 @@
         ]
     },
     {
-        "id": "e9fa8054405ba103",
-        "type": "change",
-        "z": "3dac80766e61d74c",
-        "name": "Set flow.deadband",
-        "rules": [
-            {
-                "t": "set",
-                "p": "deadband",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 760,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "083c1a1ef84bf663",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init Deadband",
         "props": [
             {
@@ -780,8 +818,8 @@
         "topic": "",
         "payload": "0.2",
         "payloadType": "num",
-        "x": 140,
-        "y": 760,
+        "x": 180,
+        "y": 860,
         "wires": [
             [
                 "2ca24d054e1a9b71"
@@ -792,6 +830,7 @@
         "id": "7cda15e74b3a94a7",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init Thermostat",
         "props": [
             {
@@ -809,8 +848,8 @@
         "topic": "",
         "payload": "5",
         "payloadType": "num",
-        "x": 140,
-        "y": 820,
+        "x": 180,
+        "y": 920,
         "wires": [
             [
                 "3a49dc07585c056f"
@@ -821,6 +860,7 @@
         "id": "493137d83331c9f8",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init Interval",
         "props": [
             {
@@ -838,8 +878,8 @@
         "topic": "",
         "payload": "900",
         "payloadType": "num",
-        "x": 130,
-        "y": 880,
+        "x": 170,
+        "y": 980,
         "wires": [
             [
                 "b24a5815257570f5"
@@ -850,13 +890,14 @@
         "id": "5d2a53e5d53ca1a5",
         "type": "ui-switch",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "boiler",
         "label": "Boiler",
         "group": "2bee51758a9ad534",
         "order": 1,
-        "width": 2,
+        "width": 1,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "decouple": false,
         "topic": "boiler",
         "topicType": "str",
@@ -872,8 +913,8 @@
         "offvalueType": "num",
         "officon": "",
         "offcolor": "",
-        "x": 290,
-        "y": 940,
+        "x": 330,
+        "y": 1040,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -884,6 +925,7 @@
         "id": "ac1bc8ff4525237d",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init. Boiler",
         "props": [
             {
@@ -901,8 +943,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 130,
-        "y": 940,
+        "x": 170,
+        "y": 1040,
         "wires": [
             [
                 "5d2a53e5d53ca1a5"
@@ -913,6 +955,7 @@
         "id": "e00612e76fa3ef4c",
         "type": "function",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "Clean and filter",
         "func": "msg._session = \"\";\nif (!!msg.topic) { return [null, msg]; } \nelse { return [msg, null]; }\n",
         "outputs": 2,
@@ -921,16 +964,18 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
-        "y": 360,
+        "x": 220,
+        "y": 340,
         "wires": [
             [
                 "e94f7adeb8ff4564",
                 "c8170cbbab6371f6",
+                "7f51e8b448d456cb",
                 "b3cfc5f019b1ee53"
             ],
             [
-                "38145cf2896c124a"
+                "38145cf2896c124a",
+                "7f51e8b448d456cb"
             ]
         ]
     },
@@ -938,10 +983,11 @@
         "id": "c5c4d7b6ec196e16",
         "type": "ui-button",
         "z": "3dac80766e61d74c",
-        "group": "2bee51758a9ad534",
+        "g": "b28d59f522860690",
+        "group": "ccd177e6e1aae92d",
         "name": "read",
         "label": "Trigger",
-        "order": 5,
+        "order": 1,
         "width": 2,
         "height": 0,
         "emulateClick": true,
@@ -965,8 +1011,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 290,
-        "y": 1120,
+        "x": 330,
+        "y": 1220,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -977,7 +1023,8 @@
         "id": "38145cf2896c124a",
         "type": "function",
         "z": "3dac80766e61d74c",
-        "name": "function 3",
+        "g": "dd09abb205df0e7f",
+        "name": "Get GPIO Feedback",
         "func": "switch (msg.topic) {\n    case \"heater\":  \n        return [msg, null, null, null, null, null];\n        break;\n    case \"boiler\": \n        return [null, msg, null, null, null, null];\n        break;\n    case \"debug\":\n        return [null, null, msg, null, null, null];\n        break;\n    case \"led\":\n        return [null, null, null, msg, null, null];\n        break;    \n    case \"interval\":\n        return [null, null, null, null, msg, null];\n        break;\n    default:\n        msg.payload = \"ws failed\";\n        return [null, null, null, null, null, msg];\n}\n",
         "outputs": 6,
         "timeout": 0,
@@ -986,22 +1033,22 @@
         "finalize": "",
         "libs": [],
         "x": 480,
-        "y": 540,
+        "y": 580,
         "wires": [
             [
-                "7d703835c5637efb"
+                "107dbd27acb366e1"
             ],
             [
                 "c2dcf9fe2882c26c"
             ],
             [
-                "ad44edf44e35b571"
+                "a7d7c4eef88baee1"
             ],
             [
-                "1fa1aacd255af682"
+                "0cdd99357493f9f5"
             ],
             [
-                "ba4652cdfbac4504"
+                "37a53430539c91c4"
             ],
             [
                 "9afab28deb3c948f"
@@ -1012,8 +1059,9 @@
         "id": "9afab28deb3c948f",
         "type": "debug",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "ws failed",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1022,20 +1070,21 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 820,
-        "y": 680,
+        "y": 700,
         "wires": []
     },
     {
         "id": "b1979aac4e95b2af",
         "type": "ui-switch",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "led",
         "label": "Led",
-        "group": "2bee51758a9ad534",
-        "order": 6,
-        "width": 1,
+        "group": "ccd177e6e1aae92d",
+        "order": 3,
+        "width": 2,
         "height": 0,
-        "passthru": false,
+        "passthru": true,
         "decouple": false,
         "topic": "led",
         "topicType": "str",
@@ -1043,16 +1092,16 @@
         "className": "",
         "layout": "row-left",
         "clickableArea": "switch",
-        "onvalue": "false",
+        "onvalue": "true",
         "onvalueType": "bool",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "true",
+        "offvalue": "false",
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 290,
-        "y": 1060,
+        "x": 330,
+        "y": 1160,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1063,6 +1112,7 @@
         "id": "d2e032abe9130159",
         "type": "change",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "name": "Reading time",
         "rules": [
             {
@@ -1078,12 +1128,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 670,
-        "y": 400,
+        "x": 650,
+        "y": 380,
         "wires": [
             [
                 "0f3e635564d267e5",
-                "e324d449eda83877"
+                "e324d449eda83877",
+                "80f5bfca25f4a9f5"
             ]
         ]
     },
@@ -1091,6 +1142,7 @@
         "id": "0f3e635564d267e5",
         "type": "ui-text",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "37492f9f10e66ef3",
         "order": 1,
         "width": 6,
@@ -1106,13 +1158,14 @@
         "wrapText": false,
         "className": "",
         "x": 830,
-        "y": 420,
+        "y": 400,
         "wires": []
     },
     {
         "id": "e324d449eda83877",
         "type": "ui-text",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "order": 6,
         "width": 2,
@@ -1128,13 +1181,14 @@
         "wrapText": false,
         "className": "",
         "x": 830,
-        "y": 380,
+        "y": 360,
         "wires": []
     },
     {
         "id": "ba4652cdfbac4504",
         "type": "ui-text",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "order": 5,
         "width": 2,
@@ -1150,13 +1204,14 @@
         "wrapText": false,
         "className": "",
         "x": 860,
-        "y": 640,
+        "y": 620,
         "wires": []
     },
     {
         "id": "d88741462fe5a579",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init. Debug",
         "props": [
             {
@@ -1172,10 +1227,10 @@
         "once": true,
         "onceDelay": "5",
         "topic": "",
-        "payload": "false",
+        "payload": "true",
         "payloadType": "bool",
-        "x": 130,
-        "y": 1000,
+        "x": 170,
+        "y": 1100,
         "wires": [
             [
                 "b4db417f9850d602"
@@ -1186,6 +1241,7 @@
         "id": "c515b74f012a3803",
         "type": "inject",
         "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
         "name": "Init. LED",
         "props": [
             {
@@ -1203,8 +1259,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 120,
-        "y": 1060,
+        "x": 160,
+        "y": 1160,
         "wires": [
             [
                 "b1979aac4e95b2af"
@@ -1212,33 +1268,10 @@
         ]
     },
     {
-        "id": "7d703835c5637efb",
-        "type": "ui-template",
-        "z": "3dac80766e61d74c",
-        "group": "f051265a9e43fe49",
-        "page": "",
-        "ui": "",
-        "name": "Heater state",
-        "order": 1,
-        "width": 2,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxClass() {\n      if (this.msg.payload == 1) return \"boxOn\";\n      if (this.msg.payload == 0) return \"boxOff\";\n      return \"boxUnknown\"; // default class for lightgrey\n    },\n    boxText() {\n      if (this.msg.payload == 1) return \"ON\";\n      if (this.msg.payload == 0) return \"OFF\";\n      return \"¿-?\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 830,
-        "y": 480,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "c2dcf9fe2882c26c",
         "type": "ui-template",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "page": "",
         "ui": "",
@@ -1247,65 +1280,401 @@
         "width": 2,
         "height": 0,
         "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxClass() {\n      if (this.msg.payload == 1) return \"boxOn\";\n      if (this.msg.payload == 0) return \"boxOff\";\n      return \"boxUnknown\"; // default class for lightgrey\n    },\n    boxText() {\n      if (this.msg.payload == 1) return \"ON\";\n      if (this.msg.payload == 0) return \"OFF\";\n      return \"¿-?\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
         "x": 830,
-        "y": 520,
+        "y": 500,
         "wires": [
-            []
+            [
+                "19bfa9706260c834"
+            ]
         ]
     },
     {
-        "id": "ad44edf44e35b571",
+        "id": "107dbd27acb366e1",
         "type": "ui-template",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "page": "",
         "ui": "",
-        "name": "Debug state",
-        "order": 4,
+        "name": "Heater state",
+        "order": 1,
         "width": 2,
         "height": 0,
         "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxClass() {\n      if (this.msg.payload == 1) return \"boxOn\";\n      if (this.msg.payload == 0) return \"boxOff\";\n      return \"boxUnknown\"; // default class for lightgrey\n    },\n    boxText() {\n      if (this.msg.payload == 1) return \"ON\";\n      if (this.msg.payload == 0) return \"OFF\";\n      return \"¿-?\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"boxUnknown\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
         "x": 830,
-        "y": 560,
+        "y": 460,
         "wires": [
-            []
+            [
+                "98c480a603ae64ac"
+            ]
         ]
     },
     {
-        "id": "1fa1aacd255af682",
+        "id": "0cdd99357493f9f5",
         "type": "ui-template",
         "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "page": "",
         "ui": "",
         "name": "LED state",
-        "order": 3,
+        "order": 4,
         "width": 2,
         "height": 0,
         "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxClass() {\n      if (this.msg.payload == 0) return \"boxOn\";\n      if (this.msg.payload == 1) return \"boxOff\";\n      return \"boxUnknown\"; // default class for lightgrey\n    },\n    boxText() {\n      if (this.msg.payload == 0) return \"ON\";\n      if (this.msg.payload == 1) return \"OFF\";\n      return \"¿-?\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 0 ? \"ON\"\n            : this.msg.payload == 1 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 0 ? \"boxOn\"\n            : this.msg.payload == 1 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
         "x": 820,
-        "y": 600,
+        "y": 580,
         "wires": [
-            []
+            [
+                "25109779614fcc36"
+            ]
         ]
+    },
+    {
+        "id": "a7d7c4eef88baee1",
+        "type": "ui-template",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "group": "f051265a9e43fe49",
+        "page": "",
+        "ui": "",
+        "name": "Debug state",
+        "order": 3,
+        "width": 2,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 50px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 830,
+        "y": 540,
+        "wires": [
+            [
+                "1e34c19d468c41e9"
+            ]
+        ]
+    },
+    {
+        "id": "7f51e8b448d456cb",
+        "type": "debug",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "19bfa9706260c834",
+        "type": "ui-led",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Boiler Led",
+        "group": "9483ddd57473ae31",
+        "order": 2,
+        "width": 2,
+        "height": "1",
+        "label": "Boiler",
+        "labelPlacement": "right",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "1",
+                "valueType": "num",
+                "color": "#0a5a78"
+            },
+            {
+                "value": "0",
+                "valueType": "num",
+                "color": "#575757"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": false,
+        "showGlow": false,
+        "x": 1000,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "25109779614fcc36",
+        "type": "ui-led",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "LED Led",
+        "group": "9483ddd57473ae31",
+        "order": 4,
+        "width": 2,
+        "height": 0,
+        "label": "Led",
+        "labelPlacement": "right",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "0",
+                "valueType": "num",
+                "color": "#0a5a78"
+            },
+            {
+                "value": "1",
+                "valueType": "num",
+                "color": "#575757"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": false,
+        "showGlow": false,
+        "x": 1000,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1e34c19d468c41e9",
+        "type": "ui-led",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Debug Led",
+        "group": "9483ddd57473ae31",
+        "order": 3,
+        "width": 2,
+        "height": "1",
+        "label": "Debug",
+        "labelPlacement": "right",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "1",
+                "valueType": "num",
+                "color": "#0a5a78"
+            },
+            {
+                "value": "0",
+                "valueType": "num",
+                "color": "#575757"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": false,
+        "showGlow": false,
+        "x": 1010,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "98c480a603ae64ac",
+        "type": "ui-led",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Heater Led",
+        "group": "9483ddd57473ae31",
+        "order": 1,
+        "width": 2,
+        "height": 0,
+        "label": "Heater",
+        "labelPlacement": "right",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "1",
+                "valueType": "num",
+                "color": "#0a5a78"
+            },
+            {
+                "value": "0",
+                "valueType": "num",
+                "color": "#575757"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": false,
+        "showGlow": false,
+        "x": 1010,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "952dc4b717bf2124",
+        "type": "ui-text",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "group": "9483ddd57473ae31",
+        "order": 5,
+        "width": 2,
+        "height": 0,
+        "name": "BME Interval feedback",
+        "label": "BME Interval (s): ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 860,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "80f5bfca25f4a9f5",
+        "type": "ui-text",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "group": "9483ddd57473ae31",
+        "order": 6,
+        "width": 2,
+        "height": 0,
+        "name": "Last reading",
+        "label": "Last reading:  ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 990,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6c7e6c2fc8ab58cd",
+        "type": "debug",
+        "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "e9fa8054405ba103",
+        "type": "change",
+        "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
+        "name": "Set flow.deadband",
+        "rules": [
+            {
+                "t": "set",
+                "p": "deadband",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 860,
+        "wires": [
+            [
+                "ba91eba864a7bdcd"
+            ]
+        ]
+    },
+    {
+        "id": "30dbcefe2570196f",
+        "type": "change",
+        "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
+        "name": "Set flow.thermostat",
+        "rules": [
+            {
+                "t": "set",
+                "p": "thermostat",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 920,
+        "wires": [
+            [
+                "ba91eba864a7bdcd"
+            ]
+        ]
+    },
+    {
+        "id": "819a7b810339db92",
+        "type": "link in",
+        "z": "3dac80766e61d74c",
+        "g": "b28d59f522860690",
+        "name": "heater link in",
+        "links": [
+            "2ce0dede2ca80f70"
+        ],
+        "x": 685,
+        "y": 800,
+        "wires": [
+            [
+                "ba91eba864a7bdcd"
+            ]
+        ]
+    },
+    {
+        "id": "2ce0dede2ca80f70",
+        "type": "link out",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "temp link out",
+        "mode": "link",
+        "links": [
+            "819a7b810339db92"
+        ],
+        "x": 975,
+        "y": 120,
+        "wires": []
     },
     {
         "id": "8dbef215b4efa8a7",
@@ -1316,11 +1685,39 @@
     {
         "id": "23069d27834e3b9a",
         "type": "ui-group",
-        "name": "BME sensor",
+        "name": "Chart Temp",
         "page": "d299253f8b2f883b",
         "width": 6,
         "height": 1,
         "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "5532451b39d92101",
+        "type": "ui-group",
+        "name": "Chart Hum",
+        "page": "d299253f8b2f883b",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "08f2c61ccabaf911",
+        "type": "ui-group",
+        "name": "Chart Press",
+        "page": "d299253f8b2f883b",
+        "width": 6,
+        "height": 1,
+        "order": 3,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -1342,11 +1739,11 @@
         "groupType": "default"
     },
     {
-        "id": "2bee51758a9ad534",
+        "id": "ccd177e6e1aae92d",
         "type": "ui-group",
-        "name": "Controls",
+        "name": "ESP",
         "page": "bde350f197f7a982",
-        "width": 6,
+        "width": 2,
         "height": 1,
         "order": 2,
         "showTitle": true,
@@ -1356,13 +1753,41 @@
         "groupType": "default"
     },
     {
+        "id": "2bee51758a9ad534",
+        "type": "ui-group",
+        "name": "Thermostat",
+        "page": "bde350f197f7a982",
+        "width": 7,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
         "id": "f051265a9e43fe49",
         "type": "ui-group",
-        "name": "Feedback",
+        "name": "Feedback templates",
         "page": "bde350f197f7a982",
         "width": 2,
         "height": 1,
-        "order": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "9483ddd57473ae31",
+        "type": "ui-group",
+        "name": "Feedback LED's",
+        "page": "bde350f197f7a982",
+        "width": 2,
+        "height": 1,
+        "order": 3,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -1402,8 +1827,8 @@
         ],
         "order": 2,
         "className": "",
-        "visible": "true",
-        "disabled": "false"
+        "visible": true,
+        "disabled": false
     },
     {
         "id": "bde350f197f7a982",
@@ -1438,8 +1863,8 @@
         ],
         "order": 1,
         "className": "",
-        "visible": "true",
-        "disabled": "false"
+        "visible": true,
+        "disabled": false
     },
     {
         "id": "77e83d514b9bd6e2",

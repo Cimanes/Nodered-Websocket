@@ -60,8 +60,8 @@ void handleInterval(StaticJsonDocument<100>& jsonDoc) {
 }
 
 void handleDebug(StaticJsonDocument<100>& jsonDoc) {
-  espDebug = (int)jsonDoc["payload"];
-  sendJsonPayload("debug", espDebug);
+  Debug = (int)jsonDoc["payload"];
+  sendJsonPayload("debug", Debug);
 }
 
 void handleReboot(StaticJsonDocument<100>&) {
@@ -82,7 +82,7 @@ const byte handlerCount = sizeof(handlers) / sizeof(handlers[0]);
 void processMessage(uint8_t* wsMessage) {
   // check for error
   if (deserializeJson(jsonDoc, wsMessage)) {
-    if (espDebug) Serial.println(F("Invalid JSON"));
+    if (Debug) Serial.println(F("Invalid JSON"));
     return;
   }
   const char* topic = jsonDoc["topic"];
@@ -97,7 +97,7 @@ void processMessage(uint8_t* wsMessage) {
 
 // void processMessage(uint8_t* wsMessage) {
 //   if (deserializeJson(jsonDoc, wsMessage)) {
-//     if (espDebug) Serial.println(F("Invalid JSON"));
+//     if (Debug) Serial.println(F("Invalid JSON"));
 //     return;
 //   }
 //   const char* topic = jsonDoc["topic"];
@@ -127,8 +127,8 @@ void processMessage(uint8_t* wsMessage) {
 //     sendJsonPayload("interval", bmeInterval);
 //   }
 //   else if (strcmp(topic, "debug") == 0) {
-//     espDebug = (int)jsonDoc["payload"];
-//     sendJsonPayload("debug", espDebug);
+//     Debug = (int)jsonDoc["payload"];
+//     sendJsonPayload("debug", Debug);
 //   }
 //   else if (strcmp(topic, "reboot") == 0) {
 //     ESP.restart();
@@ -138,35 +138,35 @@ void processMessage(uint8_t* wsMessage) {
 void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
-      if (espDebug) Serial.printf("[WSc] Disconnected!\n");
+      if (Debug) Serial.printf("[WSc] Disconnected!\n");
       break;
     case WStype_CONNECTED:
-      if (espDebug) Serial.printf("[WSc] Connected to url: %s\n", wsMessage);
+      if (Debug) Serial.printf("[WSc] Connected to url: %s\n", wsMessage);
       break;
     case WStype_BIN:
-      if (espDebug) Serial.printf("[WSc] get binary message: %u bytes\n", length);
+      if (Debug) Serial.printf("[WSc] get binary message: %u bytes\n", length);
       break;
     case WStype_ERROR:
-      if (espDebug) Serial.printf("[WSc] Error! %s\n", wsMessage);
+      if (Debug) Serial.printf("[WSc] Error! %s\n", wsMessage);
       break;
     case WStype_TEXT:
-      if (espDebug)  Serial.printf("[WSc] get text message: %s\n", wsMessage);
+      if (Debug)  Serial.printf("[WSc] get text message: %s\n", wsMessage);
       processMessage(wsMessage);
       break;
     default: break;
   }
 }
 
-void initWifi() {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, pass);
-  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println(F("WiFi Failed!"));
-    return;
-  }
-  Serial.print(F("IP Address: "));
-  Serial.println(WiFi.localIP());
-}
+// void initWiFi() {
+//   WiFi.mode(WIFI_STA);
+//   WiFi.begin(ssid, pass);
+//   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+//     Serial.println(F("WiFi Failed!"));
+//     return;
+//   }
+//   Serial.print(F("IP Address: "));
+//   Serial.println(WiFi.localIP());
+// }
 
 void initWebsocket() {
   // server address, port and URL

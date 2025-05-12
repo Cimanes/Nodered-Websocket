@@ -25,7 +25,7 @@ void initBME() {      // Initialize BME280
     Serial.println(F("BME280 not found, check wiring!"));
     while (1);
   }
-  if (espDebug) Serial.println(F("BME280 initialized"));
+  if (Debug) Serial.println(F("BME280 initialized"));
 }
 
 void readBME() {  // Read data from BME280, round to 1 decimal
