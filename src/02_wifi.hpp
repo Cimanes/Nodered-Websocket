@@ -21,33 +21,45 @@
 AsyncWebServer server(80)               ;   // Required for HTTP 
 const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean websocket
 
+
+#ifdef wifiManager
+  IPAddress hostIP;             // User entry for node-red server IP
+#else 
+#define hostIP "192.168.1.133"  // Had coded Node-red server IP
+#endif
+// Option: Hard coded IP address:-------------------------
+// IPAddress hostIP(192, 168, 1, 133);
+
 #if defined(wifiManager)
   // =============================================
   // Wifi Manager: set SSID, Password and IP address
   // =============================================
-  // Search for parameter in HTTP POST request
+  // Search for parameter in HTTP POST request received from user
   const char* PARAM_INPUT_1 = "ssid"  ;
   const char* PARAM_INPUT_2 = "pass"  ;
   const char* PARAM_INPUT_3 = "ip"    ;
   const char* PARAM_INPUT_4 = "router";
-  // const char* PARAM_INPUTS[4] = { "ssid", "pass", "ip", "router" };
+  const char* PARAM_INPUT_5 = "host"  ;
+  // const char* PARAM_INPUTS[5] = { "ssid", "pass", "ip", "router", "host" };
 
   //Variables to save values from HTML form
   char ssid[paramSize]  ;
   char pass[paramSize]  ;
-  char ip[paramSize]    ;
+  char esp_ip[paramSize]    ;
   char router[paramSize];
+  char host[paramSize]  ;
 
   // File paths to save input values permanently
   const char* ssidPath = "/ssid.txt"    ;
   const char* passPath = "/pass.txt"    ;
   const char* ipPath = "/ip.txt"        ;
   const char* routerPath = "/router.txt";
-  // const char* paramPaths[4] = { "/ssid.txt", "/pass.txt", "/ip.txt", "/router.txt" };
+  const char* hostPath = "/host.txt"    ;
+  // const char* paramPaths[5] = { "/ssid.txt", "/pass.txt", "/ip.txt", "/router.txt", "/host.txt" };
 
   // Function to Initialize Wifi
   bool initWiFi() {
-    if(strcmp(ssid, "") == 0 || strcmp(ip, "") == 0 || strcmp(router, "") == 0 ){
+    if(strcmp(ssid, "") == 0 || strcmp(esp_ip, "") == 0 || strcmp(router, "") == 0 ){
       Serial.println(F("Undefined WiFi"));
       return false;
     }  
@@ -59,14 +71,16 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
     // IPAddress localIP(192, 168, 1, 200); 
     // IPAddress gateway(192, 168, 1, 254);
     // IPAddress dns(192, 168, 1, 254);
+    // IPAddress hostIP(192, 168, 1, 133);
     
     // Option: user entry IP address:-------------------------
     IPAddress localIP;
     IPAddress gateway;
-    IPAddress dns;    
-    localIP.fromString(ip);       // Option: 
+    IPAddress dns;
+    localIP.fromString(esp_ip);       // Option: 
     gateway.fromString(router);
     dns.fromString(router);
+    hostIP.fromString(host);
 
     if (!WiFi.config(localIP, gateway, subnet, dns)){
       if (Debug) Serial.println(F("STA config Failed"));
@@ -95,8 +109,9 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   void getWiFi() {
     fileToCharPtr(LittleFS, ssidPath, ssid)     ; // Search for stored SSID
     fileToCharPtr(LittleFS, passPath, pass)     ; // Search for stored Password
-    fileToCharPtr(LittleFS, ipPath, ip)         ; // Search for stored local IP
+    fileToCharPtr(LittleFS, ipPath, esp_ip)         ; // Search for stored local IP
     fileToCharPtr(LittleFS, routerPath, router) ; // Search for stored router IP
+    fileToCharPtr(LittleFS, hostPath, host)     ; // Search for stored host IP
   }
 
   // =============================================
@@ -135,39 +150,43 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
             writeFile(LittleFS, ssidPath, ssid);
           }
           // HTTP POST pass value
-          if (p->name() == PARAM_INPUT_2) {
+          else if (p->name() == PARAM_INPUT_2) {
             strncpy(pass, p->value().c_str(), paramSize - 1);
             pass[paramSize - 1] = '\0'; // Ensure null-termination
             Serial.print(F("Password: "));  Serial.println(pass);
             writeFile(LittleFS, passPath, pass);
           }
-          // HTTP POST ip value
-          if (p->name() == PARAM_INPUT_3) {
-            strncpy(ip, p->value().c_str(), paramSize - 1);
-            ip[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("Local IP: "));  Serial.println(ip);
-            writeFile(LittleFS, ipPath, ip);
+          // HTTP POST esp_ip value
+          else if (p->name() == PARAM_INPUT_3) {
+            strncpy(esp_ip, p->value().c_str(), paramSize - 1);
+            esp_ip[paramSize - 1] = '\0'; // Ensure null-termination
+            Serial.print(F("Local IP: "));  Serial.println(esp_ip);
+            writeFile(LittleFS, ipPath, esp_ip);
           }
           // HTTP POST router IP value
-          if (p->name() == PARAM_INPUT_4) {
+          else if (p->name() == PARAM_INPUT_4) {
             strncpy(router, p->value().c_str(), paramSize - 1);
-            ip[paramSize - 1] = '\0'; // Ensure null-termination
+            router[paramSize - 1] = '\0'; // Ensure null-termination
             Serial.print(F("Router IP: "));
             Serial.println(router);
             writeFile(LittleFS, routerPath, router);
-          } 
-          Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str()); 
+          }
+          else if (p->name() == PARAM_INPUT_5) {
+            strncpy(host, p->value().c_str(), paramSize - 1);
+            host[paramSize - 1] = '\0'; // Ensure null-termination
+            Serial.print(F("Host IP: "));
+            Serial.println(host);
+            writeFile(LittleFS, hostPath, host);
+          }           
+          if (Debug) Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str()); 
         }
       }
-      request->send(200, "text/plain", "Done. ESP rebooting, connect to your router. ESP IP address: " + String(ip));
+      request->send(200, "text/plain", "Done. ESP rebooting, connect to your router. ESP IP address: " + String(esp_ip));
       reboot = true;
     });
     
     // Serve files (JS, CSS and favicon) from LittleFS when requested by the root URL. 
     server.serveStatic("/", LittleFS, "/");
-    // #ifdef useOTA
-    //   AsyncElegantOTA.begin(&server); // Start OTA
-    // #endif
     server.begin(); // Start the server.
     Serial.println(F("defineWifi done"));
   }

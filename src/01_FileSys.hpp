@@ -10,8 +10,8 @@
 // =============================================
 // VARIABLES
 // =============================================
-  FSInfo fs_info;             // FSInfo is a structure (defined in LittleFS library) that holds information about the file system
-  const byte paramSize = 25;  // Maximum size for SSID, Password and IP
+FSInfo fs_info;             // FSInfo is a structure (defined in LittleFS library) that holds information about the file system
+const byte paramSize = 25;  // Maximum size for SSID, Password and IP addresses
   
 // =============================================
 // MANAGE FILE SYSTEM
@@ -26,6 +26,40 @@ void initFS() {
     LittleFS.info(fs_info); // Populates fs_info structure with info about LittleFS
     // totalBytes = fs_info.totalBytes/1000;  // Total memory in LittleFS
   }
+}
+
+// ===============================================================================
+// Write file to LittleFS
+// ===============================================================================
+void writeFile(fs::FS &fs, const char * path, const char * message){
+  if (Debug) { Serial.print(F("Write file: ")); Serial.println(path); }
+  File file = fs.open(path, "w");
+  if (!file) {
+    if (Debug) Serial.println(F("Open file to write - FAIL"));
+    return;
+  }
+  if (!file.print(message))  {
+    if (Debug) Serial.println(F("Write - FAIL"));
+  }
+}
+
+// ===============================================================================
+// Read file from LittleFS into char* variable
+// ===============================================================================
+void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
+  File file = fs.open(path, "r");
+  if (!file || file.isDirectory()) {
+    if (Debug) Serial.println(F("no file"));
+    buffer[0] = '\0'; // Ensure the buffer is null-terminated
+    return;
+  }
+  if (Debug) Serial.println(F("File"));
+  size_t i = 0;
+  while (file.available() && i < paramSize - 1) {
+    buffer[i++] = (char)file.read();
+  }
+  buffer[i] = '\0';
+  file.close();
 }
 
 // ===============================================================================
@@ -54,25 +88,6 @@ void initFS() {
 // }
 
 // ===============================================================================
-// Read file from LittleFS into char* variable
-// ===============================================================================
-void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
-  File file = fs.open(path, "r");
-  if (!file || file.isDirectory()) {
-    if (Debug) Serial.println(F("no file"));
-    buffer[0] = '\0'; // Ensure the buffer is null-terminated
-    return;
-  }
-  if (Debug) Serial.println(F("File"));
-  size_t i = 0;
-  while (file.available() && i < paramSize - 1) {
-    buffer[i++] = (char)file.read();
-  }
-  buffer[i] = '\0';
-  file.close();
-}
-
-// ===============================================================================
 // Delete File from LittleFS
 // ===============================================================================
 // void deleteFile(fs::FS &fs, const char * path){
@@ -94,21 +109,6 @@ void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
 // }
 
 // ===============================================================================
-// Write file to LittleFS
-// ===============================================================================
-void writeFile(fs::FS &fs, const char * path, const char * message){
-  if (Debug) { Serial.print(F("Write file: ")); Serial.println(path); }
-  File file = fs.open(path, "w");
-  if (!file) {
-    if (Debug) Serial.println(F("Open file to write - FAIL"));
-    return;
-  }
-  if (!file.print(message))  {
-    if (Debug) Serial.println(F("Write - FAIL"));
-  }
-}
-
-// ===============================================================================
 // Append data to file in LittleFS
 // ===============================================================================
 // void appendToFile(fs::FS &fs, const char * path, const char * message) {
@@ -127,4 +127,3 @@ void writeFile(fs::FS &fs, const char * path, const char * message){
 //   }
 //   file.close();
 // }
-

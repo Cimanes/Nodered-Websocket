@@ -18,12 +18,48 @@ struct Handler {            // Handler structure to manage handlers
 // Read BME values and send them via Websocket
 void readAndSendBME() {
   readBME();                                          // Read data from BME280
-  multiJsonPayload(bmeKeys, bmeValues, numBmeKeys);   // Create JSON payload with the readings
+  jsonDoc.clear();  // Clear the document to avoid leftover data
+
+  // Iterate over keys[] and values[] to populate the JSON object "jsonDoc"
+  // Resulting JSON object example: {"temp":231,"hum":360,"pres":9530}
+  for (byte i = 0; i < numBmeKeys; i++)  { jsonDoc[bmeKeys[i]] = bmeValues[i]; }
+
+  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsPayload);                 // Optional debug output
+
+  // multiJsonPayload(bmeKeys, bmeValues, numBmeKeys);   // Create JSON payload with the readings
   webSocket.sendTXT(wsPayload);                       // Send the payload
 }
 
-void sendJsonPayload(const char* topic, uint16_t value) {
-  JsonTopicPayload(topic, value);
+//======================================
+// JSON topic + payload --> send via Websocket
+//======================================
+/******************************************************
+ * Create a JSON object with topic and payload from a single key-value pair.
+ * @param topic The key for the JSON object entry.
+ * @param value The value corresponding to the key.
+ */
+void sendJsonInt(const char* key, uint16_t value) {
+  jsonDoc.clear();  // Clear the document to avoid leftover data
+
+  // Add key-value pair to the JSON object "jsonDoc"
+  jsonDoc["topic"] = key;
+  jsonDoc["payload"] = value;
+
+  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsPayload);                 // Optional debug output
+  webSocket.sendTXT(wsPayload);
+}
+
+void sendJsonString(const char* key, const char* value) {
+  jsonDoc.clear();  // Clear the document to avoid leftover data
+
+  // Add key-value pair to the JSON object "jsonDoc"
+  jsonDoc["topic"] = key;
+  jsonDoc["payload"] = value;
+
+  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsPayload);                 // Optional debug output
   webSocket.sendTXT(wsPayload);
 }
 
@@ -32,17 +68,17 @@ void sendJsonPayload(const char* topic, uint16_t value) {
 //======================================
 void handleHeater(StaticJsonDocument<100>& jsonDoc) {
   digitalWrite(HEATER_PIN, jsonDoc["payload"]);
-  sendJsonPayload("heater", digitalRead(HEATER_PIN));
+  sendJsonInt("heater", digitalRead(HEATER_PIN));
 }
 
 void handleBoiler(StaticJsonDocument<100>& jsonDoc) {
   digitalWrite(BOILER_PIN, jsonDoc["payload"]);
-  sendJsonPayload("boiler", digitalRead(BOILER_PIN));
+  sendJsonInt("boiler", digitalRead(BOILER_PIN));
 }
 
 void handleLED(StaticJsonDocument<100>& jsonDoc) {
   digitalWrite(LED_BUILTIN, jsonDoc["payload"]);
-  sendJsonPayload("led", digitalRead(LED_BUILTIN));
+  sendJsonInt("led", digitalRead(LED_BUILTIN));
 }
 
 void handleRead(StaticJsonDocument<100>& jsonDoc) {
@@ -56,12 +92,16 @@ void handleInterval(StaticJsonDocument<100>& jsonDoc) {
   timer.deleteTimer(BMETimerID);
   readAndSendBME();
   BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
-  sendJsonPayload("interval", bmeInterval);
+  sendJsonInt("interval", bmeInterval);
+}
+
+void handleIP(StaticJsonDocument<100>& jsonDoc) {
+  sendJsonString("espIP", esp_ip);
 }
 
 void handleDebug(StaticJsonDocument<100>& jsonDoc) {
   Debug = (int)jsonDoc["payload"];
-  sendJsonPayload("debug", Debug);
+  sendJsonInt("debug", Debug);
 }
 
 void handleReboot(StaticJsonDocument<100>&) {
@@ -74,6 +114,7 @@ const Handler handlers[] = {
   { "debug", handleDebug },
   { "led", handleLED },
   { "interval", handleInterval },
+  { "espIP", handleIP},
   { "read", handleRead },
   { "reboot", handleReboot }
 };
@@ -104,15 +145,15 @@ void processMessage(uint8_t* wsMessage) {
 
 //   if(strcmp(topic, "heater") == 0) {
 //     digitalWrite(HEATER_PIN, jsonDoc["payload"]);
-//     sendJsonPayload("heater", digitalRead(HEATER_PIN));  
+//     sendJsonInt("heater", digitalRead(HEATER_PIN));  
 //   }
 //   else if (strcmp(topic, "boiler") == 0) {
 //     digitalWrite(BOILER_PIN, jsonDoc["payload"]);
-//     sendJsonPayload("boiler", digitalRead(BOILER_PIN));
+//     sendJsonInt("boiler", digitalRead(BOILER_PIN));
 //   }
 //   else if (strcmp(topic, "led") == 0) {
 //     digitalWrite(LED_BUILTIN, jsonDoc["payload"]);
-//     sendJsonPayload("led", digitalRead(LED_BUILTIN));
+//     sendJsonInt("led", digitalRead(LED_BUILTIN));
 //   }
 //   else if (strcmp(topic, "read") == 0) {
 //     timer.deleteTimer(BMETimerID);
@@ -124,11 +165,11 @@ void processMessage(uint8_t* wsMessage) {
 //     timer.deleteTimer(BMETimerID);
 //     readAndSendBME();
 //     BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
-//     sendJsonPayload("interval", bmeInterval);
+//     sendJsonInt("interval", bmeInterval);
 //   }
 //   else if (strcmp(topic, "debug") == 0) {
 //     Debug = (int)jsonDoc["payload"];
-//     sendJsonPayload("debug", Debug);
+//     sendJsonInt("debug", Debug);
 //   }
 //   else if (strcmp(topic, "reboot") == 0) {
 //     ESP.restart();
@@ -157,23 +198,11 @@ void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
   }
 }
 
-// void initWiFi() {
-//   WiFi.mode(WIFI_STA);
-//   WiFi.begin(ssid, pass);
-//   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-//     Serial.println(F("WiFi Failed!"));
-//     return;
-//   }
-//   Serial.print(F("IP Address: "));
-//   Serial.println(WiFi.localIP());
-// }
-
 void initWebsocket() {
   // server address, port and URL
-  webSocket.begin(LOCALHOST_IP, 1880, "/ws/readings");
+  webSocket.begin(hostIP, 1880, "/ws/readings");
   // event handler
   webSocket.onEvent(webSocketEvent);
   // try every 5000 again if connection has failed
   webSocket.setReconnectInterval(5000);
-  // webSocket.enableHeartbeat(15000, 3000, 2);
 }

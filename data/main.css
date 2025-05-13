@@ -1,0 +1,166 @@
+/* ======================
+Global color variables
+====================== */
+:root {
+  --colorBack: #000 ;   /* Background - body          */
+  --colorNav: #359  ;   /* Background - Navigation    */
+  --colorON: #359   ;   /* Standard button            */
+  --hoverON: #116   ;   /* Standard button hover      */
+  --colorRed: #911  ;   /* class = 'button-red'       */
+  --hoverRed: #600  ;   /* hover class = 'button-red' */
+  --colorOFF: #666  ;   /* class = 'button-off'       */
+  --hoverOFF: #222  ;   /* hover class = 'button-off' */
+  --colorCard: #ccc ;   /* B.G. class = 'card'        */
+  --colorFback: #333;   /* class = 'feedback'         */
+}
+
+/* ======================
+Global design
+====================== */
+html {
+  font-family: Arial, Helvetica, sans-serif; 
+  text-align: center;
+}
+
+body {  
+  background-color: var(--colorBack);
+  background-image: url('background.png');
+  margin: 0;
+}
+
+a { text-decoration: none;  }
+
+p { 
+  text-align: left; 
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: small;
+}
+
+/* ======================
+Top navigation area
+====================== */
+.header { 
+  display: flex;
+  overflow:hidden;
+  background-color: var(--colorNav);
+  width: 100%;
+  min-width: 280px;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
+  flex-direction: column; /* Arrange items in a column */
+}
+.webTitle {
+  float: right;
+  margin: 0;
+  padding: 0.5rem;
+  color: black;
+  background-color:lightcyan;
+  border-radius: 1rem;
+}
+.navBar a {
+  float: right;
+  padding: 0.5rem;
+  color: var(--colorCard);
+  border-radius: 0.5rem;
+}
+.navBar .icon {float: left;}
+
+#listTop a { float: left ; }
+
+a:hover { background-color: var(--hoverON); }
+/* li {float: left; } */
+
+h1 {
+  width: 100%;
+  font-size: 1.8rem; 
+  color: var(--colorON);
+  margin: 0.5rem auto 0 auto;
+  background-color: var(--colorCard);
+}
+
+/* The "responsive" class is added to the navigation bar with JavaScript when the user clicks on the icon. 
+This class makes the top line look good on small screens (display the links vertically instead of horizontally).
+When the screen is less than 600 pixels wide, hide all links, except for the first one.
+*/
+@media screen and (max-width: 600px) { .listTop a { display: none; }; }
+  /* .listTop { display: block; } */
+
+
+/* ======================
+Main body
+====================== */
+.content { padding: 30px; }
+
+/* ================================== 
+ Style the cards and the card-grid  
+================================== */
+ .card {
+  margin: 1rem auto;
+  padding-bottom: 1rem;
+  width: 100%;
+  max-width: 900px;
+  background-color: var(--colorCard); 
+  box-shadow: 2px 2px 12px 1px black;
+  border-radius: 1rem;
+}
+.card-title { 
+  width: 100%;
+  display: inline-block;
+  color: var(--colorON);
+  margin: 0.5rem 0 0.2rem 0;
+}
+
+.title { 
+  display: inline-block;
+  color: var(--colorON);
+  margin: 1rem 0 0.1rem 0;
+}
+
+.wide { width: 100%; }
+
+.feedback { 
+  display: inline-block;
+  font-weight: bold;
+  margin: 0 ;
+  color: var(--colorFback);
+}
+
+/* ================================== 
+ Style the buttons  
+================================== */
+button {
+  border: none;
+  color: var(--colorCard);
+  background-color: var(--colorON);  
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: .5rem;
+  transition-duration: 0.4s;
+  margin: 0.3rem auto;
+  padding: 0.5rem 1rem;
+  width: 40%;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+/* =====================
+Style the input fields
+===================== */
+input, select {
+  width: 40%;
+  background-color: var(--colorOFF);
+  color: #eee;
+  padding: 0.33rem 0;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: .5rem;
+  transition-duration: 0.4s;
+}
+
+button:hover { background-color: var(--hoverON); cursor: pointer;}
+.button-red { background-color: var(--colorRed); }
+.button-red:hover { background-color: var(--hoverRed); cursor: pointer;}
+.button-off { background-color: var(--colorOFF); }
+.button-off:hover { background-color: var(--hoverOFF); cursor: pointer;}

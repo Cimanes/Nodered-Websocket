@@ -31,8 +31,21 @@
         <label for="router" class="title">Router IP</label>
         <input type="text" class="wifiInput" id="router" name="router" value="192.168.1.254">
       </div>
+      <div class="form-group">
+        <label for="host" class="title">Host IP</label>
+        <input type="text" class="wifiInput" id="host" name="host" value="192.168.1.133">
+      </div>
       <button type="submit" value="Submit">Submit</button>
     </form>
+    <div class="card">
+      <h3>Instructions</h3>
+      <p class="instructions">1. Enter the SSID and password of the network you want to connect to.</p>
+      <p class="instructions">2. Enter the IP address of the router device in this network.</p>
+      <p class="instructions">3. Enter the IP address of the host device running Node-red.</p>
+      <p class="instructions">4. Enter the Local IP addresses of the device (ESP).</p>
+      <p class="instructions">5. Click "Submit" to save the configuration.</p>
+      <p class="instructions">6. The ESP will reboot and connect to the network.</p>
+    </div>
   </div>
 </body>
-</html> 
+</html>
