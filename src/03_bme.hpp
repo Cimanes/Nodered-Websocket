@@ -30,15 +30,9 @@ void initBME() {
 
 // Read data from BME280, round to 1 decimal
 void readBME() {
-
   // Define values with *10 factor (round to one decimal)
   // Pressure is converted to mbar and then applied *10 factor
   bmeValues[0] = round(bme.readTemperature() * 10);
   bmeValues[1] = round(bme.readHumidity() * 10);
   bmeValues[2] = round(bme.readPressure() / 10);
-  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); 
-  timer.setTimeout(100, []() {
-    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-  });
-  
 }

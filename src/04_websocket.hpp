@@ -17,18 +17,20 @@ struct Handler {            // Handler structure to manage handlers
 //======================================
 // Read BME values and send them via Websocket
 void readAndSendBME() {
-  readBME();                                          // Read data from BME280
+  readBME();        // Read data from BME280
+  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN)); 
   jsonDoc.clear();  // Clear the document to avoid leftover data
 
   // Iterate over keys[] and values[] to populate the JSON object "jsonDoc"
   // Resulting JSON object example: {"temp":231,"hum":360,"pres":9530}
   for (byte i = 0; i < numBmeKeys; i++)  { jsonDoc[bmeKeys[i]] = bmeValues[i]; }
 
-  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsPayload);                 // Optional debug output
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsMsg);                 // Optional debug output
 
   // multiJsonPayload(bmeKeys, bmeValues, numBmeKeys);   // Create JSON payload with the readings
-  webSocket.sendTXT(wsPayload);                       // Send the payload
+  webSocket.sendTXT(wsMsg);                       // Send the payload
+  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 }
 
 //======================================
@@ -46,9 +48,9 @@ void sendJsonInt(const char* key, uint16_t value) {
   jsonDoc["topic"] = key;
   jsonDoc["payload"] = value;
 
-  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsPayload);                 // Optional debug output
-  webSocket.sendTXT(wsPayload);
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsMsg);                 // Optional debug output
+  webSocket.sendTXT(wsMsg);
 }
 
 void sendJsonString(const char* key, const char* value) {
@@ -58,9 +60,9 @@ void sendJsonString(const char* key, const char* value) {
   jsonDoc["topic"] = key;
   jsonDoc["payload"] = value;
 
-  serializeJson(jsonDoc, wsPayload, sizeof(wsPayload)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsPayload);                 // Optional debug output
-  webSocket.sendTXT(wsPayload);
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
+  if (Debug) Serial.println(wsMsg);             // Optional debug output
+  webSocket.sendTXT(wsMsg);
 }
 
 //======================================
