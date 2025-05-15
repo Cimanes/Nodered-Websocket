@@ -63,6 +63,15 @@ void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
 }
 
 // ===============================================================================
+// Delete File from LittleFS
+// ===============================================================================
+void deleteFile(fs::FS &fs, const char * path){
+  if (Debug) { Serial.print(F("Deleting: ")); Serial.println(path); }
+  if(fs.remove(path)) { if (Debug)  Serial.println(F("- file deleted")); }
+  else { if (Debug)  Serial.println(F("- delete failed")); }  
+}
+
+// ===============================================================================
 // Read file from LittleFS into const char*
 // ===============================================================================
 // const char* readFile(fs::FS &fs, const char * path) {
@@ -87,14 +96,7 @@ void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
 //   return fileContent;
 // }
 
-// ===============================================================================
-// Delete File from LittleFS
-// ===============================================================================
-// void deleteFile(fs::FS &fs, const char * path){
-//   if (Debug) { Serial.print(F("Deleting: ")); Serial.println(path); }
-//   if(fs.remove(path)) { if (Debug)  Serial.println(F("- file deleted")); }
-//   else { if (Debug)  Serial.println(F("- delete failed")); }  
-// }
+
 
 // ===============================================================================
 // Get size from data-file in LittleFS

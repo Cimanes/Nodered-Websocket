@@ -2,11 +2,12 @@
 // LIBRARIES
 //======================================
 #include "00_globals.hpp"
-#include "01_FileSys.hpp"
-#include "02_wifi.hpp"
-#include "03_bme.hpp"
-#include "04_websocket.hpp"
-#include "05_reboot.hpp"
+#include "01_JSON.hpp"
+#include "02_FileSys.hpp"
+#include "03_wifi.hpp"
+#include "04_bme.hpp"
+#include "05_websocket.hpp"
+#include "06_reboot.hpp"
 
 //======================================
 // SETUP

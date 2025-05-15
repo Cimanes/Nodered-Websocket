@@ -74,10 +74,10 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
     // IPAddress hostIP(192, 168, 1, 133);
     
     // Option: user entry IP address:-------------------------
-    IPAddress localIP;
-    IPAddress gateway;
-    IPAddress dns;
-    localIP.fromString(esp_ip);       // Option: 
+    IPAddress localIP;          // IP address of the ESP
+    IPAddress gateway;          // IP address of the router
+    IPAddress dns;              // IP address of the DNS (= router)
+    localIP.fromString(esp_ip);
     gateway.fromString(router);
     dns.fromString(router);
     hostIP.fromString(host);
@@ -109,7 +109,7 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   void getWiFi() {
     fileToCharPtr(LittleFS, ssidPath, ssid)     ; // Search for stored SSID
     fileToCharPtr(LittleFS, passPath, pass)     ; // Search for stored Password
-    fileToCharPtr(LittleFS, ipPath, esp_ip)         ; // Search for stored local IP
+    fileToCharPtr(LittleFS, ipPath, esp_ip)     ; // Search for stored local IP
     fileToCharPtr(LittleFS, routerPath, router) ; // Search for stored router IP
     fileToCharPtr(LittleFS, hostPath, host)     ; // Search for stored host IP
   }
@@ -171,6 +171,7 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
             Serial.println(router);
             writeFile(LittleFS, routerPath, router);
           }
+          // HTTP POST node-red host IP value
           else if (p->name() == PARAM_INPUT_5) {
             strncpy(host, p->value().c_str(), paramSize - 1);
             host[paramSize - 1] = '\0'; // Ensure null-termination
