@@ -37,10 +37,6 @@
             "0f3e635564d267e5",
             "e324d449eda83877",
             "ba4652cdfbac4504",
-            "c2dcf9fe2882c26c",
-            "107dbd27acb366e1",
-            "0cdd99357493f9f5",
-            "a7d7c4eef88baee1",
             "7f51e8b448d456cb",
             "19bfa9706260c834",
             "25109779614fcc36",
@@ -55,7 +51,11 @@
             "b24a5815257570f5",
             "bc3546db21834208",
             "7f9e9fa6bcde4996",
-            "c21c18e8c8df4f78"
+            "c21c18e8c8df4f78",
+            "c2dcf9fe2882c26c",
+            "107dbd27acb366e1",
+            "0cdd99357493f9f5",
+            "a7d7c4eef88baee1"
         ],
         "x": 14,
         "y": 19,
@@ -98,12 +98,13 @@
             "f86406eb7d3704a1",
             "ed9ae5b74626bf48",
             "0ea18f2f79bcf3c8",
-            "0d5ef06f9fec205e"
+            "0d5ef06f9fec205e",
+            "5ca63a5b5666aedf"
         ],
         "x": 14,
         "y": 819,
-        "w": 972,
-        "h": 582
+        "w": 932,
+        "h": 642
     },
     {
         "id": "37a53430539c91c4",
@@ -114,7 +115,6 @@
         "y": 80,
         "wires": [
             [
-                "ba4652cdfbac4504",
                 "952dc4b717bf2124"
             ]
         ]
@@ -124,10 +124,10 @@
         "type": "websocket in",
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
-        "name": "BME --> /ws/readings",
+        "name": "BME --> /ws",
         "server": "8dbef215b4efa8a7",
         "client": "",
-        "x": 160,
+        "x": 130,
         "y": 260,
         "wires": [
             [
@@ -140,10 +140,10 @@
         "type": "websocket out",
         "z": "3dac80766e61d74c",
         "g": "6667f11d73617129",
-        "name": "",
+        "name": "/ws  --> BME",
         "server": "8dbef215b4efa8a7",
         "client": "",
-        "x": 870,
+        "x": 850,
         "y": 1080,
         "wires": []
     },
@@ -572,7 +572,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1120,
+        "y": 1160,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -597,8 +597,8 @@
         "className": "",
         "icon": "",
         "iconPosition": "left",
-        "payload": "true",
-        "payloadType": "bool",
+        "payload": "",
+        "payloadType": "num",
         "topic": "reboot",
         "topicType": "str",
         "buttonColor": "",
@@ -681,7 +681,7 @@
         "topicType": "str",
         "min": "10",
         "max": "36000",
-        "step": 1,
+        "step": "5",
         "tooltip": "",
         "passthru": true,
         "sendOnBlur": false,
@@ -691,7 +691,7 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "spinner": "stacked",
+        "spinner": "default",
         "x": 340,
         "y": 700,
         "wires": [
@@ -895,7 +895,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1060,
+        "y": 1100,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -925,7 +925,7 @@
         "payload": "false",
         "payloadType": "bool",
         "x": 150,
-        "y": 1060,
+        "y": 1100,
         "wires": [
             [
                 "5d2a53e5d53ca1a5"
@@ -978,8 +978,8 @@
         "className": "",
         "icon": "",
         "iconPosition": "left",
-        "payload": "true",
-        "payloadType": "bool",
+        "payload": "",
+        "payloadType": "num",
         "topic": "read",
         "topicType": "str",
         "buttonColor": "",
@@ -993,7 +993,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 390,
-        "y": 1240,
+        "y": 1060,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1020,16 +1020,16 @@
                 "37a53430539c91c4"
             ],
             [
-                "107dbd27acb366e1"
+                "98c480a603ae64ac"
             ],
             [
-                "c2dcf9fe2882c26c"
+                "19bfa9706260c834"
             ],
             [
-                "a7d7c4eef88baee1"
+                "1e34c19d468c41e9"
             ],
             [
-                "0cdd99357493f9f5"
+                "25109779614fcc36"
             ],
             [
                 "d46901a0d2fab6f9"
@@ -1085,7 +1085,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1180,
+        "y": 1220,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1117,7 +1117,6 @@
         "wires": [
             [
                 "0f3e635564d267e5",
-                "e324d449eda83877",
                 "80f5bfca25f4a9f5"
             ]
         ]
@@ -1149,6 +1148,7 @@
         "id": "e324d449eda83877",
         "type": "ui-text",
         "z": "3dac80766e61d74c",
+        "d": true,
         "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
         "order": 6,
@@ -1165,16 +1165,17 @@
         "wrapText": false,
         "className": "",
         "x": 890,
-        "y": 500,
+        "y": 540,
         "wires": []
     },
     {
         "id": "ba4652cdfbac4504",
         "type": "ui-text",
         "z": "3dac80766e61d74c",
+        "d": true,
         "g": "dd09abb205df0e7f",
         "group": "f051265a9e43fe49",
-        "order": 5,
+        "order": 1,
         "width": 2,
         "height": 0,
         "name": "BME Interval feedback",
@@ -1214,7 +1215,7 @@
         "payload": "true",
         "payloadType": "bool",
         "x": 150,
-        "y": 1120,
+        "y": 1160,
         "wires": [
             [
                 "b4db417f9850d602"
@@ -1244,118 +1245,10 @@
         "payload": "false",
         "payloadType": "bool",
         "x": 140,
-        "y": 1180,
+        "y": 1220,
         "wires": [
             [
                 "b1979aac4e95b2af"
-            ]
-        ]
-    },
-    {
-        "id": "c2dcf9fe2882c26c",
-        "type": "ui-template",
-        "z": "3dac80766e61d74c",
-        "g": "dd09abb205df0e7f",
-        "group": "f051265a9e43fe49",
-        "page": "",
-        "ui": "",
-        "name": "Boiler state",
-        "order": 2,
-        "width": 2,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 710,
-        "y": 180,
-        "wires": [
-            [
-                "19bfa9706260c834"
-            ]
-        ]
-    },
-    {
-        "id": "107dbd27acb366e1",
-        "type": "ui-template",
-        "z": "3dac80766e61d74c",
-        "g": "dd09abb205df0e7f",
-        "group": "f051265a9e43fe49",
-        "page": "",
-        "ui": "",
-        "name": "Heater state",
-        "order": 1,
-        "width": 2,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"boxUnknown\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 710,
-        "y": 140,
-        "wires": [
-            [
-                "98c480a603ae64ac"
-            ]
-        ]
-    },
-    {
-        "id": "0cdd99357493f9f5",
-        "type": "ui-template",
-        "z": "3dac80766e61d74c",
-        "g": "dd09abb205df0e7f",
-        "group": "f051265a9e43fe49",
-        "page": "",
-        "ui": "",
-        "name": "LED state",
-        "order": 4,
-        "width": 2,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 0 ? \"ON\"\n            : this.msg.payload == 1 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 0 ? \"boxOn\"\n            : this.msg.payload == 1 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 700,
-        "y": 260,
-        "wires": [
-            [
-                "25109779614fcc36"
-            ]
-        ]
-    },
-    {
-        "id": "a7d7c4eef88baee1",
-        "type": "ui-template",
-        "z": "3dac80766e61d74c",
-        "g": "dd09abb205df0e7f",
-        "group": "f051265a9e43fe49",
-        "page": "",
-        "ui": "",
-        "name": "Debug state",
-        "order": 3,
-        "width": 2,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 710,
-        "y": 220,
-        "wires": [
-            [
-                "1e34c19d468c41e9"
             ]
         ]
     },
@@ -1406,7 +1299,7 @@
         "shape": "square",
         "showBorder": false,
         "showGlow": false,
-        "x": 880,
+        "x": 700,
         "y": 180,
         "wires": []
     },
@@ -1439,7 +1332,7 @@
         "shape": "square",
         "showBorder": false,
         "showGlow": false,
-        "x": 880,
+        "x": 700,
         "y": 260,
         "wires": []
     },
@@ -1472,7 +1365,7 @@
         "shape": "square",
         "showBorder": false,
         "showGlow": false,
-        "x": 890,
+        "x": 710,
         "y": 220,
         "wires": []
     },
@@ -1505,7 +1398,7 @@
         "shape": "square",
         "showBorder": false,
         "showGlow": false,
-        "x": 890,
+        "x": 710,
         "y": 140,
         "wires": []
     },
@@ -1552,7 +1445,7 @@
         "wrapText": false,
         "className": "",
         "x": 890,
-        "y": 540,
+        "y": 500,
         "wires": []
     },
     {
@@ -1618,7 +1511,7 @@
         "onceDelay": 1,
         "topic": "",
         "x": 160,
-        "y": 1360,
+        "y": 1420,
         "wires": [
             [
                 "8f7d8efecf875015"
@@ -1643,8 +1536,8 @@
                 "module": "os"
             }
         ],
-        "x": 370,
-        "y": 1360,
+        "x": 410,
+        "y": 1420,
         "wires": [
             [
                 "6a7af7bc0bd4212a"
@@ -1670,8 +1563,8 @@
         "color": "#717171",
         "wrapText": false,
         "className": "",
-        "x": 560,
-        "y": 1360,
+        "x": 660,
+        "y": 1420,
         "wires": []
     },
     {
@@ -1715,8 +1608,8 @@
         "className": "",
         "icon": "",
         "iconPosition": "left",
-        "payload": "true",
-        "payloadType": "bool",
+        "payload": "",
+        "payloadType": "num",
         "topic": "espIP",
         "topicType": "str",
         "buttonColor": "",
@@ -1729,7 +1622,7 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 370,
+        "x": 410,
         "y": 1320,
         "wires": [
             [
@@ -1797,7 +1690,7 @@
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
         "group": "37492f9f10e66ef3",
-        "name": "read",
+        "name": "read BME",
         "label": "Trigger",
         "order": 4,
         "width": 2,
@@ -1823,7 +1716,7 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 170,
+        "x": 160,
         "y": 760,
         "wires": [
             [
@@ -1841,7 +1734,7 @@
         "links": [
             "0d5ef06f9fec205e"
         ],
-        "x": 265,
+        "x": 295,
         "y": 760,
         "wires": []
     },
@@ -1855,7 +1748,7 @@
             "c21c18e8c8df4f78"
         ],
         "x": 295,
-        "y": 1240,
+        "y": 1060,
         "wires": [
             [
                 "c5c4d7b6ec196e16"
@@ -1863,9 +1756,153 @@
         ]
     },
     {
+        "id": "5ca63a5b5666aedf",
+        "type": "ui-button",
+        "z": "3dac80766e61d74c",
+        "g": "6667f11d73617129",
+        "group": "6eb4c34296451018",
+        "name": "Reset Network",
+        "label": "Reset Network",
+        "order": 3,
+        "width": 2,
+        "height": 0,
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "num",
+        "topic": "wifi",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 420,
+        "y": 1360,
+        "wires": [
+            [
+                "6b62d61d692b112a"
+            ]
+        ]
+    },
+    {
+        "id": "c2dcf9fe2882c26c",
+        "type": "ui-template",
+        "z": "3dac80766e61d74c",
+        "d": true,
+        "g": "dd09abb205df0e7f",
+        "group": "f051265a9e43fe49",
+        "page": "",
+        "ui": "",
+        "name": "Boiler state",
+        "order": 3,
+        "width": 2,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 870,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "107dbd27acb366e1",
+        "type": "ui-template",
+        "z": "3dac80766e61d74c",
+        "d": true,
+        "g": "dd09abb205df0e7f",
+        "group": "f051265a9e43fe49",
+        "page": "",
+        "ui": "",
+        "name": "Heater state",
+        "order": 2,
+        "width": 2,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"boxUnknown\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 870,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0cdd99357493f9f5",
+        "type": "ui-template",
+        "z": "3dac80766e61d74c",
+        "d": true,
+        "g": "dd09abb205df0e7f",
+        "group": "f051265a9e43fe49",
+        "page": "",
+        "ui": "",
+        "name": "LED state",
+        "order": 5,
+        "width": 2,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 0 ? \"ON\"\n            : this.msg.payload == 1 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 0 ? \"boxOn\"\n            : this.msg.payload == 1 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 860,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a7d7c4eef88baee1",
+        "type": "ui-template",
+        "z": "3dac80766e61d74c",
+        "d": true,
+        "g": "dd09abb205df0e7f",
+        "group": "f051265a9e43fe49",
+        "page": "",
+        "ui": "",
+        "name": "Debug state",
+        "order": 4,
+        "width": 2,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div :class=\"['box', boxClass]\">\n    {{ msg.topic }}: {{ boxText }}\n  </div>\n</template>\n\n<script>\nexport default {\n  computed: {\n    boxText() {\n      return this.msg.payload == 1 ? \"ON\"\n            : this.msg.payload == 0 ? \"OFF\"\n            : \"¿--?\";\n    },\n    boxClass() {\n      return this.msg.payload == 1 ? \"boxOn\"\n            : this.msg.payload == 0 ? \"boxOff\"\n            : \"boxUnknown\";\n    },\n  },\n};\n</script>\n\n<style scoped>\n.box {\n  width: 150px;\n  height: 45px;\n  color: white;\n  font-size: 18px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 15px;\n  background-color: grey; /* Default background */\n}\n\n.boxOn { background-color: #0A5A78; }   /* Blue */\n.boxOff { background-color: #575757; }  /* Grey */\n.boxUnknown { background-color: lightgrey; }  /* Default lightgrey */\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 870,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "8dbef215b4efa8a7",
         "type": "websocket-listener",
-        "path": "/ws/readings",
+        "path": "/ws",
         "wholemsg": "true"
     },
     {
@@ -1960,7 +1997,7 @@
         "width": 2,
         "height": 1,
         "order": 4,
-        "showTitle": true,
+        "showTitle": false,
         "className": "",
         "visible": "true",
         "disabled": "false",
