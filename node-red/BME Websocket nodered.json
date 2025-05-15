@@ -26,7 +26,6 @@
             "319aac19b602f4f7",
             "bd9c489eca802592",
             "6db98c8dd04fb2cc",
-            "f9ca9b60ce0ae661",
             "b3cfc5f019b1ee53",
             "c8170cbbab6371f6",
             "e94f7adeb8ff4564",
@@ -55,12 +54,17 @@
             "c2dcf9fe2882c26c",
             "107dbd27acb366e1",
             "0cdd99357493f9f5",
-            "a7d7c4eef88baee1"
+            "a7d7c4eef88baee1",
+            "627caa1b5cd3dd83",
+            "508756cca5495592",
+            "0a5a46fde9fa019a",
+            "70c8b7a389fb0976",
+            "60a2aa154f0978cd"
         ],
         "x": 14,
         "y": 19,
-        "w": 972,
-        "h": 782
+        "w": 1032,
+        "h": 822
     },
     {
         "id": "6667f11d73617129",
@@ -102,7 +106,7 @@
             "5ca63a5b5666aedf"
         ],
         "x": 14,
-        "y": 819,
+        "y": 899,
         "w": 932,
         "h": 642
     },
@@ -144,7 +148,7 @@
         "server": "8dbef215b4efa8a7",
         "client": "",
         "x": 850,
-        "y": 1080,
+        "y": 1160,
         "wires": []
     },
     {
@@ -216,7 +220,7 @@
         "className": "",
         "interpolation": "linear",
         "x": 710,
-        "y": 640,
+        "y": 680,
         "wires": [
             []
         ]
@@ -290,8 +294,8 @@
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
         "group": "08f2c61ccabaf911",
-        "name": "Chart Pres",
-        "label": "BME - Pressure (mbar)",
+        "name": "Chart SLP",
+        "label": "Sea Level Pressure (mbar)",
         "order": 1,
         "chartType": "line",
         "category": "pres",
@@ -307,8 +311,8 @@
         "yAxisLabel": "",
         "yAxisProperty": "payload",
         "yAxisPropertyType": "msg",
-        "ymin": "940",
-        "ymax": "980",
+        "ymin": "980",
+        "ymax": "1040",
         "bins": 10,
         "action": "append",
         "stackSeries": false,
@@ -342,7 +346,7 @@
         "className": "",
         "interpolation": "linear",
         "x": 710,
-        "y": 500,
+        "y": 580,
         "wires": [
             []
         ]
@@ -354,7 +358,7 @@
         "g": "dd09abb205df0e7f",
         "name": "Gauge Temp",
         "group": "37492f9f10e66ef3",
-        "order": 2,
+        "order": 6,
         "width": 3,
         "height": 3,
         "gtype": "gauge-half",
@@ -387,7 +391,7 @@
         "styleGlow": false,
         "className": "",
         "x": 710,
-        "y": 680,
+        "y": 720,
         "wires": []
     },
     {
@@ -397,7 +401,7 @@
         "g": "dd09abb205df0e7f",
         "name": "Gauge Hum",
         "group": "37492f9f10e66ef3",
-        "order": 6,
+        "order": 8,
         "width": 3,
         "height": 3,
         "gtype": "gauge-half",
@@ -434,49 +438,6 @@
         "wires": []
     },
     {
-        "id": "f9ca9b60ce0ae661",
-        "type": "ui-gauge",
-        "z": "3dac80766e61d74c",
-        "g": "dd09abb205df0e7f",
-        "name": "Gauge Pres",
-        "group": "37492f9f10e66ef3",
-        "order": 5,
-        "width": 3,
-        "height": 3,
-        "gtype": "gauge-half",
-        "gstyle": "needle",
-        "title": "Press",
-        "units": "mbar",
-        "icon": "",
-        "prefix": "",
-        "suffix": "",
-        "segments": [
-            {
-                "from": "975",
-                "color": "#a6cd18"
-            },
-            {
-                "from": "1010",
-                "color": "#08a612"
-            },
-            {
-                "from": "1025",
-                "color": "#58e2fe"
-            }
-        ],
-        "min": "975",
-        "max": "1050",
-        "sizeThickness": 16,
-        "sizeGap": 4,
-        "sizeKeyThickness": 8,
-        "styleRounded": true,
-        "styleGlow": false,
-        "className": "",
-        "x": 710,
-        "y": 580,
-        "wires": []
-    },
-    {
         "id": "b3cfc5f019b1ee53",
         "type": "function",
         "z": "3dac80766e61d74c",
@@ -490,7 +451,7 @@
         "finalize": "",
         "libs": [],
         "x": 460,
-        "y": 640,
+        "y": 680,
         "wires": [
             [
                 "bd9c489eca802592",
@@ -527,7 +488,7 @@
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
         "name": "Get BME Pres",
-        "func": "const newMsg = {\n    \"payload\" : msg.pres / 10,\n    \"topic\" : \"pres\"\n};\nreturn newMsg;",
+        "func": "const newMsg = {\n    \"topic\" : \"pres\",\n    \"payload\": msg.pres / 10\n};\nreturn newMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -538,9 +499,9 @@
         "y": 500,
         "wires": [
             [
-                "319aac19b602f4f7",
-                "f9ca9b60ce0ae661",
-                "d2e032abe9130159"
+                "d2e032abe9130159",
+                "0a5a46fde9fa019a",
+                "60a2aa154f0978cd"
             ]
         ]
     },
@@ -572,7 +533,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1160,
+        "y": 1240,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -612,7 +573,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 390,
-        "y": 1280,
+        "y": 1360,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -648,7 +609,7 @@
         "colorThumb": "",
         "showTextField": true,
         "x": 350,
-        "y": 960,
+        "y": 1040,
         "wires": [
             [
                 "ba91eba864a7bdcd"
@@ -663,7 +624,7 @@
         "name": "Description",
         "info": "1. ### Process user inputs\n    -  Thermostat deadband --> create flow variable\n    -  Thermostat control --> evaluate heater required\n    -  GPIO controls --> 0 / 1\n2. ### Clean message (topic & msg only)\n3. ### Send message to ESP via websocket\n4. ### Show IP addresses\n    - Get IP address from ESP (ws client)\n    - Node-red IP address (ws server)",
         "x": 100,
-        "y": 860,
+        "y": 940,
         "wires": []
     },
     {
@@ -674,7 +635,7 @@
         "group": "37492f9f10e66ef3",
         "name": "interval",
         "label": "BME interval",
-        "order": 3,
+        "order": 1,
         "width": 3,
         "height": 0,
         "topic": "interval",
@@ -682,7 +643,7 @@
         "min": "10",
         "max": "36000",
         "step": "5",
-        "tooltip": "",
+        "tooltip": "seconds between BME readings",
         "passthru": true,
         "sendOnBlur": false,
         "sendOnEnter": true,
@@ -692,8 +653,8 @@
         "iconPosition": "left",
         "iconInnerPosition": "inside",
         "spinner": "default",
-        "x": 340,
-        "y": 700,
+        "x": 320,
+        "y": 740,
         "wires": [
             [
                 "bc3546db21834208"
@@ -714,7 +675,7 @@
         "finalize": "",
         "libs": [],
         "x": 670,
-        "y": 1080,
+        "y": 1160,
         "wires": [
             [
                 "ad3e1c6852897a8a",
@@ -736,7 +697,7 @@
         "finalize": "",
         "libs": [],
         "x": 660,
-        "y": 920,
+        "y": 1000,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -770,7 +731,7 @@
         "iconInnerPosition": "inside",
         "spinner": "stacked",
         "x": 350,
-        "y": 920,
+        "y": 1000,
         "wires": [
             [
                 "ba91eba864a7bdcd"
@@ -800,7 +761,7 @@
         "payload": "0.2",
         "payloadType": "num",
         "x": 160,
-        "y": 920,
+        "y": 1000,
         "wires": [
             [
                 "2ca24d054e1a9b71"
@@ -830,7 +791,7 @@
         "payload": "5",
         "payloadType": "num",
         "x": 160,
-        "y": 960,
+        "y": 1040,
         "wires": [
             [
                 "3a49dc07585c056f"
@@ -859,8 +820,8 @@
         "topic": "",
         "payload": "900",
         "payloadType": "num",
-        "x": 190,
-        "y": 700,
+        "x": 170,
+        "y": 740,
         "wires": [
             [
                 "b24a5815257570f5"
@@ -895,7 +856,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1100,
+        "y": 1180,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -925,7 +886,7 @@
         "payload": "false",
         "payloadType": "bool",
         "x": 150,
-        "y": 1100,
+        "y": 1180,
         "wires": [
             [
                 "5d2a53e5d53ca1a5"
@@ -946,7 +907,7 @@
         "finalize": "",
         "libs": [],
         "x": 220,
-        "y": 400,
+        "y": 360,
         "wires": [
             [
                 "7f51e8b448d456cb",
@@ -993,7 +954,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 390,
-        "y": 1060,
+        "y": 1140,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1085,7 +1046,7 @@
         "officon": "",
         "offcolor": "",
         "x": 390,
-        "y": 1220,
+        "y": 1300,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1113,7 +1074,7 @@
         "to": "",
         "reg": false,
         "x": 710,
-        "y": 540,
+        "y": 500,
         "wires": [
             [
                 "0f3e635564d267e5",
@@ -1127,7 +1088,7 @@
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
         "group": "37492f9f10e66ef3",
-        "order": 1,
+        "order": 3,
         "width": 3,
         "height": 1,
         "name": "Last reading",
@@ -1141,7 +1102,7 @@
         "wrapText": false,
         "className": "",
         "x": 890,
-        "y": 580,
+        "y": 540,
         "wires": []
     },
     {
@@ -1164,8 +1125,8 @@
         "color": "#717171",
         "wrapText": false,
         "className": "",
-        "x": 890,
-        "y": 540,
+        "x": 950,
+        "y": 460,
         "wires": []
     },
     {
@@ -1188,7 +1149,7 @@
         "color": "#717171",
         "wrapText": false,
         "className": "",
-        "x": 740,
+        "x": 920,
         "y": 60,
         "wires": []
     },
@@ -1215,7 +1176,7 @@
         "payload": "true",
         "payloadType": "bool",
         "x": 150,
-        "y": 1160,
+        "y": 1240,
         "wires": [
             [
                 "b4db417f9850d602"
@@ -1245,7 +1206,7 @@
         "payload": "false",
         "payloadType": "bool",
         "x": 140,
-        "y": 1220,
+        "y": 1300,
         "wires": [
             [
                 "b1979aac4e95b2af"
@@ -1266,7 +1227,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 450,
+        "x": 430,
         "y": 320,
         "wires": []
     },
@@ -1463,7 +1424,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 830,
-        "y": 1140,
+        "y": 1220,
         "wires": []
     },
     {
@@ -1476,7 +1437,7 @@
             "2ce0dede2ca80f70"
         ],
         "x": 535,
-        "y": 880,
+        "y": 960,
         "wires": [
             [
                 "ba91eba864a7bdcd",
@@ -1495,7 +1456,7 @@
             "819a7b810339db92"
         ],
         "x": 655,
-        "y": 720,
+        "y": 760,
         "wires": []
     },
     {
@@ -1511,7 +1472,7 @@
         "onceDelay": 1,
         "topic": "",
         "x": 160,
-        "y": 1420,
+        "y": 1500,
         "wires": [
             [
                 "8f7d8efecf875015"
@@ -1537,7 +1498,7 @@
             }
         ],
         "x": 410,
-        "y": 1420,
+        "y": 1500,
         "wires": [
             [
                 "6a7af7bc0bd4212a"
@@ -1564,7 +1525,7 @@
         "wrapText": false,
         "className": "",
         "x": 660,
-        "y": 1420,
+        "y": 1500,
         "wires": []
     },
     {
@@ -1623,7 +1584,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 410,
-        "y": 1320,
+        "y": 1400,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1640,8 +1601,8 @@
         "links": [
             "ed9ae5b74626bf48"
         ],
-        "x": 435,
-        "y": 700,
+        "x": 415,
+        "y": 740,
         "wires": []
     },
     {
@@ -1654,7 +1615,7 @@
             "bc3546db21834208"
         ],
         "x": 425,
-        "y": 1020,
+        "y": 1100,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1681,7 +1642,7 @@
         "wrapText": false,
         "className": "",
         "x": 650,
-        "y": 880,
+        "y": 960,
         "wires": []
     },
     {
@@ -1693,7 +1654,7 @@
         "name": "read BME",
         "label": "Trigger",
         "order": 4,
-        "width": 2,
+        "width": 3,
         "height": 0,
         "emulateClick": true,
         "tooltip": "",
@@ -1716,8 +1677,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 160,
-        "y": 760,
+        "x": 140,
+        "y": 800,
         "wires": [
             [
                 "c21c18e8c8df4f78"
@@ -1734,8 +1695,8 @@
         "links": [
             "0d5ef06f9fec205e"
         ],
-        "x": 295,
-        "y": 760,
+        "x": 275,
+        "y": 800,
         "wires": []
     },
     {
@@ -1748,7 +1709,7 @@
             "c21c18e8c8df4f78"
         ],
         "x": 295,
-        "y": 1060,
+        "y": 1140,
         "wires": [
             [
                 "c5c4d7b6ec196e16"
@@ -1788,7 +1749,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 420,
-        "y": 1360,
+        "y": 1440,
         "wires": [
             [
                 "6b62d61d692b112a"
@@ -1815,7 +1776,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 870,
+        "x": 950,
         "y": 180,
         "wires": [
             []
@@ -1841,7 +1802,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 870,
+        "x": 950,
         "y": 140,
         "wires": [
             []
@@ -1867,7 +1828,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 860,
+        "x": 960,
         "y": 260,
         "wires": [
             []
@@ -1893,11 +1854,159 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 870,
+        "x": 950,
         "y": 220,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "627caa1b5cd3dd83",
+        "type": "ui-number-input",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "group": "37492f9f10e66ef3",
+        "name": "elevation",
+        "label": "Elevation",
+        "order": 2,
+        "width": 3,
+        "height": 0,
+        "topic": "elevation",
+        "topicType": "str",
+        "min": "0",
+        "max": "5000",
+        "step": "10",
+        "tooltip": "Toledo: 529m / Cimanes: 903m",
+        "passthru": true,
+        "sendOnBlur": false,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "spinner": "default",
+        "x": 260,
+        "y": 580,
+        "wires": [
+            [
+                "0a5a46fde9fa019a"
+            ]
+        ]
+    },
+    {
+        "id": "508756cca5495592",
+        "type": "inject",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Init Elevation",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "529",
+        "payloadType": "num",
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "627caa1b5cd3dd83"
+            ]
+        ]
+    },
+    {
+        "id": "0a5a46fde9fa019a",
+        "type": "function",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Get SLP",
+        "func": "context.set(msg.topic, msg.payload);\n\nif (flow.get(\"temp\") === undefined || context.get(\"pres\") === undefined || context.get(\"elevation\") === undefined) {\n    node.warn(\"Missing required inputs. Waiting for all inputs to be available.\");\n    return null; // Don't compute until all data is available\n}\n\nconst T = flow.get(\"temp\") + 273.15,\n    L = 0.0065,\n    H = context.get(\"elevation\"),\n    exp = -5.257,\n    P = (context.get(\"pres\") * Math.pow(1 - (L * H) / (T + (L * H)), exp)).toFixed(0);\n\nconst newMsg = {\n    \"topic\" : \"pres\",\n    \"payload\" : P\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 580,
+        "wires": [
+            [
+                "319aac19b602f4f7",
+                "70c8b7a389fb0976"
+            ]
+        ]
+    },
+    {
+        "id": "70c8b7a389fb0976",
+        "type": "ui-gauge",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "name": "Gauge SLP",
+        "group": "37492f9f10e66ef3",
+        "order": 7,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "SLP",
+        "units": "mbar",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "975",
+                "color": "#a6cd18"
+            },
+            {
+                "from": "1010",
+                "color": "#08a612"
+            },
+            {
+                "from": "1025",
+                "color": "#58e2fe"
+            }
+        ],
+        "min": "975",
+        "max": "1050",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 710,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "60a2aa154f0978cd",
+        "type": "ui-text",
+        "z": "3dac80766e61d74c",
+        "g": "dd09abb205df0e7f",
+        "group": "37492f9f10e66ef3",
+        "order": 5,
+        "width": 3,
+        "height": 0,
+        "name": "Press",
+        "label": "Measured pressure: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 690,
+        "y": 540,
+        "wires": []
     },
     {
         "id": "8dbef215b4efa8a7",

@@ -57,12 +57,20 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   const char* hostPath = "/host.txt"    ;
   // const char* paramPaths[5] = { "/ssid.txt", "/pass.txt", "/ip.txt", "/router.txt", "/host.txt" };
 
+  void getWiFi() {
+    fileToCharPtr(LittleFS, ssidPath, ssid)     ; // Search for stored SSID
+    fileToCharPtr(LittleFS, passPath, pass)     ; // Search for stored Password
+    fileToCharPtr(LittleFS, ipPath, esp_ip)     ; // Search for stored local IP
+    fileToCharPtr(LittleFS, routerPath, router) ; // Search for stored router IP
+    fileToCharPtr(LittleFS, hostPath, host)     ; // Search for stored host IP
+  }
+  
   // Function to Initialize Wifi
   bool initWiFi() {
     if(strcmp(ssid, "") == 0 || strcmp(esp_ip, "") == 0 || strcmp(router, "") == 0 ){
       Serial.println(F("Undefined WiFi"));
       return false;
-    }  
+    }
     
     // Option: required for static IP address-----------------
     IPAddress subnet(255, 255, 0, 0);
@@ -106,13 +114,7 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
     return true;
   }
 
-  void getWiFi() {
-    fileToCharPtr(LittleFS, ssidPath, ssid)     ; // Search for stored SSID
-    fileToCharPtr(LittleFS, passPath, pass)     ; // Search for stored Password
-    fileToCharPtr(LittleFS, ipPath, esp_ip)     ; // Search for stored local IP
-    fileToCharPtr(LittleFS, routerPath, router) ; // Search for stored router IP
-    fileToCharPtr(LittleFS, hostPath, host)     ; // Search for stored host IP
-  }
+
 
   // =============================================
   // Function to allow user to enter ssid and password
