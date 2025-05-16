@@ -5,58 +5,79 @@
 #include <WiFiUdp.h>
 #if defined(ESP32)
   #include <WiFi.h>
-  #include <AsyncTCP.h>
+  // #include <AsyncTCP.h>
 #elif defined(ESP8266)
   #include <ESP8266WiFi.h>
-  #include <ESPAsyncTCP.h>
+  // #include <ESPAsyncTCP.h>
 #endif
 #ifdef useOTA
   #include <AsyncElegantOTA.h>
 #endif
 
 // =============================================
-// VARIABLES
+// GLOBAL VARIABLES
 // =============================================
 // Create AsyncWebServer object on port 80, a WebSocket object ("/wsConsole") and an Event Source ("/eventsBME"):
 AsyncWebServer server(80)               ;   // Required for HTTP 
 const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean websocket
 
-
-#ifdef wifiManager
-  IPAddress hostIP;             // User entry for node-red server IP
-#else 
-#define hostIP "192.168.1.133"  // Had coded Node-red server IP
-#endif
-// Option: Hard coded IP address:-------------------------
-// IPAddress hostIP(192, 168, 1, 133);
-
 #if defined(wifiManager)
   // =============================================
-  // Wifi Manager: set SSID, Password and IP address
+  // Wifi Manager Variables: set SSID, Password and IP address
   // =============================================
   // Search for parameter in HTTP POST request received from user
+  // const char* PARAM_INPUTS[5] = { "ssid", "pass", "ip", "router", "host" };
   const char* PARAM_INPUT_1 = "ssid"  ;
   const char* PARAM_INPUT_2 = "pass"  ;
   const char* PARAM_INPUT_3 = "ip"    ;
   const char* PARAM_INPUT_4 = "router";
   const char* PARAM_INPUT_5 = "host"  ;
-  // const char* PARAM_INPUTS[5] = { "ssid", "pass", "ip", "router", "host" };
 
   //Variables to save values from HTML form
   char ssid[paramSize]  ;
   char pass[paramSize]  ;
-  char esp_ip[paramSize]    ;
+  char esp_ip[paramSize];
   char router[paramSize];
   char host[paramSize]  ;
 
   // File paths to save input values permanently
+  // const char* paramPaths[5] = { "/ssid.txt", "/pass.txt", "/ip.txt", "/router.txt", "/host.txt" };
   const char* ssidPath = "/ssid.txt"    ;
   const char* passPath = "/pass.txt"    ;
   const char* ipPath = "/ip.txt"        ;
   const char* routerPath = "/router.txt";
   const char* hostPath = "/host.txt"    ;
-  // const char* paramPaths[5] = { "/ssid.txt", "/pass.txt", "/ip.txt", "/router.txt", "/host.txt" };
 
+  IPAddress hostIP;             // User entry for node-red server IP
+
+#else
+  // =============================================
+  // Hardcoded Wifi Variables: Credentials. 
+  // =============================================
+  #define Toledo      // OPTIONAL: Choose Wifi credentials [Cimanes, Toledo, apartment]
+  #if defined(Cimanes)
+    const char ssid[] = "Pepe_Cimanes";
+    const char pass[] = "Cimanes7581" ;
+  #elif defined(Toledo)
+    const char ssid[] = "MIWIFI_HtR7" ;
+    const char pass[] = "TdQTDf3H"    ;
+  #elif defined(apartment)
+    const char ssid[] = "John-Rs-Foodhall_EXT" ;
+    const char pass[] = "sive2017"    ;
+  #endif
+
+  const char* esp_ip = "192.168.1.213";
+  const IPAddress hostIP(192, 168, 1, 133);   // Had coded Node-red server IP    WiFi.mode(WIFI_STA);
+#endif
+
+
+
+#if defined (wifiManager)
+// =============================================
+// Wifi Manager Functions
+// =============================================
+
+// Get SSID, Password and IP address from LittleFS files
   void getWiFi() {
     fileToCharPtr(LittleFS, ssidPath, ssid)     ; // Search for stored SSID
     fileToCharPtr(LittleFS, passPath, pass)     ; // Search for stored Password
@@ -72,19 +93,11 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
       return false;
     }
     
-    // Option: required for static IP address-----------------
-    IPAddress subnet(255, 255, 0, 0);
-
-    // Option: Hard coded IP address:-------------------------
-    // IPAddress localIP(192, 168, 1, 200); 
-    // IPAddress gateway(192, 168, 1, 254);
-    // IPAddress dns(192, 168, 1, 254);
-    // IPAddress hostIP(192, 168, 1, 133);
-    
-    // Option: user entry IP address:-------------------------
-    IPAddress localIP;          // IP address of the ESP
+    const IPAddress subnet(255, 255, 0, 0);   // Subnet mask required for static IP address
     IPAddress gateway;          // IP address of the router
     IPAddress dns;              // IP address of the DNS (= router)
+    IPAddress localIP;          // IP address of the ESP
+
     localIP.fromString(esp_ip);
     gateway.fromString(router);
     dns.fromString(router);
@@ -94,31 +107,23 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
       if (Debug) Serial.println(F("STA config Failed"));
       return false;
     }
-    //------------------------------------------------------------------------
-
-    WiFi.mode(WIFI_STA);   
-    WiFi.begin(ssid, pass);
+    WiFi.begin(ssid, pass);   // STA mode is default
 
     Serial.print(F("Connecting .."));
     while (WiFi.status() != WL_CONNECTED) { 
       Serial.print('.'); delay(1000);
     }
     if (Debug) Serial.println(WiFi.localIP());
-    // Serve files (JS, CSS and favicon) from LittleFS when requested by the root URL. 
-    server.serveStatic("/", LittleFS, "/");
+
     #ifdef useOTA
       AsyncElegantOTA.begin(&server); // Start OTA
     #endif
-    server.begin(); // Start the server.    
     Serial.println(F("initWiFi done"));
     return true;
   }
 
 
-
-  // =============================================
   // Function to allow user to enter ssid and password
-  // =============================================
   // @details This function is used to connect to an ESP Wi-Fi network with a given SSID and password. 
   //          It also starts a web server to allow the user to input these values.
   //          The values are stored in the LittleFS file system of the ESP. If the values are not defined, 
@@ -188,42 +193,37 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
       reboot = true;
     });
     
-    // Serve files (JS, CSS and favicon) from LittleFS when requested by the root URL. 
+    // Serve files (HTML, JS, CSS and favicon) from LittleFS when requested by the root URL. 
     server.serveStatic("/", LittleFS, "/");
     server.begin(); // Start the server.
     Serial.println(F("defineWifi done"));
   }
-#else
-  // =============================================
-  // Hardcoded Wifi credentials 
-  // =============================================
-  #define Toledo      // OPTIONAL: Choose Wifi credentials [Cimanes, Toledo, apartment]
-  #if defined(Cimanes)
-    const char ssid[] = "Pepe_Cimanes";
-    const char pass[] = "Cimanes7581" ;
-  #elif defined(Toledo)
-    const char ssid[] = "MIWIFI_HtR7" ;
-    const char pass[] = "TdQTDf3H"    ;
-  #elif defined(apartment)
-    const char ssid[] = "John-Rs-Foodhall_EXT" ;
-    const char pass[] = "sive2017"    ;
-  #endif
 
-  // Function to Initialize Wifi
+#else
+//==================================================
+// Hard coded Wifi initialization 
+//==================================================
   void initWiFi() {
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, pass);
+    const IPAddress subnet(255, 255, 0, 0);   // Subnet mask required for static IP address
+    const IPAddress gateway(192, 168, 1, 1);  // Had coded router IP
+    const IPAddress dns(192, 168, 1, 1);      // Had coded router IP
+    IPAddress localIP;                        // IP address of the ESP
+    localIP.fromString(esp_ip);
+
+    if (!WiFi.config(localIP, gateway, subnet, dns)){
+      if (Debug) Serial.println(F("STA config Failed"));
+      return;
+    }
+    WiFi.begin(ssid, pass);   // STA mode is default
+
     Serial.print(F("Connecting to WiFi .."));
     while (WiFi.status() != WL_CONNECTED) {
       Serial.print('.');
       delay(1000);
     }
-    // Serve files (JS, CSS and favicon) from LittleFS when requested by the root URL. 
-    server.serveStatic("/", LittleFS, "/");
     #ifdef useOTA
       AsyncElegantOTA.begin(&server); // Start OTA
     #endif
-    server.begin();                   // Start the server.
     Serial.println(WiFi.localIP());
   }
 #endif

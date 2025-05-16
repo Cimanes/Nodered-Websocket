@@ -15,8 +15,8 @@ char wsMsg[100];                  // Dummy char array to send message via websoc
 #define HEATER_PIN 13             // Pin used for heater signal
 #define BOILER_PIN 15             // Pin used for boiler signal
 
-// #define useOTA                   // OPTIONAL: Use OTA
 #define wifiManager               // OPTIONAL: Use wifiManager to set SSID, Password and IP
+// #define useOTA                   // OPTIONAL: Use OTA
 
 // =====================================
 // Setup GPIO's

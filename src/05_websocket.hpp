@@ -71,7 +71,7 @@ void handleDebug(StaticJsonDocument<100>& jsonDoc) {
   webSocket.sendTXT(wsMsg);
 }
 
-
+#ifdef wifiManager
 void handleWifi(StaticJsonDocument<100>& jsonDoc) {
   deleteFile(LittleFS, ssidPath);
   deleteFile(LittleFS, passPath);
@@ -81,6 +81,7 @@ void handleWifi(StaticJsonDocument<100>& jsonDoc) {
   makeJsonString("wifi", "");
   webSocket.sendTXT(wsMsg);
 }
+#endif
 
 void handleReboot(StaticJsonDocument<100>&) {
   ESP.restart();
@@ -94,7 +95,9 @@ const Handler handlers[] = {
   { "interval", handleInterval },
   { "espIP", handleIP},
   { "read", handleRead },
+  #ifdef wifiManager
   { "wifi", handleWifi },
+  #endif
   { "reboot", handleReboot }
 };
 const byte handlerCount = sizeof(handlers) / sizeof(handlers[0]);

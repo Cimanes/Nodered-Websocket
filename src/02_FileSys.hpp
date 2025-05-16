@@ -11,7 +11,7 @@
 // VARIABLES
 // =============================================
 FSInfo fs_info;             // FSInfo is a structure (defined in LittleFS library) that holds information about the file system
-const byte paramSize = 25;  // Maximum size for SSID, Password and IP addresses
+const byte paramSize = 32;  // Maximum size for SSID, Password and IP addresses
   
 // =============================================
 // MANAGE FILE SYSTEM
@@ -54,7 +54,8 @@ void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
     return;
   }
   if (Debug) Serial.println(F("File"));
-  size_t i = 0;
+  
+  byte i = 0;     // Buffer index (needs to be as big as paramSize (32) -> byte is enough)
   while (file.available() && i < paramSize - 1) {
     buffer[i++] = (char)file.read();
   }
