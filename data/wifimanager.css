@@ -72,8 +72,9 @@ Main body
 ================================== */
  .card {
   margin: 1rem auto;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
+  padding: 0.5rem;
+  /* padding-bottom: 1rem; */
+
   width: 100%;
   max-width: 500px;
   background-color: var(--colorCard); 
@@ -91,8 +92,8 @@ Main body
 .title { 
   display: inline-block;
   color: var(--colorON);
-  margin: 1rem 1rem 0.1rem 0;
-  min-width: 120px; /* Optional: set a minimum width for labels */
+  margin: 0.5rem auto 0.1rem auto;
+  min-width: 90px; /* Optional: set a minimum width for labels */
   text-align: right; /*Align text to the right*/
 }
 
@@ -106,8 +107,8 @@ Style the input fields
 }
 
 input {
-  /* width: 10%; */
-  flex: 0.9;
+  width: 40%;
+  flex: 0.95;
   background-color: var(--colorOFF);
   color: #eee;
   padding: 0.33rem 0;
@@ -136,6 +137,5 @@ button {
 }
 
 button:hover { background-color: var(--hoverON); cursor: pointer;}
-
 .button-off { background-color: var(--colorOFF); }
 .button-off:hover { background-color: var(--hoverOFF); cursor: pointer;}

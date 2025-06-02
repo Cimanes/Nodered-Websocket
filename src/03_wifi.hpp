@@ -1,8 +1,8 @@
 // =============================================
 // LIBRARIES
 // =============================================
+// #include <WiFiUdp.h>
 #include <ESPAsyncWebServer.h>
-#include <WiFiUdp.h>
 #if defined(ESP32)
   #include <WiFi.h>
   // #include <AsyncTCP.h>
@@ -10,7 +10,7 @@
   #include <ESP8266WiFi.h>
   // #include <ESPAsyncTCP.h>
 #endif
-#ifdef useOTA
+#ifdef USE_OTA
   #include <AsyncElegantOTA.h>
 #endif
 
@@ -20,8 +20,9 @@
 // Create AsyncWebServer object on port 80, a WebSocket object ("/wsConsole") and an Event Source ("/eventsBME"):
 AsyncWebServer server(80)               ;   // Required for HTTP 
 const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean websocket
-
-#if defined(wifiManager)
+WiFiEventHandler wifiConnectHandler     ;   // Event handler for wifi connection
+WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnection
+#if defined(WIFI_MANAGER)
   // =============================================
   // Wifi Manager Variables: set SSID, Password and IP address
   // =============================================
@@ -54,25 +55,22 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   // =============================================
   // Hardcoded Wifi Variables: Credentials. 
   // =============================================
-  #define Toledo      // OPTIONAL: Choose Wifi credentials [Cimanes, Toledo, apartment]
-  #if defined(Cimanes)
+  #if defined(CIMANES)
     const char ssid[] = "Pepe_Cimanes";
     const char pass[] = "Cimanes7581" ;
-  #elif defined(Toledo)
+  #elif defined(TOLEDO)
     const char ssid[] = "MIWIFI_HtR7" ;
     const char pass[] = "TdQTDf3H"    ;
-  #elif defined(apartment)
-    const char ssid[] = "John-Rs-Foodhall_EXT" ;
-    const char pass[] = "sive2017"    ;
+  #elif defined(TRAVEL)
+    const char ssid[] = SSID_TRAVEL   ;
+    const char pass[] = PASS_TRAVEL   ;
   #endif
 
   const char* esp_ip = "192.168.1.213";
   const IPAddress hostIP(192, 168, 1, 133);   // Had coded Node-red server IP    WiFi.mode(WIFI_STA);
 #endif
 
-
-
-#if defined (wifiManager)
+#if defined (WIFI_MANAGER)
 // =============================================
 // Wifi Manager Functions
 // =============================================
@@ -88,8 +86,12 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   
   // Function to Initialize Wifi
   bool initWiFi() {
-    if(strcmp(ssid, "") == 0 || strcmp(esp_ip, "") == 0 || strcmp(router, "") == 0 ){
+    if(strcmp(ssid, "") == 0 || strcmp(pass, "") == 0 || strcmp(esp_ip, "") == 0 || strcmp(router, "") == 0 ){
       Serial.println(F("Undefined WiFi"));
+      return false;
+    }
+    if (strcmp(host, "") == 0) {
+      Serial.println(F("Undefined W.S. host"));
       return false;
     }
     
@@ -107,21 +109,15 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
       if (Debug) Serial.println(F("STA config Failed"));
       return false;
     }
+    
     WiFi.begin(ssid, pass);   // STA mode is default
 
     Serial.print(F("Connecting .."));
     while (WiFi.status() != WL_CONNECTED) { 
       Serial.print('.'); delay(1000);
     }
-    if (Debug) Serial.println(WiFi.localIP());
-
-    #ifdef useOTA
-      AsyncElegantOTA.begin(&server); // Start OTA
-    #endif
-    Serial.println(F("initWiFi done"));
     return true;
   }
-
 
   // Function to allow user to enter ssid and password
   // @details This function is used to connect to an ESP Wi-Fi network with a given SSID and password. 
@@ -189,8 +185,14 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
           if (Debug) Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str()); 
         }
       }
-      request->send(200, "text/plain", "Done. ESP rebooting, connect to your router. ESP IP address: " + String(esp_ip));
-      reboot = true;
+      request->send(200, "text/plain", "Done. ESP rebooting, connect to router. ESP IP address: " + String(esp_ip));
+      // reboot = true;
+      if (Debug) Serial.println(F("Rebooting"));
+      #if defined(ESP32)  
+        timer.setTimeout(3000, []() { esp_restart(); } );
+      #elif defined(ESP8266)
+        timer.setTimeout(3000, []() { ESP.restart(); } );
+      #endif
     });
     
     // Serve files (HTML, JS, CSS and favicon) from LittleFS when requested by the root URL. 
@@ -221,9 +223,31 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
       Serial.print('.');
       delay(1000);
     }
-    #ifdef useOTA
-      AsyncElegantOTA.begin(&server); // Start OTA
-    #endif
     Serial.println(WiFi.localIP());
+  }
+#endif
+
+//==================================================
+// Connect to WiFi (common function)
+//==================================================
+void connectToWifi() {
+  #if defined(WIFI_MANAGER)  // Initialize Wifi, optional use WIFI_MANAGER 
+    getWiFi();              // Get SSID, Password and IP from files
+    if(!initWiFi()) {       // If SSID or Password were not stored, manage them and reboot
+      defineWiFi();
+      return;
+    }
+  #else
+    initWiFi();     // Initialize Wifi with hardcoded values
+  #endif
+}
+
+#ifdef USE_OTA
+  void startOTAServer() {
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(200, "text/plain", "OTA ready. Connect to " + String(esp_ip) + "/update");
+    });
+    AsyncElegantOTA.begin(&server);
+    server.begin();
   }
 #endif

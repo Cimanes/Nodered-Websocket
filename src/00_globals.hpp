@@ -1,3 +1,12 @@
+// =============================================
+// OPTIONS 
+// =============================================
+#define WIFI_MANAGER    // Use wifi manager with selection of SSID & IP address
+#define USE_OTA         // Use OTA updates
+#define TOLEDO          // Choose Wifi credentials [CIMANES, TOLEDO, TRAVEL]
+#define SSID_TRAVEL "John-Rs-Foodhall_EXT"  //Enter SSID for travel wifi
+#define PASS_TRAVEL "sive2017"              //Enter password for travel wifi
+
 //======================================
 // LIBRARIES
 //======================================
@@ -7,25 +16,25 @@
 //======================================
 // VARIABLES
 //======================================
-boolean Debug = true;             // Enable/disable debugging
-boolean reboot = false;           // Reboot flag
-SimpleTimer timer;                // SimpleTimer object
-char wsMsg[100];                  // Dummy char array to send message via websocket
-
-#define HEATER_PIN 13             // Pin used for heater signal
-#define BOILER_PIN 15             // Pin used for boiler signal
-
-#define wifiManager               // OPTIONAL: Use wifiManager to set SSID, Password and IP
-// #define useOTA                   // OPTIONAL: Use OTA
+boolean Debug = true;   // Enable/disable debugging
+SimpleTimer timer;      // SimpleTimer object
+char wsMsg[100];        // Dummy char array to send message via websocket
 
 // =====================================
 // Setup GPIO's
 //======================================
+// struct to assign GPIO pins for each topic
+struct pinMap { const char* topic; const byte gpio; const bool value; }; 
+const pinMap gpioPins[] = {       
+  { "led", LED_BUILTIN, HIGH },
+  { "heater", 13 , LOW}, 
+  { "boiler", 15, LOW }
+};
+const byte gpioCount = sizeof(gpioPins) / sizeof(gpioPins[0]);
+
 void initGPIO() {
-  pinMode(HEATER_PIN, OUTPUT);
-  pinMode(BOILER_PIN, OUTPUT);
-  pinMode (LED_BUILTIN, OUTPUT);
-  digitalWrite(HEATER_PIN, LOW); 
-  digitalWrite(BOILER_PIN, LOW);
-  digitalWrite(LED_BUILTIN, HIGH);
+  for (byte i = 0; i < gpioCount; i++) {
+    pinMode(gpioPins[i].gpio, OUTPUT);
+    digitalWrite(gpioPins[i].gpio, gpioPins[i].value);
+  }
 }
