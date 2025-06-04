@@ -3,7 +3,7 @@
 //======================================================
 struct Handler {            // Handler structure to manage handlers
   const char* topic;
-  void (*handler)(StaticJsonDocument<100>&);
+  void (*handler)();
 };
 const Handler handlers[] = {
   { "gpio/", handleGPIO },
@@ -42,7 +42,7 @@ void processMessage(uint8_t* wsMessage) {
 
   for (byte i = 0; i < handlerCount; i++) {
     if (strstr(topic, handlers[i].topic)) {
-      handlers[i].handler(jsonDoc);
+      handlers[i].handler();
       return;
     }
   }
@@ -55,6 +55,7 @@ void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
       break;
     case WStype_CONNECTED:
       if (Debug) Serial.printf_P(PSTR("[WS] Connected: %s\n"), wsMessage);
+      timer.setTimeout(1000, wsSendBME); // Send BME data after 1s;
       break;
     case WStype_BIN:
       if (Debug) Serial.printf_P(PSTR(">[WS] bin: %u bytes\n"), length);
@@ -71,8 +72,8 @@ void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
 
 void initWebSocket() {
   if(Debug) Serial.printf_P(PSTR("Connecting W.S.: %s\n"), wsURL);
-  webSocket.begin(hostIP, 1880, wsURL);             // Server address, port and URL.
-  webSocket.onEvent(webSocketEvent);                // Event handler.
+  webSocket.begin(hostIP, 1880, wsURL)            ; // Server address, port and URL.
+  webSocket.onEvent(webSocketEvent)               ; // Event handler.
   webSocket.setReconnectInterval(wsReconnectTimer); // Periodically attempt reconnection if ws lost.  
 }
 
@@ -88,7 +89,7 @@ void onwifiConnect(const WiFiEventStationModeGotIP& event) {
 
 void onwifiDisconnect(const WiFiEventStationModeDisconnected& event) {
   if (Debug)   Serial.println(F("Wifi disconnected."));
-  webSocket.disconnect();                   // Close websocket.
-  webSocket.setReconnectInterval(-1);       // Avoid websocket to attempt reconnection.
-  timer.setTimeout(wifiReconnectTimer, connectToWifi);    // Attempt to reconnect to WiFi.
+  webSocket.disconnect()                              ; // Close websocket.
+  webSocket.setReconnectInterval(-1)                  ; // Avoid websocket to attempt reconnection.
+  timer.setTimeout(wifiReconnectTimer, connectToWifi) ; // Attempt to reconnect to WiFi.
 }

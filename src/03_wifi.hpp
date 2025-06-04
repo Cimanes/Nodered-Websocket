@@ -96,14 +96,14 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
     }
     
     const IPAddress subnet(255, 255, 0, 0);   // Subnet mask required for static IP address
-    IPAddress gateway;          // IP address of the router
-    IPAddress dns;              // IP address of the DNS (= router)
-    IPAddress localIP;          // IP address of the ESP
+    IPAddress gateway ;         // IP address of the router
+    IPAddress dns     ;         // IP address of the DNS (= router)
+    IPAddress localIP ;         // IP address of the ESP
 
     localIP.fromString(esp_ip);
     gateway.fromString(router);
-    dns.fromString(router);
-    hostIP.fromString(host);
+    dns.fromString(router)    ;
+    hostIP.fromString(host)   ;
 
     if (!WiFi.config(localIP, gateway, subnet, dns)){
       if (Debug) Serial.println(F("STA config Failed"));
@@ -112,10 +112,8 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
     
     WiFi.begin(ssid, pass);   // STA mode is default
 
-    Serial.print(F("Connecting .."));
-    while (WiFi.status() != WL_CONNECTED) { 
-      Serial.print('.'); delay(1000);
-    }
+    Serial.print(F("Connecting"));
+    while (WiFi.status() != WL_CONNECTED)   { Serial.print('.'); delay(1000); }
     return true;
   }
 
@@ -206,11 +204,11 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
 // Hard coded Wifi initialization 
 //==================================================
   void initWiFi() {
-    const IPAddress subnet(255, 255, 0, 0);   // Subnet mask required for static IP address
-    const IPAddress gateway(192, 168, 1, 1);  // Had coded router IP
-    const IPAddress dns(192, 168, 1, 1);      // Had coded router IP
-    IPAddress localIP;                        // IP address of the ESP
-    localIP.fromString(esp_ip);
+    const IPAddress subnet(255, 255, 0, 0)  ;   // Subnet mask required for static IP address
+    const IPAddress gateway(192, 168, 1, 1) ;   // Had coded router IP
+    const IPAddress dns(192, 168, 1, 1)     ;   // Had coded router IP
+    IPAddress localIP                       ;   // IP address of the ESP
+    localIP.fromString(esp_ip)              ;            
 
     if (!WiFi.config(localIP, gateway, subnet, dns)){
       if (Debug) Serial.println(F("STA config Failed"));

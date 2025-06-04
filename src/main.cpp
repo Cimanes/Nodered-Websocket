@@ -7,7 +7,6 @@
 #include "03_wifi.hpp"
 #include "04_bme.hpp"
 #include "05_websocket.hpp"
-// #include "06_reboot.hpp"
 #include "06_events.hpp"
 
 //======================================
@@ -15,19 +14,17 @@
 //======================================
 void setup() {
   Serial.begin(115200);
-  Serial.print("\n");
-  initFS();                 // Initialize File System
-  initGPIO();
-  initBME();
+  initFS()            ; // Initialize File System
+  initGPIO()          ; // Initialize GPIO's
+  initBME()           ; // Initialize BME sensor
 
-  // Initialize wifi and MQTT
+  // Initialize wifi and Websocket; Send BME data after WS connected:
   wifiDisconnectHandler = WiFi.onStationModeDisconnected(onwifiDisconnect);
   wifiConnectHandler = WiFi.onStationModeGotIP(onwifiConnect);  
-  connectToWifi();  
-  // initWebsocket();
-
-  // initReboot();             // Initialize Reboot
-  BMETimerID = timer.setInterval(1000 * bmeInterval, readAndSendBME);
+  connectToWifi();
+  
+  // Periodically read and send BME data:
+  BMETimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
 }
 
 //======================================

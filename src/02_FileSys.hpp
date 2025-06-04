@@ -32,7 +32,7 @@ void initFS() {
 // Write file to LittleFS
 // ===============================================================================
 void writeFile(fs::FS &fs, const char * path, const char * message){
-  if (Debug) { Serial.print(F("Write file: ")); Serial.println(path); }
+  if (Debug) Serial.printf_P(PSTR("Write file: %s\n"), path);
   File file = fs.open(path, "w");
   if (!file) {
     if (Debug) Serial.println(F("Open file to write - FAIL"));

@@ -7,9 +7,9 @@
 //======================================
 // VARIABLES
 //======================================
-Adafruit_BME280 bme;              // BME280 object
-unsigned long BMETimerID;         // Timer ID
-unsigned int bmeInterval = 30;    // Interval to publish values (s)
+Adafruit_BME280 bme           ;   // BME280 object
+unsigned long BMETimerID      ;   // Timer ID
+unsigned int bmeInterval = 900;   // Interval to publish values (s)
 
 // Arrays with BME key-value pairs
 const char* bmeKeys[] = { "temp", "hum", "pres", "err" };

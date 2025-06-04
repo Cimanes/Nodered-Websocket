@@ -18,12 +18,12 @@ StaticJsonDocument<100> jsonDoc;  // Dummy JSON document
  * @param value The value corresponding to the key (integer).
  */
 void makeJsonInt(const char* key, uint16_t value) {
-  jsonDoc.clear();  // Clear the document to avoid leftover data
+  jsonDoc.clear();  // Clear the JSON doc to avoid leftover data
   // Add key-value pair to the JSON object "jsonDoc"
   jsonDoc["topic"] = key;
   jsonDoc["payload"] = value;
 
-  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg));           // Convert jsonDoc to char array
   if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);  // Optional debug output  
 }
 
@@ -38,8 +38,8 @@ void makeJsonString(const char* key, const char* value) {
   jsonDoc["topic"] = key;
   jsonDoc["payload"] = value;
 
-  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
-  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);             // Optional debug output
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg));           // Convert jsonDoc to char array
+  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);  // Optional debug output
 }
 
 /**
@@ -54,6 +54,6 @@ void makeJsonArray(const byte numKeys, const char* keys[], int16_t values[]) {
   jsonDoc.clear();  // Clear the document to avoid leftover data
   for (byte i = 0; i < numKeys; i++)  { jsonDoc[keys[i]] = values[i]; }
 
-  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
-  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);             // Optional debug output
+  serializeJson(jsonDoc, wsMsg, sizeof(wsMsg));           // Convert jsonDoc to char array
+  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);  // Optional debug output
 }
