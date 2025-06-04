@@ -12,7 +12,7 @@ unsigned long BMETimerID;         // Timer ID
 unsigned int bmeInterval = 30;    // Interval to publish values (s)
 
 // Arrays with BME key-value pairs
-const char* bmeKeys[] = { "temp", "hum", "pres", "ok" };
+const char* bmeKeys[] = { "temp", "hum", "pres", "err" };
 const byte numBmeKeys = sizeof(bmeKeys) / sizeof(bmeKeys[0]);
 int16_t bmeValues[numBmeKeys];   // Array with BME sensor readings
 

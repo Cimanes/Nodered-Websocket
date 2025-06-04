@@ -33,9 +33,13 @@ void processMessage(uint8_t* wsMessage) {
     return;
   }
   const char* topic = jsonDoc["topic"];
-  if (!topic) return;
+  if (!topic) {
+    if (Debug) Serial.println(F("Invalid topic"));
+    return;
+  }
   const char* payload = jsonDoc["payload"];
-  if (Debug)  Serial.printf_P(PSTR("[WS] txt: %s - %s\n"), topic, payload); 
+  if (Debug)  Serial.printf_P(PSTR(">[WS] txt: %s - %s\n"), topic, payload);
+
   for (byte i = 0; i < handlerCount; i++) {
     if (strstr(topic, handlers[i].topic)) {
       handlers[i].handler(jsonDoc);
@@ -53,7 +57,7 @@ void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
       if (Debug) Serial.printf_P(PSTR("[WS] Connected: %s\n"), wsMessage);
       break;
     case WStype_BIN:
-      if (Debug) Serial.printf_P(PSTR("[WS] bin: %u bytes\n"), length);
+      if (Debug) Serial.printf_P(PSTR(">[WS] bin: %u bytes\n"), length);
       break;
     case WStype_ERROR:
       if (Debug) Serial.printf_P(PSTR("[WS] err: %s\n"), wsMessage);

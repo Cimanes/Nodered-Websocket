@@ -24,7 +24,7 @@ void makeJsonInt(const char* key, uint16_t value) {
   jsonDoc["payload"] = value;
 
   serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsMsg);                 // Optional debug output
+  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);  // Optional debug output  
 }
 
 /******************************************************
@@ -39,7 +39,7 @@ void makeJsonString(const char* key, const char* value) {
   jsonDoc["payload"] = value;
 
   serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsMsg);             // Optional debug output
+  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);             // Optional debug output
 }
 
 /**
@@ -55,5 +55,5 @@ void makeJsonArray(const byte numKeys, const char* keys[], int16_t values[]) {
   for (byte i = 0; i < numKeys; i++)  { jsonDoc[keys[i]] = values[i]; }
 
   serializeJson(jsonDoc, wsMsg, sizeof(wsMsg)); // Convert jsonDoc to char array
-  if (Debug) Serial.println(wsMsg);             // Optional debug output
+  if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);             // Optional debug output
 }

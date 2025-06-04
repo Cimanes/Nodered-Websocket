@@ -30,7 +30,6 @@ void handleGPIO(StaticJsonDocument<100>& jsonDoc) {
       digitalWrite(gpioPins[i].gpio, jsonDoc["payload"] == "1" ? HIGH : LOW);
       makeJsonInt(gpioPins[i].topic, digitalRead(gpioPins[i].gpio));
       webSocket.sendTXT(wsMsg);
-      if (Debug) Serial.printf_P(PSTR("Pub. %s: %s\n"), gpioPins[i].topic, digitalRead(gpioPins[i].gpio) ? "1" : "0");
       return;
     }
   }
