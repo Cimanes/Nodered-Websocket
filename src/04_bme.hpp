@@ -7,9 +7,9 @@
 //======================================
 // VARIABLES
 //======================================
-Adafruit_BME280 bme           ;   // BME280 object
-unsigned long BMETimerID      ;   // Timer ID
-unsigned int bmeInterval = 900;   // Interval to publish values (s)
+Adafruit_BME280 bme       ;   // BME280 object
+uint16_t bmeTimerID       ;   // Timer ID for BME periodical readings
+uint16_t bmeInterval = 900;   // Interval to publish values (s)
 
 // Arrays with BME key-value pairs
 const char* bmeKeys[] = { "temp", "hum", "pres", "err" };
@@ -40,12 +40,13 @@ void readBME() {
     if (Debug) Serial.println(F("BME lost!. Reconnecting."));
     bmeValues[3] = 1;
     initBME();
+    return;
   }
-
   if (bmeValues[0] > 600 || bmeValues[0] < -300 || bmeValues[1] > 1000 
     || bmeValues[1] < 0 || bmeValues[2] < 8000 || bmeValues[2] > 11000)   {  // Check if any reading is NaN
     if (Debug) Serial.println(F("BME bad readings!"));
     bmeValues[3] = 2;
+    return;
   } 
   else bmeValues[3] = 0;
 }

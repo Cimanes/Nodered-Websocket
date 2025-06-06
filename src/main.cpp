@@ -2,8 +2,8 @@
 // LIBRARIES
 //======================================
 #include "00_globals.hpp"
-#include "01_JSON.hpp"
-#include "02_FileSys.hpp"
+#include "01_json.hpp"
+#include "02_fileSys.hpp"
 #include "03_wifi.hpp"
 #include "04_bme.hpp"
 #include "05_websocket.hpp"
@@ -24,7 +24,7 @@ void setup() {
   connectToWifi();
   
   // Periodically read and send BME data:
-  BMETimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
+  bmeTimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
 }
 
 //======================================

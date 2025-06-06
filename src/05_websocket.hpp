@@ -36,16 +36,16 @@ void handleGPIO() {
 }
 
 void handleRead() {
-  timer.deleteTimer(BMETimerID);
+  timer.deleteTimer(bmeTimerID);
   wsSendBME();
-  BMETimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
+  bmeTimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
 }
 
 void handleInterval() {
   bmeInterval = jsonDoc["payload"].as<int>();
-  timer.deleteTimer(BMETimerID);
+  timer.deleteTimer(bmeTimerID);
   wsSendBME();
-  BMETimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
+  bmeTimerID = timer.setInterval(1000 * bmeInterval, wsSendBME);
   makeJsonInt("interval", bmeInterval);
   webSocket.sendTXT(wsMsg);
 }
@@ -61,20 +61,7 @@ void handleDebug() {
   webSocket.sendTXT(wsMsg);
 }
 
-#ifdef WIFI_MANAGER
-void handleWifi() {
-  deleteFile(LittleFS, ssidPath)    ;
-  deleteFile(LittleFS, passPath)    ;
-  deleteFile(LittleFS, ipPath)      ;
-  deleteFile(LittleFS, routerPath)  ;
-  deleteFile(LittleFS, hostPath)    ;
-  makeJsonString("wifi", "")        ;
-  webSocket.sendTXT(wsMsg)          ;
-}
-#endif
-
 void handleReboot() {
-  // reboot = true;
   if (Debug) Serial.println(F("Rebooting"));
   #if defined(ESP32)  
     timer.setTimeout(3000, []() { esp_restart(); } );
@@ -83,9 +70,23 @@ void handleReboot() {
   #endif
 }
 
-void handleOTA() {
-  if(Debug) Serial.println(F("OTA requested"));
-  webSocket.setReconnectInterval(-1);  // Stop auto-reconnect
-  webSocket.disconnect();              // Clean disconnect
-  startOTAServer();
-}
+#ifdef WIFI_MANAGER
+  void handleWifi() {
+    deleteFile(LittleFS, ssidPath)    ;
+    deleteFile(LittleFS, passPath)    ;
+    deleteFile(LittleFS, ipPath)      ;
+    deleteFile(LittleFS, routerPath)  ;
+    deleteFile(LittleFS, hostPath)    ;
+    makeJsonString("wifi", "")        ;
+    webSocket.sendTXT(wsMsg)          ;
+  }
+#endif
+
+#ifdef USE_OTA
+  void handleOTA() {
+    if(Debug) Serial.println(F("OTA requested"));
+    webSocket.setReconnectInterval(-1);  // Stop auto-reconnect
+    webSocket.disconnect();              // Clean disconnect
+    startOTAServer();
+  }
+#endif

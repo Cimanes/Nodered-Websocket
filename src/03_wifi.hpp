@@ -19,10 +19,11 @@
 // =============================================
 // Create AsyncWebServer object on port 80, a WebSocket object ("/wsConsole") and an Event Source ("/eventsBME"):
 AsyncWebServer server(80)               ;   // Required for HTTP 
-const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean websocket
 WiFiEventHandler wifiConnectHandler     ;   // Event handler for wifi connection
 WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnection
-#if defined(WIFI_MANAGER)
+const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean websocket
+
+#ifdef WIFI_MANAGER
   // =============================================
   // Wifi Manager Variables: set SSID, Password and IP address
   // =============================================
@@ -70,7 +71,7 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
   const IPAddress hostIP(192, 168, 1, 133);   // Had coded Node-red server IP    WiFi.mode(WIFI_STA);
 #endif
 
-#if defined (WIFI_MANAGER)
+#ifdef WIFI_MANAGER
 // =============================================
 // Wifi Manager Functions
 // =============================================
@@ -126,65 +127,58 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
   //          to input the values. The ESP will then reboot and connect to the Wi-Fi network with the given values.
   void defineWiFi() {
     Serial.println(F("Setting AP")); 
-    // Remove the password parameter (=NULL), if you want the AP (Access Point) to be open 
+    // Remove the password parameter (=NULL), for open AP (Access Point) 
     WiFi.softAP("ESP-WIFI-MANAGER", NULL);
 
     IPAddress IP = WiFi.softAPIP();
     Serial.print(F("AP local IP: "));
     Serial.println(IP);
 
-    // Web Server Root URL
+    // Wifi manager web page on ESP IP root URL
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
       request->send(LittleFS, "/wifimanager.html", "text/html");
     });
     
+    // Receive HTTP POST request with wifi credentials
     server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
       int params = request->params();
       for(int i=0;i<params;i++){
         const AsyncWebParameter* p = request->getParam(i);
         if(p->isPost()){
-          // HTTP POST ssid value
-          if (p->name() == PARAM_INPUT_1) {
+          if (p->name() == PARAM_INPUT_1) {           // HTTP POST ssid value
             strncpy(ssid, p->value().c_str(), paramSize - 1);
-            ssid[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("SSID: "));  Serial.println(ssid);
+            ssid[paramSize - 1] = '\0';
+            Serial.printf_P(PSTR("SSID: %s\n"), ssid);
             writeFile(LittleFS, ssidPath, ssid);
           }
-          // HTTP POST pass value
-          else if (p->name() == PARAM_INPUT_2) {
+          else if (p->name() == PARAM_INPUT_2) {      // HTTP POST pass value
             strncpy(pass, p->value().c_str(), paramSize - 1);
-            pass[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("Password: "));  Serial.println(pass);
+            pass[paramSize - 1] = '\0';
+            Serial.printf_P(PSTR("Password: %s\n"), pass);
             writeFile(LittleFS, passPath, pass);
           }
-          // HTTP POST esp_ip value
-          else if (p->name() == PARAM_INPUT_3) {
+          else if (p->name() == PARAM_INPUT_3) {      // HTTP POST esp_ip value
             strncpy(esp_ip, p->value().c_str(), paramSize - 1);
-            esp_ip[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("Local IP: "));  Serial.println(esp_ip);
+            esp_ip[paramSize - 1] = '\0';
+            Serial.printf_P(PSTR("ESP IP: %s\n"), esp_ip);
             writeFile(LittleFS, ipPath, esp_ip);
           }
-          // HTTP POST router IP value
-          else if (p->name() == PARAM_INPUT_4) {
+          else if (p->name() == PARAM_INPUT_4) {      // HTTP POST router IP value
             strncpy(router, p->value().c_str(), paramSize - 1);
-            router[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("Router IP: "));
-            Serial.println(router);
+            router[paramSize - 1] = '\0';
+            Serial.printf_P(PSTR("Router IP: %s\n"), router);
             writeFile(LittleFS, routerPath, router);
           }
-          // HTTP POST node-red host IP value
-          else if (p->name() == PARAM_INPUT_5) {
+          else if (p->name() == PARAM_INPUT_5) {      // HTTP POST node-red host IP value
             strncpy(host, p->value().c_str(), paramSize - 1);
-            host[paramSize - 1] = '\0'; // Ensure null-termination
-            Serial.print(F("Host IP: "));
-            Serial.println(host);
+            host[paramSize - 1] = '\0';
+            Serial.printf_P(PSTR("Host IP: %s\n"), host);
             writeFile(LittleFS, hostPath, host);
           }           
           if (Debug) Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str()); 
         }
       }
       request->send(200, "text/plain", "Done. ESP rebooting, connect to router. ESP IP address: " + String(esp_ip));
-      // reboot = true;
       if (Debug) Serial.println(F("Rebooting"));
       #if defined(ESP32)  
         timer.setTimeout(3000, []() { esp_restart(); } );
@@ -195,7 +189,7 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
     
     // Serve files (HTML, JS, CSS and favicon) from LittleFS when requested by the root URL. 
     server.serveStatic("/", LittleFS, "/");
-    server.begin(); // Start the server.
+    server.begin();
     Serial.println(F("defineWifi done"));
   }
 
@@ -216,7 +210,7 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
     }
     WiFi.begin(ssid, pass);   // STA mode is default
 
-    Serial.print(F("Connecting to WiFi .."));
+    Serial.print(F("Connecting"));
     while (WiFi.status() != WL_CONNECTED) {
       Serial.print('.');
       delay(1000);
@@ -229,14 +223,11 @@ WiFiEventHandler wifiDisconnectHandler  ;   // Event handler for wifi disconnect
 // Connect to WiFi (common function)
 //==================================================
 void connectToWifi() {
-  #if defined(WIFI_MANAGER)  // Initialize Wifi, optional use WIFI_MANAGER 
-    getWiFi();              // Get SSID, Password and IP from files
-    if(!initWiFi()) {       // If SSID or Password were not stored, manage them and reboot
-      defineWiFi();
-      return;
-    }
+  #ifdef WIFI_MANAGER   // Initialize Wifi using wifi manager. 
+    getWiFi();          // Get SSID, Password and IP from files
+    if(!initWiFi()) defineWiFi(); // If credentials not found, manage wifi and reboot
   #else
-    initWiFi();     // Initialize Wifi with hardcoded values
+    initWiFi();         // Initialize Wifi with hardcoded values
   #endif
 }
 

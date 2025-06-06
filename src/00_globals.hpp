@@ -8,17 +8,16 @@
 #define PASS_TRAVEL "sive2017"              //Enter password for travel wifi
 
 //======================================
-// LIBRARIES
+// GLOBAL LIBRARIES
 //======================================
 #include <Arduino.h>
 #include <SimpleTimer.h>
 
 //======================================
-// VARIABLES
+// GLOBAL VARIABLES
 //======================================
-boolean Debug = true;   // Enable/disable debugging
-SimpleTimer timer;      // SimpleTimer object
-char wsMsg[100];        // Dummy char array to send message via websocket
+boolean Debug = true  ; // Enable/disable debugging
+SimpleTimer timer     ; // SimpleTimer object
 
 // =====================================
 // Setup GPIO's
@@ -27,7 +26,7 @@ char wsMsg[100];        // Dummy char array to send message via websocket
 struct pinMap { const char* topic; const byte gpio; const bool value; }; 
 const pinMap gpioPins[] = {       
   { "led", LED_BUILTIN, HIGH },
-  { "heater", 13 , LOW}, 
+  { "heater", 13 , LOW }, 
   { "boiler", 15, LOW }
 };
 const byte gpioCount = sizeof(gpioPins) / sizeof(gpioPins[0]);

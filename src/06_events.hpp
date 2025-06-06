@@ -81,7 +81,8 @@ void initWebSocket() {
 // WIFI EVENT FUNCTIONS
 //======================================================
 void onwifiConnect(const WiFiEventStationModeGotIP& event) {
-  if (Debug) { Serial.println(WiFi.localIP());  
+  if (Debug) { 
+    Serial.println(WiFi.localIP());  
     Serial.println(F("initWiFi done"));
   }
   timer.setTimeout(2000, initWebSocket);
@@ -89,7 +90,7 @@ void onwifiConnect(const WiFiEventStationModeGotIP& event) {
 
 void onwifiDisconnect(const WiFiEventStationModeDisconnected& event) {
   if (Debug)   Serial.println(F("Wifi disconnected."));
-  webSocket.disconnect()                              ; // Close websocket.
   webSocket.setReconnectInterval(-1)                  ; // Avoid websocket to attempt reconnection.
+  webSocket.disconnect()                              ; // Close websocket.
   timer.setTimeout(wifiReconnectTimer, connectToWifi) ; // Attempt to reconnect to WiFi.
 }

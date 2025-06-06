@@ -6,7 +6,8 @@
 //======================================================
 // VARIABLES    
 //======================================================
-StaticJsonDocument<100> jsonDoc;  // Dummy JSON document
+StaticJsonDocument<100> jsonDoc ; // Dummy JSON document
+static char wsMsg[100]          ; // Dummy char array to send message via websocket
 
 //======================================
 // Create a JSON object --> send via Websocket
