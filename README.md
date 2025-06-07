@@ -31,7 +31,7 @@ Following libraries are used:
 Wifi credentials need to be hard coded in wifi.hpp.
   
 ## Node-red
-Tree flows are present:
+Three sub-flows are present:
 - BME readings: displays current and historic BME signals (P, S.L.P., T, RH, time).
 - Console: user can monitor and operate GPIO's, thermostat and ESP (Reboot, OTA update...).
 - Console feedback: receive actual status of GPIO's and BME. 
