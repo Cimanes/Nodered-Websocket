@@ -1,3 +1,5 @@
+## Introduction
+
 ### Components
 1) Node-red server running in PC / Raspberry pi.
 2) ESP8266 with BME280 and digital outputs available.
@@ -9,14 +11,15 @@ Ensure port 1880 is open; if required, add a new inbound rule in Windows Defende
 
 ## ESP8266
 Coded in Arduino enviroment using VS code.
-Following libraries are used: 
-- Simpletimer 
-- ArduinoJson
-- ESP Async Webserver (requires ESPAsyncTCP).
-- Adafruit BME280 Library
-- Adafruit Unified Sensor
-- Websockets
-- AsyncElegantOTA
+Following libraries are used:
+- [SimpleTimer](https://github.com/jfturcot/SimpleTimer)
+- [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+- [ESP Async Webserver](https://github.com/ESP32Async/ESPAsyncWebServer) 
+- [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library)
+- [Adafruit Unified Sensor](https://github.com/adafruit/Adafruit_Sensor)
+- [Websockets](https://github.com/Links2004/arduinoWebSockets)
+- [AsyncElegantOTA](https://github.com/ayushsharma82/AsyncElegantOTA)
+- [ESPAsyncTCP](https://github.com/ESP32Async/ESPAsyncTCP) --> Used by Websockets and ESP Asynch Webserver
 
 ### Wifi Connection
 - Option 1: Wifi Manager (enable line "#define WIFI_MANAGER")
@@ -31,7 +34,7 @@ Following libraries are used:
 Wifi credentials need to be hard coded in wifi.hpp.
   
 ## Node-red
-Tree flows are present:
+Three sub-flows are present:
 - BME readings: displays current and historic BME signals (P, S.L.P., T, RH, time).
 - Console: user can monitor and operate GPIO's, thermostat and ESP (Reboot, OTA update...).
 - Console feedback: receive actual status of GPIO's and BME. 
