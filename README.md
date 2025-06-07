@@ -14,11 +14,12 @@ Coded in Arduino enviroment using VS code.
 Following libraries are used: 
 - [jfturcot/SimpleTimer](https://github.com/jfturcot/SimpleTimer)
 - [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
-- [ESP Async Webserver](https://github.com/ESP32Async/ESPAsyncWebServer) (requires ESPAsyncTCP)
+- [ESP Async Webserver](https://github.com/ESP32Async/ESPAsyncWebServer) 
 - [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library)
 - [Adafruit Unified Sensor](https://github.com/adafruit/Adafruit_Sensor)
 - [Websockets](https://github.com/Links2004/arduinoWebSockets)
 - [AsyncElegantOTA](https://github.com/ayushsharma82/AsyncElegantOTA)
+- [ESPAsyncTCP](https://github.com/ESP32Async/ESPAsyncTCP)) --> Required for Websockets and ESP Asynch Webserver
 
 ### Wifi Connection
 - Option 1: Wifi Manager (enable line "#define WIFI_MANAGER")
