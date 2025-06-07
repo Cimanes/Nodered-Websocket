@@ -12,13 +12,13 @@ Ensure port 1880 is open; if required, add a new inbound rule in Windows Defende
 ## ESP8266
 Coded in Arduino enviroment using VS code.
 Following libraries are used: 
-- Simpletimer 
-- ArduinoJson
-- ESP Async Webserver (requires ESPAsyncTCP).
-- Adafruit BME280 Library
-- Adafruit Unified Sensor
-- Websockets
-- AsyncElegantOTA
+- [jfturcot/SimpleTimer](https://github.com/jfturcot/SimpleTimer)
+- [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+- [ESP Async Webserver](https://github.com/ESP32Async/ESPAsyncWebServer) (requires ESPAsyncTCP)
+- [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library)
+- [Adafruit Unified Sensor](https://github.com/adafruit/Adafruit_Sensor)
+- [Websockets](https://github.com/Links2004/arduinoWebSockets)
+- [AsyncElegantOTA](https://github.com/ayushsharma82/AsyncElegantOTA)
 
 ### Wifi Connection
 - Option 1: Wifi Manager (enable line "#define WIFI_MANAGER")
