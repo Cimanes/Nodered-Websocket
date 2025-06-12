@@ -49,9 +49,9 @@
             "5d1ae5a93dee578b"
         ],
         "x": 14,
-        "y": 619,
+        "y": 599,
         "w": 932,
-        "h": 422
+        "h": 402
     },
     {
         "id": "6667f11d73617129",
@@ -96,7 +96,7 @@
         "x": 14,
         "y": 19,
         "w": 932,
-        "h": 582
+        "h": 562
     },
     {
         "id": "0d83be325c5fd20f",
@@ -134,7 +134,7 @@
             "c05b554813adb4a2"
         ],
         "x": 14,
-        "y": 1059,
+        "y": 1019,
         "w": 932,
         "h": 442
     },
@@ -144,7 +144,7 @@
         "z": "3dac80766e61d74c",
         "g": "dd09abb205df0e7f",
         "x": 580,
-        "y": 720,
+        "y": 680,
         "wires": [
             [
                 "bd9c489eca802592",
@@ -161,7 +161,7 @@
         "server": "8dbef215b4efa8a7",
         "client": "",
         "x": 110,
-        "y": 940,
+        "y": 900,
         "wires": [
             [
                 "e00612e76fa3ef4c",
@@ -190,7 +190,7 @@
         "name": "Description",
         "info": " 1. ### Receive websocket msg from ESP.\n 2. ### Filter the data:\n    - BME Readings\n    - BME health \n    - ESP feedback --> Console\n 3. ### Process and distribute message\n    - assign topic and scale BME readings\n    - send ESP Feedback to Console block\n 4. ### Display received message\n    - BME current - gauge\n    - BME historic - chart\n 5. ### User input: BME interval\n 6. ### User input: Trigger BME reading",
         "x": 100,
-        "y": 660,
+        "y": 640,
         "wires": []
     },
     {
@@ -251,7 +251,7 @@
         "className": "",
         "interpolation": "linear",
         "x": 690,
-        "y": 760,
+        "y": 720,
         "wires": [
             [
                 "6db98c8dd04fb2cc"
@@ -293,7 +293,7 @@
         "removeOlderUnit": "3600",
         "removeOlderPoints": "1000",
         "colors": [
-            "#0064c8",
+            "#0a5a78",
             "#ff0000",
             "#ff7f0e",
             "#2ca02c",
@@ -316,7 +316,7 @@
         "className": "",
         "interpolation": "linear",
         "x": 690,
-        "y": 800,
+        "y": 760,
         "wires": [
             [
                 "70c8b7a389fb0976"
@@ -363,7 +363,7 @@
         "styleGlow": false,
         "className": "",
         "x": 850,
-        "y": 720,
+        "y": 680,
         "wires": []
     },
     {
@@ -406,7 +406,7 @@
         "styleGlow": false,
         "className": "",
         "x": 850,
-        "y": 760,
+        "y": 720,
         "wires": []
     },
     {
@@ -558,7 +558,7 @@
         "iconInnerPosition": "inside",
         "spinner": "default",
         "x": 280,
-        "y": 760,
+        "y": 740,
         "wires": [
             [
                 "bc3546db21834208"
@@ -571,7 +571,7 @@
         "z": "3dac80766e61d74c",
         "g": "6667f11d73617129",
         "name": "Heater",
-        "func": "// The msg received can be ot the types:\n//  {\"payload\": 20, \"topic\": \"thermostat\"}\n//  {\"payload\": 0.3, \"topic\": \"deadband\"}\n//  {\"payload\": 21.4, \"topic\": \"temp\"}\n// The topic is the name of the flow-scoped variable.\n// The payload is the new value for that variable\n\n// Update the received variable (\"deadband\" / \"temp\" / \"thermostat\") in the context scope: :\ncontext.set(msg.topic, msg.payload);\n\n// Calculate the heater output and assign it to msg.payload\nconst T = context.get(\"temp\"),\n    DB = context.get(\"deadband\"),\n    Setpoint = context.get(\"thermostat\"),\n    Heater = Setpoint > T + DB ? 1 : 0,\n    HeaterChart = 3 * (Heater + 2); // -> 6 (off) or 9 (on) in chart\n\n// If \"heater\" changes, update context and send to websocket (output 1)\nif (context.get(\"heater\") !== Heater) { \n    context.set(\"heater\", Heater); \n    return [\n        { topic: \"gpio/heater\", payload: Heater      },\n        { topic: \"Heater\",      payload: HeaterChart },\n        { topic: \"Setpoint\",    payload: Setpoint    },\n        { topic: \"Temp\",        payload: T,          }\n    ]\n};\n\n// Only deadband changed, no output.\nif(msg.topic == \"deadband\") return;\n\n// No change in heater state → only send remaining outputs\nreturn [\n    null,\n    { topic: \"Heater\", payload: HeaterChart },\n    { topic: \"Setpoint\", payload: Setpoint },\n    { topic: \"Temp\", payload: T, }\n];\n",
+        "func": "// The msg received can be ot the types:\n//  {\"payload\": 20, \"topic\": \"thermostat\"}\n//  {\"payload\": 0.3, \"topic\": \"deadband\"}\n//  {\"payload\": 21.4, \"topic\": \"temp\"}\n// The topic is the name of the flow-scoped variable.\n// The payload is the new value for that variable\n\n// Update the received variable (\"deadband\" / \"temp\" / \"thermostat\") in the context scope: :\ncontext.set(msg.topic, msg.payload);\n\n// Calculate the heater output and assign it to msg.payload\nconst T = context.get(\"temp\"),\n    DB = context.get(\"deadband\"),\n    Setpoint = context.get(\"thermostat\"),\n    Heater = Setpoint > T + DB ? 1 : 0,\n    HeaterChart = 4 * (Heater + .1);   // -> 0.4 (off) or 4.4 (on) in chart\n\n// If \"heater\" changes, update context and send to websocket (output 1)\nif (context.get(\"heater\") !== Heater) { \n    context.set(\"heater\", Heater); \n    return [\n        { topic: \"gpio/heater\", payload: Heater      },\n        { topic: \"Heater\",      payload: HeaterChart },\n        { topic: \"Setpoint\",    payload: Setpoint    },\n        { topic: \"Temp\",        payload: T,          }\n    ]\n};\n\n// Only deadband changed, no output.\nif(msg.topic == \"deadband\") return;\n\n// No change in heater state → only send remaining outputs\nreturn [\n    null,\n    { topic: \"Heater\", payload: HeaterChart },\n    { topic: \"Setpoint\", payload: Setpoint },\n    { topic: \"Temp\", payload: T, }\n];\n",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
@@ -700,7 +700,7 @@
         "payload": "900",
         "payloadType": "num",
         "x": 130,
-        "y": 760,
+        "y": 740,
         "wires": [
             [
                 "b24a5815257570f5"
@@ -782,7 +782,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 880,
+        "y": 860,
         "wires": [
             [
                 "3661b3b2867449f4"
@@ -807,7 +807,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 1360,
+        "y": 1320,
         "wires": [
             [
                 "409fab1c6bf3bd97"
@@ -850,7 +850,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 820,
-        "y": 1420,
+        "y": 1380,
         "wires": []
     },
     {
@@ -908,7 +908,7 @@
         "wrapText": false,
         "className": "",
         "x": 850,
-        "y": 880,
+        "y": 840,
         "wires": []
     },
     {
@@ -993,7 +993,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 860,
-        "y": 1220,
+        "y": 1180,
         "wires": []
     },
     {
@@ -1026,7 +1026,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 860,
-        "y": 1300,
+        "y": 1260,
         "wires": []
     },
     {
@@ -1059,7 +1059,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 850,
-        "y": 1260,
+        "y": 1220,
         "wires": []
     },
     {
@@ -1092,7 +1092,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 850,
-        "y": 1340,
+        "y": 1300,
         "wires": []
     },
     {
@@ -1115,7 +1115,7 @@
         "wrapText": false,
         "className": "",
         "x": 820,
-        "y": 1180,
+        "y": 1140,
         "wires": []
     },
     {
@@ -1146,7 +1146,7 @@
             "2ce0dede2ca80f70"
         ],
         "x": 595,
-        "y": 560,
+        "y": 540,
         "wires": [
             [
                 "ba91eba864a7bdcd",
@@ -1165,7 +1165,7 @@
             "819a7b810339db92"
         ],
         "x": 615,
-        "y": 680,
+        "y": 640,
         "wires": []
     },
     {
@@ -1188,7 +1188,7 @@
         "wrapText": false,
         "className": "",
         "x": 840,
-        "y": 1380,
+        "y": 1340,
         "wires": []
     },
     {
@@ -1241,7 +1241,7 @@
         "links": [
             "ed9ae5b74626bf48"
         ],
-        "x": 425,
+        "x": 395,
         "y": 700,
         "wires": []
     },
@@ -1282,7 +1282,7 @@
         "wrapText": false,
         "className": "",
         "x": 710,
-        "y": 560,
+        "y": 540,
         "wires": []
     },
     {
@@ -1386,7 +1386,7 @@
         "templateScope": "local",
         "className": "",
         "x": 110,
-        "y": 1200,
+        "y": 1160,
         "wires": [
             []
         ]
@@ -1412,7 +1412,7 @@
         "templateScope": "local",
         "className": "",
         "x": 110,
-        "y": 1160,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -1438,7 +1438,7 @@
         "templateScope": "local",
         "className": "",
         "x": 120,
-        "y": 1280,
+        "y": 1240,
         "wires": [
             []
         ]
@@ -1464,7 +1464,7 @@
         "templateScope": "local",
         "className": "",
         "x": 110,
-        "y": 1240,
+        "y": 1200,
         "wires": [
             []
         ]
@@ -1496,7 +1496,7 @@
         "iconInnerPosition": "inside",
         "spinner": "default",
         "x": 280,
-        "y": 820,
+        "y": 800,
         "wires": [
             [
                 "3661b3b2867449f4"
@@ -1522,7 +1522,7 @@
         "payload": "529",
         "payloadType": "num",
         "x": 130,
-        "y": 820,
+        "y": 800,
         "wires": [
             [
                 "627caa1b5cd3dd83"
@@ -1569,7 +1569,7 @@
         "styleGlow": false,
         "className": "",
         "x": 850,
-        "y": 800,
+        "y": 760,
         "wires": []
     },
     {
@@ -1592,7 +1592,7 @@
         "wrapText": false,
         "className": "",
         "x": 870,
-        "y": 840,
+        "y": 800,
         "wires": []
     },
     {
@@ -1615,7 +1615,7 @@
         "className": "",
         "name": "Wifi Reset",
         "x": 850,
-        "y": 1140,
+        "y": 1100,
         "wires": [
             []
         ]
@@ -1641,7 +1641,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 1140,
+        "y": 1100,
         "wires": [
             [
                 "7f9e7b9d208fc266"
@@ -1663,7 +1663,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 270,
-        "y": 940,
+        "y": 900,
         "wires": []
     },
     {
@@ -1680,7 +1680,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 840,
+        "y": 800,
         "wires": [
             [
                 "42de5b23f94e16ae"
@@ -1752,7 +1752,7 @@
         "name": "Description",
         "info": " 1. ### Process feedback from ESP:\n    - GPIO # and state\n    - BME Interval\n    - Debug\n    - ESP IP\n    - Host IP\n    - BME Health\n",
         "x": 100,
-        "y": 1100,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1765,8 +1765,8 @@
         "links": [
             "be4ceccd9cb5c6c7"
         ],
-        "x": 375,
-        "y": 920,
+        "x": 395,
+        "y": 880,
         "wires": []
     },
     {
@@ -1779,7 +1779,7 @@
             "9ff97d9239fe7f76"
         ],
         "x": 315,
-        "y": 1220,
+        "y": 1180,
         "wires": [
             [
                 "38145cf2896c124a",
@@ -1809,7 +1809,7 @@
         "to": "",
         "reg": false,
         "x": 290,
-        "y": 1000,
+        "y": 940,
         "wires": [
             []
         ]
@@ -1849,7 +1849,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 850,
-        "y": 960,
+        "y": 920,
         "wires": []
     },
     {
@@ -1863,7 +1863,7 @@
             "156db787f766f496"
         ],
         "x": 705,
-        "y": 1000,
+        "y": 960,
         "wires": []
     },
     {
@@ -1876,7 +1876,7 @@
             "e856bdde1ed1290b"
         ],
         "x": 725,
-        "y": 1100,
+        "y": 1060,
         "wires": [
             [
                 "2c2c19fb7f3e2120"
@@ -1903,7 +1903,7 @@
         "wrapText": false,
         "className": "",
         "x": 850,
-        "y": 920,
+        "y": 880,
         "wires": []
     },
     {
@@ -1984,7 +1984,7 @@
         "repair": false,
         "outputs": 8,
         "x": 430,
-        "y": 1220,
+        "y": 1180,
         "wires": [
             [
                 "409fab1c6bf3bd97"
@@ -2047,7 +2047,7 @@
         "showBorder": false,
         "showGlow": false,
         "x": 850,
-        "y": 1100,
+        "y": 1060,
         "wires": []
     },
     {
@@ -2109,7 +2109,7 @@
         "payload": "1",
         "payloadType": "num",
         "x": 540,
-        "y": 1000,
+        "y": 960,
         "wires": [
             [
                 "5392cf50f92bb64b",
@@ -2217,7 +2217,7 @@
         "onceDelay": 1,
         "topic": "",
         "x": 140,
-        "y": 1460,
+        "y": 1420,
         "wires": [
             [
                 "55f6fda16ba96217"
@@ -2243,7 +2243,7 @@
             }
         ],
         "x": 410,
-        "y": 1460,
+        "y": 1420,
         "wires": [
             [
                 "c05b554813adb4a2"
@@ -2270,7 +2270,7 @@
         "wrapText": false,
         "className": "",
         "x": 860,
-        "y": 1460,
+        "y": 1420,
         "wires": []
     },
     {
@@ -2297,7 +2297,7 @@
             "c84973a3cc806c76"
         ],
         "x": 745,
-        "y": 680,
+        "y": 640,
         "wires": [
             [
                 "5d1ae5a93dee578b"
@@ -2362,7 +2362,7 @@
         "className": "",
         "interpolation": "linear",
         "x": 850,
-        "y": 680,
+        "y": 640,
         "wires": [
             []
         ]
@@ -2535,7 +2535,7 @@
                 "cols": "12"
             }
         ],
-        "order": 3,
+        "order": 4,
         "className": "",
         "visible": "true",
         "disabled": "false"
@@ -2571,7 +2571,7 @@
                 "cols": "12"
             }
         ],
-        "order": 4,
+        "order": 5,
         "className": "",
         "visible": "true",
         "disabled": "false"
@@ -2581,7 +2581,7 @@
         "type": "ui-theme",
         "name": "Default Theme",
         "colors": {
-            "surface": "#282828",
+            "surface": "#232323",
             "primary": "#0a5a78",
             "bgPage": "#000000",
             "groupBg": "#afafaf",

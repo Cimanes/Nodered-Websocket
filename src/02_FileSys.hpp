@@ -54,7 +54,7 @@ void fileToCharPtr(fs::FS &fs, const char* path, char* buffer) {
     return;
   }
   if (Debug) Serial.println(F("File"));
-  byte i = 0;     // Buffer index (needs to be as big as paramSize (32) -> byte is enough)
+  byte i = 0;     // Buffer index (needs to be as big as paramSize (25) -> byte is enough)
   while (file.available() && i < paramSize - 1) {
     buffer[i++] = (char)file.read();
   }

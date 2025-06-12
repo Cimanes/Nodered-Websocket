@@ -12,7 +12,7 @@ static char wsMsg[100]          ; // Dummy char array to send message via websoc
 //======================================
 // Create a JSON object --> send via Websocket
 //======================================
-/******************************************************
+/**
  * Create a JSON object with "topic" and INTEGER "payload" from a key-value pair.
  * The value is an integer.
  * @param topic The key for the JSON object entry.
@@ -28,7 +28,7 @@ void makeJsonInt(const char* key, uint16_t value) {
   if (Debug) Serial.printf_P(PSTR("[WS]> %s\n"), wsMsg);  // Optional debug output  
 }
 
-/******************************************************
+/**
  * Create a JSON object with "topic" and STRING "payload" from a key-value pair.
  * @param topic The key for the JSON object entry.
  * @param value The value corresponding to the key (string).

@@ -38,7 +38,7 @@ void processMessage(uint8_t* wsMessage) {
     return;
   }
   const char* payload = jsonDoc["payload"];
-  if (Debug)  Serial.printf_P(PSTR(">[WS] txt: %s - %s\n"), topic, payload);
+  if (Debug)  Serial.printf_P(PSTR(">[WS] %s -> %s\n"), topic, payload);
 
   for (byte i = 0; i < handlerCount; i++) {
     if (strstr(topic, handlers[i].topic)) {
@@ -51,7 +51,7 @@ void processMessage(uint8_t* wsMessage) {
 void webSocketEvent(WStype_t type, uint8_t* wsMessage, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
-      if (Debug) Serial.println(F("[WS] Disconnected!"));  
+      if (Debug) Serial.println(F("[WS] Disconnected!"));
       break;
     case WStype_CONNECTED:
       if (Debug) Serial.printf_P(PSTR("[WS] Connected: %s\n"), wsMessage);
