@@ -68,7 +68,7 @@ const unsigned int cleanTimer = 2000UL  ;   // Timer to periodically clean webso
   #endif
 
   const char* esp_ip = "192.168.1.213";
-  const IPAddress hostIP(192, 168, 1, 133);   // Had coded Node-red server IP    WiFi.mode(WIFI_STA);
+  const IPAddress hostIP(192, 168, 1, 142);   // Had coded Node-red server IP    WiFi.mode(WIFI_STA);
 #endif
 
 #ifdef WIFI_MANAGER
