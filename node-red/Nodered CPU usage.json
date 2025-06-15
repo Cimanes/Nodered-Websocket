@@ -1,0 +1,2020 @@
+[
+    {
+        "id": "79058d15fabecd0d",
+        "type": "tab",
+        "label": "Node-red server",
+        "disabled": false,
+        "info": "Required to use Remote Node-Red UI (app) ",
+        "env": []
+    },
+    {
+        "id": "263061d7519dc5a7",
+        "type": "group",
+        "z": "79058d15fabecd0d",
+        "name": "PC State",
+        "style": {
+            "label": true,
+            "color": "#3f93cf",
+            "fill": "#000000",
+            "stroke": "#3f5787"
+        },
+        "nodes": [
+            "b36fdc76388156f7",
+            "c5ef4cf5bf2a7453",
+            "01a1ea5fec6cacde",
+            "57047df26a84365c",
+            "16a3822fcf25fdeb",
+            "37b82488e8e6e267",
+            "2ed33888e6f47bd9",
+            "920d3c3e630f80be",
+            "4bb9150e21ee233e",
+            "36b8b5ef9c537de0",
+            "478aa792233cbd02",
+            "fe4c5abdc106c3b6",
+            "d859a794cb4b2921",
+            "8d5567336697282d",
+            "89329a3a008ca6e8",
+            "940e001981a8e117",
+            "5c08f35df73175d1",
+            "ef8ef418aedf30e0",
+            "b83a71abd558c61a",
+            "112a274a8e7a88b1",
+            "e22141d619bc2453",
+            "10e898ec405b580b",
+            "3deaed82819befab",
+            "a2e851899c0ee76d"
+        ],
+        "x": 14,
+        "y": 879,
+        "w": 872,
+        "h": 502
+    },
+    {
+        "id": "594314988bafe566",
+        "type": "group",
+        "z": "79058d15fabecd0d",
+        "name": "MQTT Broker",
+        "style": {
+            "label": true,
+            "color": "#3f93cf",
+            "fill": "#000000",
+            "stroke": "#3f5787"
+        },
+        "nodes": [
+            "71f56412e0a1bd0b",
+            "94a8707a2c4a4308",
+            "30bcabc71382bd19",
+            "3c5d1057143c730d"
+        ],
+        "x": 14,
+        "y": 119,
+        "w": 492,
+        "h": 162
+    },
+    {
+        "id": "8d8da0d3acee057b",
+        "type": "group",
+        "z": "79058d15fabecd0d",
+        "name": "Node-red remote UI",
+        "style": {
+            "label": true,
+            "color": "#3f93cf",
+            "fill": "#000000",
+            "stroke": "#3f5787"
+        },
+        "nodes": [
+            "935142710d775193",
+            "48eff444a801a706"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 372,
+        "h": 82
+    },
+    {
+        "id": "cbffb7316d83fcd8",
+        "type": "group",
+        "z": "79058d15fabecd0d",
+        "name": "Raspberry Pi State",
+        "style": {
+            "label": true,
+            "color": "#3f93cf",
+            "fill": "#000000",
+            "stroke": "#3f5787"
+        },
+        "nodes": [
+            "c0682e5c.a4fc",
+            "95ae4c48.9f606",
+            "cf3854e6.653878",
+            "4de9dba1.ed7854",
+            "c0ffe68.afd6e18",
+            "a508a5b7.89a128",
+            "a8dc2f34.5e32b",
+            "19fadb42.3d0c25",
+            "9cce8e0f.766f7",
+            "05d9d23024bb2147",
+            "c7a4eabc3d31b55a",
+            "a505fc8a19b93624",
+            "1c4bf23eae21c066",
+            "eb7b42dda653de39",
+            "14dc5484021b6c97",
+            "aa056b580f786f7b",
+            "1cf3c1ceb66b1e01",
+            "de249b03a80b29e0",
+            "e81c159738d66140",
+            "bf5ee03393385852",
+            "10e9a1f2371e185a",
+            "d9cfd1d2e254e9b9",
+            "d5391192167fc1de",
+            "6edaa508167b9ce3",
+            "8ff1ba8fbe2f66a1",
+            "808d7751435a984e",
+            "92285ea6.f97a7",
+            "c153cec7bb35963e",
+            "5ec293b9923d0f5e",
+            "3512ada5c4fd6678",
+            "80ab4278db0d4af4",
+            "94313729d3c8e337"
+        ],
+        "x": 14,
+        "y": 299,
+        "w": 912,
+        "h": 569.5
+    },
+    {
+        "id": "e22141d619bc2453",
+        "type": "junction",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "x": 220,
+        "y": 1040,
+        "wires": [
+            [
+                "01a1ea5fec6cacde",
+                "b36fdc76388156f7",
+                "57047df26a84365c"
+            ]
+        ]
+    },
+    {
+        "id": "935142710d775193",
+        "type": "comment",
+        "z": "79058d15fabecd0d",
+        "g": "8d8da0d3acee057b",
+        "name": "Node-red remote",
+        "info": "Server for \"Node-red Remote\" app",
+        "x": 120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "48eff444a801a706",
+        "type": "remote-access",
+        "z": "79058d15fabecd0d",
+        "g": "8d8da0d3acee057b",
+        "confignode": "08fc3dba36c2d612",
+        "name": "Nodered UI",
+        "verbose": 0,
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "71f56412e0a1bd0b",
+        "type": "debug",
+        "z": "79058d15fabecd0d",
+        "g": "594314988bafe566",
+        "name": "Aedes Events",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "94a8707a2c4a4308",
+        "type": "aedes broker",
+        "z": "79058d15fabecd0d",
+        "g": "594314988bafe566",
+        "name": "MQTT Broker 1883",
+        "mqtt_port": "1883",
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "persistence_bind": "memory",
+        "dburl": "",
+        "usetls": false,
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "71f56412e0a1bd0b"
+            ],
+            [
+                "30bcabc71382bd19"
+            ]
+        ]
+    },
+    {
+        "id": "30bcabc71382bd19",
+        "type": "debug",
+        "z": "79058d15fabecd0d",
+        "g": "594314988bafe566",
+        "name": "Aedes Publish Events",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3c5d1057143c730d",
+        "type": "comment",
+        "z": "79058d15fabecd0d",
+        "g": "594314988bafe566",
+        "name": "AEDES MQTT broker",
+        "info": "Internal node-red server for MQTT communication.\nMosquitto not required",
+        "x": 140,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b36fdc76388156f7",
+        "type": "cpu",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "CPU Usage",
+        "msgCore": false,
+        "msgOverall": false,
+        "msgArray": true,
+        "msgTemp": false,
+        "x": 350,
+        "y": 1040,
+        "wires": [
+            [
+                "d859a794cb4b2921"
+            ]
+        ]
+    },
+    {
+        "id": "c5ef4cf5bf2a7453",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "15 min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 120,
+        "y": 1040,
+        "wires": [
+            [
+                "e22141d619bc2453"
+            ]
+        ]
+    },
+    {
+        "id": "01a1ea5fec6cacde",
+        "type": "Loadavg",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "LoadAVG",
+        "x": 340,
+        "y": 940,
+        "wires": [
+            [
+                "fe4c5abdc106c3b6"
+            ]
+        ]
+    },
+    {
+        "id": "57047df26a84365c",
+        "type": "Memory",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Memory",
+        "scale": "Gigabyte",
+        "x": 340,
+        "y": 1180,
+        "wires": [
+            [
+                "8d5567336697282d"
+            ]
+        ]
+    },
+    {
+        "id": "16a3822fcf25fdeb",
+        "type": "Drives",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Drives",
+        "x": 330,
+        "y": 1280,
+        "wires": [
+            [
+                "89329a3a008ca6e8"
+            ]
+        ]
+    },
+    {
+        "id": "37b82488e8e6e267",
+        "type": "ui-chart",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "811cc369da2515df",
+        "name": "Global Chart",
+        "label": "Global Chart",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "false",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0a5a78",
+            "#a00000",
+            "#000000",
+            "#009600",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 13,
+        "className": "",
+        "interpolation": "linear",
+        "x": 790,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ed33888e6f47bd9",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "CPU usage",
+        "group": "90d903cc1ec24a1f",
+        "order": 17,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "CPU usage",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "33",
+                "color": "#c8a000"
+            },
+            {
+                "from": "66",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 790,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "920d3c3e630f80be",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Load AVG",
+        "group": "90d903cc1ec24a1f",
+        "order": 15,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Load AVG",
+        "units": "#cores",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "3.3",
+                "color": "#c8a000"
+            },
+            {
+                "from": "6.6",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": 10,
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 800,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "4bb9150e21ee233e",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Memory (%)",
+        "group": "90d903cc1ec24a1f",
+        "order": 16,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Memory usage",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "33",
+                "color": "#c8a000"
+            },
+            {
+                "from": "66",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 790,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "36b8b5ef9c537de0",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "HD Drives (%)",
+        "group": "90d903cc1ec24a1f",
+        "order": 14,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "HD Drives",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "50",
+                "color": "#c8a000"
+            },
+            {
+                "from": "75",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 780,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "478aa792233cbd02",
+        "type": "comment",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "CPU Usage",
+        "info": "### CPU Usage\nRetrieve and display CPU information:\n- Model and frequency\n- CPU usage (overall of all cores)\n- Load average (similar to number of used cores)\n- RAM Memory usage (%)\n- HDD used capacity (per unit)",
+        "x": 110,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "fe4c5abdc106c3b6",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "1 / 5 / 15 min",
+        "func": "const load = msg.payload.loadavg,\n    msgArray = [\n    { topic: \"1 min\", payload: load[0] },\n    { topic: \"5 min\", payload: load[1] },\n    { topic: \"15 min\", payload: load[2] },\n    { topic: \"AvgLoad %\", payload: load[2] / flow.get(\"numCores\") * 100 }\n    ];\nflow.set(\"coreLoad\", load[2]);\nreturn msgArray;\n",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 940,
+        "wires": [
+            [],
+            [],
+            [
+                "920d3c3e630f80be"
+            ],
+            [
+                "37b82488e8e6e267"
+            ]
+        ]
+    },
+    {
+        "id": "d859a794cb4b2921",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "model/speed",
+        "func": "const loadArray = msg.payload,\n    coreLoad = flow.get(\"coreLoad\");\n\nflow.set(\"numCores\", loadArray.length);\n\nlet maxLoad = 0,\n    minLoad = 1000,\n    accumLoad = 0,\n    minId = \"-\",\n    maxId = \"-\",\n    minNum = 0,\n    maxNum = 0;\n\nloadArray.forEach(myFunction);\n\nfunction myFunction(item, index) {\n    accumLoad += item.usage;\n    if (item.usage < minLoad) { \n        minLoad = item.usage;\n        minId = item.name;\n        minNum = index + 1; \n    }\n    if (item.usage > maxLoad) {\n        maxLoad = item.usage;\n        maxId = item.name;\n        maxNum = index + 1;\n    }\n}\n\nconst avgLoad = (accumLoad / loadArray.length),\n    spread = maxLoad - minLoad,\n    pctSpread = spread / avgLoad * 100;\n\nreturn [\n    { \n        payload: \n        {\n            model: msg.payload[0].model,\n            speed: msg.payload[0].speed,\n            avgLoad: avgLoad.toFixed(2),\n            maxLoad: maxLoad,\n            minLoad: minLoad,\n            spread: spread,\n            pctSpread: pctSpread,\n            minNum: minNum,\n            maxNum: maxNum,\n            minId: minId,\n            maxId: maxId, \n            numCores: loadArray.length,\n            coreLoad: coreLoad\n        }\n    },\n    { \n        topic: \"CPU %\", \n        payload: avgLoad.toFixed(2) \n    }\n\n]\n\n\n\n\n\n// let msgArray = [null, null, null];\n\n// if (msg.topic === \"all_cores\") {\n//     return [\n//         { payload: msg.payload[0].model },\n//         { payload: msg.payload[0].speed },\n//         null\n//     ];    \n// }\n// else if (msg.topic === \"overall\") {\n//    return [\n//         null, \n//         null,\n//         { payload: msg.payload },\n//     ];\n// }\n// return msgArray;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 1040,
+        "wires": [
+            [
+                "ef8ef418aedf30e0"
+            ],
+            [
+                "2ed33888e6f47bd9",
+                "37b82488e8e6e267"
+            ]
+        ]
+    },
+    {
+        "id": "8d5567336697282d",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "used / free / total",
+        "func": "const msgArray = [\n        { topic: \"RAM %\", payload: msg.payload.memusage },\n        { payload: msg.payload }\n    ];\nreturn msgArray;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1180,
+        "wires": [
+            [
+                "37b82488e8e6e267",
+                "4bb9150e21ee233e"
+            ],
+            [
+                "b83a71abd558c61a"
+            ]
+        ]
+    },
+    {
+        "id": "89329a3a008ca6e8",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "used / free / total",
+        "func": "// let msgItem = [];\n\n// msg.payload is an array, one element per drive\nmsg.payload.forEach(function(item) {\n    item.size = (item.size / 1000000000).toFixed(2); \n    item.used = (item.used / 1000000000).toFixed(2); \n    item.available = (item.available / 1000000000).toFixed(2);\n    item.capacity *= 100;\n    // const obj = { \n    //     topic: item.mount,\n    //     payload: item.capacity * 100\n    // }\n    node.send([{ topic: \"HD \"+item.mount + \" %\", payload: item.capacity }, null]);\n});\n\nreturn [null, { payload: msg.payload}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 1280,
+        "wires": [
+            [
+                "36b8b5ef9c537de0",
+                "37b82488e8e6e267"
+            ],
+            [
+                "112a274a8e7a88b1"
+            ]
+        ]
+    },
+    {
+        "id": "940e001981a8e117",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "12 hours",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "43200",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "[{\"filesystem\":\"Local Fixed Disk\",\"size\":\"1021.98\",\"used\":\"753.04\",\"available\":\"268.94\",\"capacity\":0.74,\"mount\":\"C:\"},{\"filesystem\":\"test\",\"size\":\"512.38\",\"used\":\"422.38\",\"available\":\"94\",\"capacity\":0.74,\"mount\":\"C:\"}]",
+        "payloadType": "json",
+        "x": 120,
+        "y": 1280,
+        "wires": [
+            [
+                "16a3822fcf25fdeb"
+            ]
+        ]
+    },
+    {
+        "id": "5c08f35df73175d1",
+        "type": "ui-button",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "90d903cc1ec24a1f",
+        "name": "Man. Trigger",
+        "label": "Trigger Reading",
+        "order": 8,
+        "width": 6,
+        "height": 0,
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": ">",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 130,
+        "y": 1160,
+        "wires": [
+            [
+                "16a3822fcf25fdeb",
+                "e22141d619bc2453"
+            ]
+        ]
+    },
+    {
+        "id": "ef8ef418aedf30e0",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "90d903cc1ec24a1f",
+        "page": "",
+        "ui": "",
+        "name": "CPU Summary",
+        "order": 1,
+        "width": 3,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div class=\"card\">\n    <h3>CPU Summary</h2>\n    <ul class=\"ml-8\">\n      <li class=\"mb-1\"><strong>Model:</strong> {{ msg.payload.model }}</li>\n      <li class=\"mb-1\"><strong>Speed:</strong> {{ msg.payload.speed }} GHz</li>\n      <li class=\"mb-1\"><strong>Avg. Load:</strong> {{ msg.payload.avgLoad }} %</li>\n      <li class=\"mb-1\"><strong>Max. Load:</strong> {{ msg.payload.maxLoad }} %</li>\n      <li class=\"mb-1\"><strong>Min. Load:</strong> {{ msg.payload.minLoad }} %</li>\n      <li class=\"mb-1\"><strong>Spread:</strong> {{ msg.payload.spread }} %</li>\n      <li class=\"mb-1\"><strong>Min. Core ID:</strong> {{ msg.payload.minId }}</li>\n      <li class=\"mb-1\"><strong>Max. Core ID:</strong> {{ msg.payload.maxId }}</li>\n      <li class=\"mb-1\"><strong>Rel. Core load:</strong> {{ msg.payload.coreLoad }} / {{ msg.payload.numCores }}\n        </li>\n      <!-- <li class=\"mb-1\"><strong>Spread (%):</strong> {{ msg.payload.pctSpread.toFixed(2) }}%</li> -->\n      <!-- <li class=\"mb-1\"><strong>Min Core #:</strong> {{ msg.payload.minNum }}</li>\n      <li class=\"mb-1\"><strong>Max Core #:</strong> {{ msg.payload.maxNum }}</li> -->\n    </ul>\n  </div>\n</template>\n<style>\n  h3 {\n    color: rgb(10, 90, 120);\n  }\n  .card {\n    padding: 0.5rem;\n    background-color: #888;\n    border-radius: 0.5rem;\n  }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 780,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b83a71abd558c61a",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "90d903cc1ec24a1f",
+        "page": "",
+        "ui": "",
+        "name": "Mem Summary",
+        "order": 9,
+        "width": 3,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div class=\"card\">\n    <h3>Memory Summary</h2>\n    <ul class=\"ml-8\">\n      <li class=\"mb-1\"><strong>Total memory: </strong> {{ msg.payload.totalmem }} Gb</li>\n      <li class=\"mb-1\"><strong>Free memory: </strong> {{ msg.payload.freemem }} Gb</li>\n      <li class=\"mb-1\"><strong>Used memory: </strong> {{ msg.payload.memusage }} %</li>\n  </div>\n</template>\n\n<style>\n  h3 {\n    color: rgb(10, 90, 120);\n  }\n  .card {\n    padding: 0.5rem;\n    background-color: #888;\n    border-radius: 0.5rem;\n  }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 780,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "112a274a8e7a88b1",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "90d903cc1ec24a1f",
+        "page": "",
+        "ui": "",
+        "name": "HDSummary",
+        "order": 10,
+        "width": 3,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div class=\"card\">\n    <h3>Storage summary</h3>\n    <div class=\"item\" v-for=\"(disk, index) in msg.payload\" :key=\"index\">\n      <h4>🖴 HD Unit: {{ disk.mount }}</h4>\n      <ul class=\"ml-8 list-disc text-sm text-gray-700\">\n      <li class=\"mb-1\"><strong>File System: </strong> {{ disk.filesystem }}</li>\n      <li class=\"mb-1\"><strong>Size: </strong> {{ disk.size }} Gb</li>\n      <li class=\"mb-1\"><strong>Used: </strong> {{ disk.used }} Gb</lil>      \n      <li class=\"mb-1\"><strong>Available: </strong> {{ disk.available }} Gb</li>\n      <li class=\"mb-1\"><strong>Used ratio: </strong> {{ disk.capacity }} %</li>\n      <!-- <template v-for=\"(value, key) in disk\">\n        <li v-if=\"key !== 'mount'\" :key=\"key\" class=\"mb-1\">\n          <strong>{{ key }}:</strong> {{ value }}\n        </li>\n      </template> -->\n      </ul>\n    </div>\n  </div>\n</template>\n\n<style>\n  h3, h4 { color: rgb(0, 60, 100); }\n  h4 { margin-top: 0.3rem;}\n  .card { \n    padding: 0.5rem;\n    background-color: #888;\n    border-radius: 0.5rem;\n  }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 790,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0682e5c.a4fc",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "command": "vcgencmd measure_temp",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "RPi Temp.",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "95ae4c48.9f606"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "95ae4c48.9f606",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "",
+        "func": "// str = \n// msg.payload = str.substring(5,9);\nreturn {topic: \"Temp ºC\", payload: msg.payload.substring(5,9)};",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "a505fc8a19b93624",
+                "aa056b580f786f7b"
+            ]
+        ]
+    },
+    {
+        "id": "cf3854e6.653878",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Reboot",
+        "x": 840,
+        "y": 700,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4de9dba1.ed7854",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "command": "sudo shutdown -h now",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "Shutdown",
+        "x": 840,
+        "y": 760,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c0ffe68.afd6e18",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "cbffb7316d83fcd8",
+        "command": "free | awk 'NR==2 {printf \"%.2f\\n\", ($7 / $2) * 100}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "Free Memory",
+        "x": 170,
+        "y": 820,
+        "wires": [
+            [
+                "1c4bf23eae21c066"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a508a5b7.89a128",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "command": "df -h",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "Disk Usage",
+        "x": 370,
+        "y": 500,
+        "wires": [
+            [
+                "a8dc2f34.5e32b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a8dc2f34.5e32b",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "",
+        "func": "const re = /([0-9]{2})%/\nconst idx = msg.payload.search(re);\n// var str = msg.payload;\nif (idx >=0) {\n    msg.payload = msg.payload.substring(idx, idx + 2);\n}\n// msg.payload = str;\nreturn {topic: \"HD usage %\", payload: msg.payload};",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "eb7b42dda653de39",
+                "aa056b580f786f7b"
+            ]
+        ]
+    },
+    {
+        "id": "19fadb42.3d0c25",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "9cce8e0f.766f7"
+            ]
+        ]
+    },
+    {
+        "id": "9cce8e0f.766f7",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "command": "hostname",
+        "addpay": false,
+        "append": "-I",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "Get Local IP",
+        "x": 370,
+        "y": 640,
+        "wires": [
+            [
+                "14dc5484021b6c97"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "05d9d23024bb2147",
+        "type": "ui-button",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "name": "Reboot",
+        "label": "Reboot",
+        "order": 3,
+        "width": 3,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "rgb(100,0,0)",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 580,
+        "y": 700,
+        "wires": [
+            [
+                "cf3854e6.653878"
+            ]
+        ]
+    },
+    {
+        "id": "c7a4eabc3d31b55a",
+        "type": "ui-button",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "name": "Shutdown",
+        "label": "Shutdown",
+        "order": 4,
+        "width": 3,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "rgb(100,0,0)",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 580,
+        "y": 760,
+        "wires": [
+            [
+                "4de9dba1.ed7854"
+            ]
+        ]
+    },
+    {
+        "id": "a505fc8a19b93624",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "Temperature",
+        "group": "90d903cc1ec24a1f",
+        "order": 13,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperature",
+        "units": "°C",
+        "icon": "temp",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "55",
+                "color": "#c8a000"
+            },
+            {
+                "from": "70",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "85",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1c4bf23eae21c066",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "cbffb7316d83fcd8",
+        "name": "Free Memory",
+        "group": "90d903cc1ec24a1f",
+        "order": 7,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Free Memory",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#b40000"
+            },
+            {
+                "from": "30",
+                "color": "#c8a000"
+            },
+            {
+                "from": "50",
+                "color": "#008700"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 350,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "eb7b42dda653de39",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "Disk Space",
+        "group": "90d903cc1ec24a1f",
+        "order": 6,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Disk Space",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "50",
+                "color": "#c8a000"
+            },
+            {
+                "from": "75",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 830,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "14dc5484021b6c97",
+        "type": "ui-text",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "order": 1,
+        "width": 3,
+        "height": 0,
+        "name": "Local IP",
+        "label": "Raspi (Server) IP:",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 840,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "aa056b580f786f7b",
+        "type": "ui-chart",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "811cc369da2515df",
+        "name": "Global Chart",
+        "label": "Global Chart",
+        "order": 2,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "false",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0a5a78",
+            "#000000",
+            "#a00000",
+            "#008700",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 9,
+        "className": "",
+        "interpolation": "linear",
+        "x": 810,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1cf3c1ceb66b1e01",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "15 min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "c0682e5c.a4fc",
+                "d5391192167fc1de",
+                "5ec293b9923d0f5e"
+            ]
+        ]
+    },
+    {
+        "id": "de249b03a80b29e0",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "12 hours",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "43200",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "[{\"filesystem\":\"Local Fixed Disk\",\"size\":\"1021.98\",\"used\":\"753.04\",\"available\":\"268.94\",\"capacity\":0.74,\"mount\":\"C:\"},{\"filesystem\":\"test\",\"size\":\"512.38\",\"used\":\"422.38\",\"available\":\"94\",\"capacity\":0.74,\"mount\":\"C:\"}]",
+        "payloadType": "json",
+        "x": 120,
+        "y": 500,
+        "wires": [
+            [
+                "a508a5b7.89a128"
+            ]
+        ]
+    },
+    {
+        "id": "e81c159738d66140",
+        "type": "ui-button",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "90d903cc1ec24a1f",
+        "name": "Man. Trigger",
+        "label": "Trigger Reading",
+        "order": 2,
+        "width": 6,
+        "height": 0,
+        "emulateClick": true,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": ">",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "a508a5b7.89a128",
+                "c0682e5c.a4fc",
+                "d5391192167fc1de",
+                "5ec293b9923d0f5e"
+            ]
+        ]
+    },
+    {
+        "id": "bf5ee03393385852",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "",
+        "page": "837f9aa88f0b87d1",
+        "ui": "",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<style>\n    /* This styles the outer container of ui-slide-confirm */\n    .mySlide {\n        margin: 10px;\n        padding: 10px;\n        background-color: #666666;\n        border-radius: 8px;\n        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "widget:page",
+        "className": "",
+        "x": 100,
+        "y": 760,
+        "wires": [
+            [
+                "10e9a1f2371e185a"
+            ]
+        ]
+    },
+    {
+        "id": "10e9a1f2371e185a",
+        "type": "ui-slide-confirm",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "name": "Unlock Wifi Reset",
+        "label": "Unlock",
+        "order": 2,
+        "width": 3,
+        "height": 0,
+        "passthru": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "mySlide",
+        "sliderHeight": "30",
+        "textSize": "18",
+        "iconSuccess": "mdi-check",
+        "text": "Unlock",
+        "successText": "Buttons unlocked",
+        "circle": true,
+        "animate": false,
+        "timeout": 10,
+        "controlledWidgets": [
+            "05d9d23024bb2147",
+            "c7a4eabc3d31b55a"
+        ],
+        "x": 350,
+        "y": 760,
+        "wires": [
+            [
+                "05d9d23024bb2147",
+                "c7a4eabc3d31b55a"
+            ]
+        ]
+    },
+    {
+        "id": "d9cfd1d2e254e9b9",
+        "type": "comment",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "CPU Usage",
+        "info": "### CPU Usage\nRetrieve and display CPU information:\n- Model and frequency\n- CPU usage (overall of all cores)\n- Load average (similar to number of used cores)\n- RAM Memory usage (%)\n- HDD used capacity (per unit)",
+        "x": 110,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d5391192167fc1de",
+        "type": "Memory",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "Memory",
+        "scale": "Gigabyte",
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "8ff1ba8fbe2f66a1"
+            ]
+        ]
+    },
+    {
+        "id": "6edaa508167b9ce3",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "Memory (%)",
+        "group": "90d903cc1ec24a1f",
+        "order": 5,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Memory usage",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "33",
+                "color": "#c8a000"
+            },
+            {
+                "from": "66",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 830,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8ff1ba8fbe2f66a1",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "used / free / total",
+        "func": "const msgArray = [\n        { topic: \"RAM %\", payload: msg.payload.memusage },\n        { payload: msg.payload }\n    ];\nreturn msgArray;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 560,
+        "wires": [
+            [
+                "6edaa508167b9ce3",
+                "aa056b580f786f7b"
+            ],
+            [
+                "808d7751435a984e"
+            ]
+        ]
+    },
+    {
+        "id": "808d7751435a984e",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "page": "",
+        "ui": "",
+        "name": "Mem Summary",
+        "order": 6,
+        "width": 3,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div class=\"card\">\n    <h3>Memory Summary</h2>\n    <ul class=\"ml-8\">\n      <li class=\"mb-1\"><strong>Total memory: </strong> {{ msg.payload.totalmem }} Gb</li>\n      <li class=\"mb-1\"><strong>Free memory: </strong> {{ msg.payload.freemem }} Gb</li>\n      <li class=\"mb-1\"><strong>Used memory: </strong> {{ msg.payload.memusage }} %</li>\n  </div>\n</template>\n\n<style>\n  h3 {\n    color: rgb(10, 90, 120);\n  }\n  .card {\n    padding: 0.5rem;\n    background-color: #888;\n    border-radius: 0.5rem;\n  }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 820,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "92285ea6.f97a7",
+        "type": "exec",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "cbffb7316d83fcd8",
+        "command": "top -d 0.5 -b -n2 | grep \"Cpu(s)\"|tail -n 1 | awk '{print $2 + $4}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "CPU Load",
+        "x": 510,
+        "y": 820,
+        "wires": [
+            [
+                "c153cec7bb35963e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c153cec7bb35963e",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "cbffb7316d83fcd8",
+        "name": "CPU Load",
+        "group": "90d903cc1ec24a1f",
+        "order": 11,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "CPU Load",
+        "units": "CPU %",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "50",
+                "color": "#c8a000"
+            },
+            {
+                "from": "80",
+                "color": "#b40000"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 690,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "5ec293b9923d0f5e",
+        "type": "cpu",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "CPU Usage",
+        "msgCore": false,
+        "msgOverall": false,
+        "msgArray": true,
+        "msgTemp": false,
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "80ab4278db0d4af4"
+            ]
+        ]
+    },
+    {
+        "id": "3512ada5c4fd6678",
+        "type": "ui-gauge",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "CPU usage",
+        "group": "90d903cc1ec24a1f",
+        "order": 4,
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "CPU usage",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#008700"
+            },
+            {
+                "from": "33",
+                "color": "#c8a000"
+            },
+            {
+                "from": "66",
+                "color": "#b40000"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "80ab4278db0d4af4",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "name": "model/speed",
+        "func": "const loadArray = msg.payload,\n    coreLoad = flow.get(\"coreLoad\");\n\nflow.set(\"numCores\", loadArray.length);\n\nlet speed = [],\n    maxLoad = 0,\n    minLoad = 1000,\n    accumLoad = 0,\n    minId = \"-\",\n    maxId = \"-\",\n    minNum = 0,\n    maxNum = 0;\n\nloadArray.forEach(myFunction);\n\nfunction myFunction(item, index) {\n    accumLoad += item.usage;\n    if (item.usage < minLoad) { \n        minLoad = item.usage;\n        minId = item.name;\n        minNum = index + 1; \n    }\n    if (item.usage > maxLoad) {\n        maxLoad = item.usage;\n        maxId = item.name;\n        maxNum = index + 1;\n    }\n}\n\nconst avgLoad = (accumLoad / loadArray.length),\n    spread = maxLoad - minLoad,\n    pctSpread = spread / avgLoad * 100;\n\nreturn [\n    { \n        payload: \n        {\n            model: msg.payload[0].model,\n            speed: msg.payload[0].speed,\n            avgLoad: avgLoad.toFixed(2),\n            maxLoad: maxLoad,\n            minLoad: minLoad,\n            spread: spread,\n            pctSpread: pctSpread,\n            minNum: minNum,\n            maxNum: maxNum,\n            minId: minId,\n            maxId: maxId, \n            numCores: loadArray.length,\n            coreLoad: coreLoad\n        }\n    },\n    { \n        topic: \"CPU %\", \n        payload: avgLoad.toFixed(2) \n    }\n\n]\n\n\n\n\n\n// let msgArray = [null, null, null];\n\n// if (msg.topic === \"all_cores\") {\n//     return [\n//         { payload: msg.payload[0].model },\n//         { payload: msg.payload[0].speed },\n//         null\n//     ];    \n// }\n// else if (msg.topic === \"overall\") {\n//    return [\n//         null, \n//         null,\n//         { payload: msg.payload },\n//     ];\n// }\n// return msgArray;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "94313729d3c8e337"
+            ],
+            [
+                "3512ada5c4fd6678",
+                "aa056b580f786f7b"
+            ]
+        ]
+    },
+    {
+        "id": "94313729d3c8e337",
+        "type": "ui-template",
+        "z": "79058d15fabecd0d",
+        "g": "cbffb7316d83fcd8",
+        "group": "d2867353fefb6b67",
+        "page": "",
+        "ui": "",
+        "name": "CPU Summary",
+        "order": 5,
+        "width": 3,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div class=\"card\">\n    <h3>CPU Summary</h2>\n    <ul class=\"ml-8\">\n      <li class=\"mb-1\"><strong>Model:</strong> {{ msg.payload.model }}</li>\n      <li class=\"mb-1\"><strong>Num Cores:</strong> {{ msg.payload.numCores }}</li>\n      <li class=\"mb-1\"><strong>Speed:</strong> {{ msg.payload.speed }} MHz</li>\n      <li class=\"mb-1\"><strong>Avg. Load:</strong> {{ msg.payload.avgLoad }} %</li>\n      <li class=\"mb-1\"><strong>Max. Load:</strong> {{ msg.payload.maxLoad }} %</li>\n      <li class=\"mb-1\"><strong>Min. Load:</strong> {{ msg.payload.minLoad }} %</li>\n      <li class=\"mb-1\"><strong>Spread:</strong> {{ msg.payload.spread }} %</li>\n      <li class=\"mb-1\"><strong>Min. Core ID:</strong> {{ msg.payload.minId }}</li>\n      <li class=\"mb-1\"><strong>Max. Core ID:</strong> {{ msg.payload.maxId }}</li>\n      <!-- <li class=\"mb-1\"><strong>Rel. Core load:</strong> {{ msg.payload.coreLoad }} / {{ msg.payload.numCores }}</li> -->\n      <!-- <li class=\"mb-1\"><strong>Spread (%):</strong> {{ msg.payload.pctSpread.toFixed(2) }}%</li> -->\n      <!-- <li class=\"mb-1\"><strong>Min Core #:</strong> {{ msg.payload.minNum }}</li>\n      <li class=\"mb-1\"><strong>Max Core #:</strong> {{ msg.payload.maxNum }}</li> -->\n    </ul>\n  </div>\n</template>\n<style>\n  h3 {\n    color: rgb(10, 90, 120);\n  }\n  .card {\n    padding: 0.5rem;\n    background-color: #888;\n    border-radius: 0.5rem;\n  }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 820,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10e898ec405b580b",
+        "type": "inject",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Trigger on start",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "x": 140,
+        "y": 1340,
+        "wires": [
+            [
+                "3deaed82819befab"
+            ]
+        ]
+    },
+    {
+        "id": "a2e851899c0ee76d",
+        "type": "ui-text",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "group": "90d903cc1ec24a1f",
+        "order": 3,
+        "width": 3,
+        "height": 0,
+        "name": "Host IP",
+        "label": "Node Red (host) IP:",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "x": 800,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "3deaed82819befab",
+        "type": "function",
+        "z": "79058d15fabecd0d",
+        "d": true,
+        "g": "263061d7519dc5a7",
+        "name": "Get Local IP",
+        "func": "// Get all the network interfaces on the system:\nconst interfaces = os.networkInterfaces();\nlet localIP = '';\n\nconst preferredInterfaces = ['Wi-Fi', 'wlan0', 'eth0', 'Ethernet'];\n\nfor (const name of preferredInterfaces.concat(Object.keys(interfaces))) {\n    const ifaceList = interfaces[name];\n    if (!ifaceList) continue;\n    \n    for (const iface of ifaceList) {\n        if (iface.family === 'IPv4' && !iface.internal) {\n            localIP = iface.address;\n            break;\n        }\n    }\n    if (localIP) break;\n}\n\nmsg.topic = \"localIP\";\nmsg.payload = localIP || \"Not found\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 510,
+        "y": 1340,
+        "wires": [
+            [
+                "a2e851899c0ee76d"
+            ]
+        ]
+    },
+    {
+        "id": "08fc3dba36c2d612",
+        "type": "remote-config",
+        "name": "Pi01 Dashboard",
+        "host": "localhost",
+        "protocol": "http",
+        "port": "1880",
+        "baseurl": "/dashboard",
+        "instancehash": "68xopvqfev5k4dw897dzvuif9fcgox38syc8t2kszdqktpc7bn2tki9aoimtgc1t",
+        "server": "nodered04.remote-red.com",
+        "region": "de"
+    },
+    {
+        "id": "811cc369da2515df",
+        "type": "ui-group",
+        "name": "Historic",
+        "page": "837f9aa88f0b87d1",
+        "width": 6,
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "90d903cc1ec24a1f",
+        "type": "ui-group",
+        "name": "Usage",
+        "page": "837f9aa88f0b87d1",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d2867353fefb6b67",
+        "type": "ui-group",
+        "name": "Details",
+        "page": "837f9aa88f0b87d1",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "837f9aa88f0b87d1",
+        "type": "ui-page",
+        "name": "Server Device",
+        "ui": "77e83d514b9bd6e2",
+        "path": "/cpu",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "f633910aef2e9d8b",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "77e83d514b9bd6e2",
+        "type": "ui-base",
+        "name": "NoderedUI",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": true,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true
+    },
+    {
+        "id": "f633910aef2e9d8b",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#232323",
+            "primary": "#0a5a78",
+            "bgPage": "#000000",
+            "groupBg": "#afafaf",
+            "groupOutline": "#0d0d0d"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    }
+]
